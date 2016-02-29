@@ -1,14 +1,18 @@
 'use strict';
 var crypto = require('crypto');
 var mongoose = require('mongoose');
+var extend = require('mongoose-schema-extend');
 var _ = require('lodash');
 
-var schema = new mongoose.Schema({
+var userSchema = new mongoose.Schema({
     email: {
-        type: String
+        type: String, 
+        required: true, 
+        unique: true
     },
     password: {
-        type: String
+        type: String,
+        required: true
     },
     salt: {
         type: String
@@ -24,8 +28,31 @@ var schema = new mongoose.Schema({
     },
     google: {
         id: String
-    }
+    },
+    firstName: String,
+    lastName: String,
+    homeAddress: String,
+    zip: Number,
+    phoneNumber: Number,
+    admin: {
+      type: Boolean,
+      default: false
+    },
+    picture: String,
+    transactions: {type: Schema.Types.ObjectId, ref: 'Transaction'}
 });
+
+var chefSchema = userSchema.extend({
+  specialty: String,
+  bio: String,
+  rating: {
+    type: Number,
+    default: 0
+  },
+  meals {type: Schema.Types.ObjectId, ref: 'Meals'}
+});
+
+
 
 // method to remove sensitive information from user objects before sending them out
 schema.methods.sanitize =  function () {
