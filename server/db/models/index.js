@@ -6,3 +6,6 @@ require('./mealpackage');
 require('./rating');
 require('./transaction');
 require('./user');
+require('./buyer');
+require('./chef');
+
