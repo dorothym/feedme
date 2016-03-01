@@ -1,10 +1,11 @@
 'use strict';
 var crypto = require('crypto');
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 var extend = require('mongoose-schema-extend');
 var _ = require('lodash');
 
-var userSchema = new mongoose.Schema({
+var userSchema = new Schema({
     email: {
         type: String, 
         required: true, 
@@ -39,7 +40,7 @@ var userSchema = new mongoose.Schema({
       default: false
     },
     picture: String,
-    transactions: {type: Schema.Types.ObjectId, ref: 'Transaction'}
+    transactions: [{type: Schema.Types.ObjectId, ref: 'Transaction'}]
 });
 
 var chefSchema = userSchema.extend({
