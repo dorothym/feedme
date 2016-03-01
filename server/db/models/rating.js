@@ -1,12 +1,14 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var mealSchema = new mongoose.Schema({
-	rating: {type: Number, required: true},
+var ratingSchema = new Schema({
+	rating: {type: Number, required: true, default: 0},
   	ratingText: {type: String, required: true}
 });
 
-module.exports = mongoose.model('Rating', schema);
+module.exports = mongoose.model('Rating', ratingSchema);
 
 // need to require in index.js???
+
