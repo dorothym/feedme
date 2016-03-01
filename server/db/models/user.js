@@ -40,7 +40,7 @@ var userSchema = new Schema({
     },
     picture: String,
     transactions: [{type: Schema.Types.ObjectId, ref: 'Transaction'}]
-}, {collection: 'users', discriminatorKey: '_type'});
+}, {collection: 'users', discriminatorKey: 'type'});
 
 // method to remove sensitive information from user objects before sending them out
 userSchema.methods.sanitize =  function () {

@@ -2,6 +2,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var extend = require('mongoose-schema-extend');
+var userSchema = mongoose.model('User').schema;
 
 var chefSchema = userSchema.extend({
   specialty: String,
