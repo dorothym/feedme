@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose');
 
-var mealSchema = new mongoose.Schema({
+var ratingSchema = new mongoose.Schema({
 	rating: {type: Number, required: true},
   	ratingText: {type: String, required: true}
 });
