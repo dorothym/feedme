@@ -11,8 +11,7 @@ var mealSchema = new Schema({
   price: {type: Number, required: true},
   diet: { type: Array },
   tags: { type: Array },
-  servings: { type: Number },
-  ratings: [{ type: Schema.Types.ObjectId, ref: 'Rating' }]
+  servings: { type: Number }
 });
 
 
