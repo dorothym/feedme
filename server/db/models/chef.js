@@ -11,10 +11,10 @@ var chefSchema = userSchema.extend({
     type: Number,
     default: 0
   },
-  meals: {
+  meals: [{
     type: Schema.Types.ObjectId, 
-    ref: 'Meals'
-  }
+    ref: 'Meal'
+  }]
 });
 
 mongoose.model('Chef', chefSchema);
