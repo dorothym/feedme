@@ -49,7 +49,10 @@ var chefSchema = userSchema.extend({
     type: Number,
     default: 0
   },
-  meals {type: Schema.Types.ObjectId, ref: 'Meals'}
+  meals: {
+    type: Schema.Types.ObjectId, 
+    ref: 'Meals'
+  }
 });
 
 
