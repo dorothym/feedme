@@ -30,7 +30,6 @@ function randUserPhoto () {
 
 // Currently each chef has only one meal, need to change
 function randChef(allMeals) {
-    var meal = chance.pick(allMeals);
     return new Chef({
         email: emails.pop(),
         password: chance.word(),
@@ -41,11 +40,10 @@ function randChef(allMeals) {
         phoneNumber: chance.phone(),
         admin: chance.weighted([true, false], [5, 95]),
         picture: randUserPhoto(),
-        transactions: [], 
         specialty: specialty[Math.random() * specialty.length-1],
         bio:  chance.paragraph(),
         rating: chance.integer({min: 1, max: 5}),
-        meals: _.times(chance.integer({min: 1, max: 10}), meal)
+        meals: _.times(chance.integer({min: 1, max: 10}), allMeals)
     });
 }
 // Storing url's of random meal photos form pixabay
@@ -63,7 +61,7 @@ function randMeal() {
         min: 3,
         max: 20
     });
-    return new Meal({
+    return {
           cuisine: specialty[Math.random() * specialty.length-1],
           description: chance.paragraph(),
           photo: randMealPhoto(mealPhotos),
@@ -71,7 +69,7 @@ function randMeal() {
           diet: diets[Math.random() * specialty.length-1],
           tags: [],
           servings: chance.integer({min: 1, max: 10})
-    })
+    }
 }
 // Generating random meal photo
 function randMealPhoto(allMealPhotos) {
@@ -82,10 +80,14 @@ function generateAll() {
     var meals = _.times(numMeals, function () {
         return randMeal();
     });
-    var chefs = _.times(numChefs, function() {
-        return randChef(meals)
-    });
-    return chefs.concat(meals);
+    Meal.create(meals) //returns array of mea;s
+    .then(function(meals) {
+        var chefs = _.times(numChefs, function() {
+            return randChef(meals);
+        }); 
+          //returns a chef with meals array populated
+        return chefs.concat(meals);
+    })
 }
 
 function seed() {
