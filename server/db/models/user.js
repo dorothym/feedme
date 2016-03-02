@@ -4,6 +4,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var _ = require('lodash');
 
+var boroughArray = ['Bronx','Brooklyn','Queens','Staten Island','Manhattan'];
+
 var userSchema = new Schema({
     email: {
         type: String, 
@@ -33,6 +35,7 @@ var userSchema = new Schema({
     lastName: String,
     homeAddress: String,
     zip: Number,
+    borough: {type: String, enum: boroughArray },
     phoneNumber: Number,
     admin: {
       type: Boolean,
