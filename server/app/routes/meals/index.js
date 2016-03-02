@@ -32,7 +32,13 @@ router.param('id', function(req, res, next, id){
 router.route('/:id')
 //get one meal
   .get(function(req, res, next){
-    res.json(req.meal);
+    req.meal.getChef()
+    .then(function(chef){
+      var resObj = req.meal.toObject();
+      resObj.chef = chef;
+      res.json(resObj);
+    })
+    .then(null, next)
   })
 //update one meal
   .put(function(req, res, next){

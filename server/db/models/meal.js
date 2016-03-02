@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var Chef = require('./chef')
 
 var dietArray = ['Vegetarian','Vegan','Paleo','Gluten-free','Kosher','Halal']
 var cuisineArray = ['Italian','Indian','Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food']
@@ -17,5 +18,9 @@ var mealSchema = new Schema({
   servings: { type: Number }
 });
 
+mealSchema.methods.getChef = function () {
+  var meal = this;
+  return Chef.find({meals: {$contains : meal._id}});
+}
 
 module.exports = mongoose.model('Meal', mealSchema);
