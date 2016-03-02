@@ -58,12 +58,13 @@ userSchema.methods.getCart = function () {
 
 userSchema.methods.getAllTransactions = function () {
   var user = this;
-  return mongoose.model('Transaction')
-        .populate({
-          path: 'customer',
-          match: {customer: user._id}
-        })
+  return mongoose.model('Transaction').find({customer: user._id})
 };
+
+userSchema.methods.getAllRatingsWritten = function () {
+  var user = this;
+  return mongoose.model('Rating').find({author: user._id})
+}
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
 // are all used for local authentication security.
