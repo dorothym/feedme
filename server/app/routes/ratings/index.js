@@ -46,6 +46,7 @@ router.route('/:ratingId')
     .then(null, next)
   })
 //delete one rating
+//!! UPDATE THIS TO USE A removeRating method on MEALS !!
   .delete(function(req, res, next){
     req.rating.remove()
     .then(function(response){
