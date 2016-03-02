@@ -20,7 +20,7 @@ var mealSchema = new Schema({
 
 mealSchema.methods.getChef = function () {
   var meal = this;
-  return Chef.find({meals: {$contains : meal._id}});
+  return Chef.findOne({meals: {$contains : meal._id}});
 }
 
 module.exports = mongoose.model('Meal', mealSchema);
