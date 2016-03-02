@@ -3,6 +3,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var transactionStates = ['Created', 'Processing', 'Cancelled', 'Completed'];
+
 var transactionSchema = new Schema({
 	customerId:  {type: Schema.Types.ObjectId, ref: 'User'}, 
 	totalprice: {type: Number},
