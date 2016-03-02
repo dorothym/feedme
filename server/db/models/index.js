@@ -5,5 +5,4 @@ require('./user');
 require('./meal');
 require('./rating');
 require('./transaction');
-require('./buyer');
 require('./chef');
