@@ -54,4 +54,10 @@ router.route('/:id')
 
 
 //route to transactions for logged in user
-router.use('/:id/transactions', require('./user.transaction'));
+// router.use('/:id/transactions', require('./user.transaction'));
+
+
+
+
+
+

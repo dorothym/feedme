@@ -20,8 +20,9 @@ transactionSchema.methods.removeMeal = function (mealId){
   return this.save();
 }
 
-transactionSchema.methods.addMeal = function (mealId){
-  this.meals.addToSet(mealId);
+transactionSchema.methods.addMeal = function (meal){
+	// Meals. 
+  this.meals.addToSet(meal);
   return this.save();
 }
 
