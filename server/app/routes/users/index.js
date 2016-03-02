@@ -3,48 +3,48 @@
 var router = require('express').Router();
 module.exports = router;
 var mongoose = require('mongoose');
-var Buyer = mongoose.model('Buyer');
+var User = mongoose.model('User');
 
 router.get('/', function(req, res, next){
-  Buyer.find({})
-  .then(function(allBuyers){
-    res.json(allBuyers);
+  User.find(req.body)
+  .then(function(allUsers){
+    res.json(allUsers);
   })
   .then(null, next);
 });
 
 router.post('/', function(req, res, next){
-  Buyer.create(req.body)
-  .then(function(createdBuyer){
-    res.json(createdBuyer);
+  User.create(req.body)
+  .then(function(createdUser){
+    res.json(createdUser);
   })
   .then(null, next);
 });
 
 router.param('id', function(req, res, next, id){
-  Buyer.findById(id)
-  .then(function(buyer){
-    req.buyer = buyer;
+  User.findById(id)
+  .thUseren(function(user){
+    req.user = user;
     next();
   })
 });
 
 router.route('/:id')
-//get one buyer
+//get one user
   .get(function(req, res, next){
-    res.json(req.buyer);
+    res.json(req.user);
   })
-//update one buyer
+//update one user
   .put(function(req, res, next){
-    Buyer.findByIdAndUpdate(req.buyer._id, {$set: req.body}, {new: true, runValidators: true})
-    .then(function(updatedBuyer){
-      res.json(updatedBuyer)
+    User.findByIdAndUpdate(req.user._id, {$set: req.body}, {new: true, runValidators: true})
+    .then(function(updatedUser){
+      res.json(updatedUser)
     })
     .then(null, next)
   })
-//delete one buyer
+//delete one user
   .delete(function(req, res, next){
-    req.buyer.remove()
+    req.user.remove()
     .then(function(response){
       res.send(response);
     })
