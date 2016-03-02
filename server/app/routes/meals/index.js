@@ -15,9 +15,7 @@ router.get('/', function(req, res, next){
 
 router.post('/', function(req, res, next){
   Meal.create(req.body)
-  .then(function(createdMeal){
-    res.json(createdMeal);
-  })
+  .then(res.json)
   .then(null, next);
 });
 
@@ -34,7 +32,7 @@ router.route('/:id')
   .get(function(req, res, next){
     req.meal.getChef()
     .then(function(chef){
-      var resObj = req.meal.toObject();
+      var resObj = req.meal//.toObject();
       resObj.chef = chef;
       res.json(resObj);
     })
@@ -57,5 +55,3 @@ router.route('/:id')
     .then(null, next)
   });
 
-//get all ratings for a meal
-//router.use('/:id/ratings', require('./ratings'));
