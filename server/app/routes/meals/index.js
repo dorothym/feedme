@@ -52,4 +52,4 @@ router.route('/:id')
   });
 
 //get all ratings for a meal
-router.use('/:id/ratings', require('../ratings'));
+//router.use('/:id/ratings', require('./ratings'));
