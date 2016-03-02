@@ -7,6 +7,7 @@ var User = mongoose.model('User');
 
 router.get('/', function(req, res, next){
   User.find(req.body)
+  .populate('meals')
   .then(function(allUsers){
     res.json(allUsers);
   })
