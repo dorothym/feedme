@@ -3,7 +3,6 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var _ = require('lodash');
-var Transaction = require('./transaction');
 
 var boroughArray = ['Bronx','Brooklyn','Queens','Staten Island','Manhattan'];
 
@@ -54,7 +53,7 @@ userSchema.methods.sanitize =  function () {
 //method to check is user has pending('stillShopping') transaction
 userSchema.methods.getCart = function () {
   var user = this;
-  return Transaction.findOne({customer: user._id, status: 'stillShopping'})
+  return mongoose.model('Transction').findOne({customer: user._id, status: 'stillShopping'})
 }
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
