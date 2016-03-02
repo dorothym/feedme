@@ -12,7 +12,7 @@ var chefSchema = userSchema.extend({
     default: 0
   },
   meals: [{
-    type: Schema.Types.ObjectId, 
+    type: mongoose.Schema.Types.ObjectId, 
     ref: 'Meal'
   }]
 });

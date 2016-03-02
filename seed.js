@@ -1,19 +1,16 @@
 
-var mongoose = require('mongoose');
-var Promise = require('bluebird');
 var chalk = require('chalk');
-// var connectToDb = require('./server/db');
-// // var User = Promise.promisifyAll(mongoose.model('User')); // ???
+var Promise = require('bluebird');
+var mongoose = require('mongoose');
+Promise.promisifyAll(mongoose)
+var startDbPromise = require('./server/db')
+
+var Chef = mongoose.model('Chef');
+var Meal = mongoose.model('Meal'); // ???
 var chance = require('chance')(123);
 var _ = require('lodash');
-var Chef = require('./server/db/models/chef.js')
-var Meal = require('./server/db/models/meal.js')
-
-
-// console.log('hello')
-
-
-// require other models
+// var Chef = require('./server/db/models/chef.js')
+// var Meal = require('./server/db/models/meal.js')
 
 var numChefs = 100;
 var numMeals = 500;
@@ -39,8 +36,8 @@ function randChef(allMeals) {
         password: chance.word(),
         firstName: chance.first(), 
         lastName: chance.last(),
-        homeAddress: chance.areacode(),
-        zip: chance.integer({min: 10000, max: 99999}),
+        homeAddress: chance.address(),
+        zip: chance.areacode(),
         phoneNumber: chance.phone(),
         admin: chance.weighted([true, false], [5, 95]),
         picture: randUserPhoto(),
@@ -85,7 +82,7 @@ function generateAll() {
     var meals = _.times(numMeals, function () {
         return randMeal();
     });
-    var chefs = _times(numChefs, function() {
+    var chefs = _.times(numChefs, function() {
         return randChef(meals)
     });
     return chefs.concat(meals);
@@ -93,16 +90,21 @@ function generateAll() {
 
 function seed() {
     var docs = generateAll();
-    return Promise.map(docs, function(docs) {
+    return Promise.map(docs, function(doc) {
         return doc.save();
     })
 }
 
-connectToDb.drop = Promise.promisify(connectToDb.connectToDb.dropDatabase.bind(connectToDb.connectToDb));
 
-connectToDb.on('open', function () {
-    conn.drop()
+// console.log('connect', connectToDb)
+
+
+startDbPromise
+.then(function(db){
+    db.drop = Promise.promisify(db.db.dropDatabase.bind(db.db));
+    db.drop()
     .then(function () {
+        console.log('database successfully dropped, about to seed')
         return seed();
     })
     .then(function () {
@@ -114,5 +116,51 @@ connectToDb.on('open', function () {
     .then(function () {
         process.exit();
     });
-});
+})
+
+// -- Manual seeding
+
+// var mongoose = require('mongoose');
+// var Promise = require('bluebird');
+// var chalk = require('chalk');
+// var connectToDb = require('./server/db');
+// var Chef = Promise.promisifyAll(mongoose.model('Chef'));
+
+
+// var seedChefs = function () {
+
+//     var chefs = [
+//         {
+//             email: 'testing@fsa.com',
+//             password: 'password'
+//         },
+//         {
+//             email: 'obama@gmail.com',
+//             password: 'potus'
+//         }
+//     ];
+
+//     return Chef.createAsync(chefs);
+
+// };
+
+// connectToDb.then(function () {
+//     Chef.findAsync({}).then(function (chefs) {
+//         if (users.length === 0) {
+//             return seedChefs();
+//         } else {
+//             console.log(chalk.magenta('Seems to already be user data, exiting!'));
+//             process.kill(0);
+//         }
+//     }).then(function () {
+//         console.log(chalk.green('Seed successful!'));
+//         process.kill(0);
+//     }).catch(function (err) {
+//         console.error(err);
+//         process.kill(1);
+//     });
+// });
+
+
+
 

@@ -32,8 +32,8 @@ var userSchema = new Schema({
     firstName: String,
     lastName: String,
     homeAddress: String,
-    zip: Number,
-    phoneNumber: Number,
+    zip: String,
+    phoneNumber: String,
     admin: {
       type: Boolean,
       default: false
