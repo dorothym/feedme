@@ -50,16 +50,3 @@ router.route('/:id')
     })
     .then(null, next)
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
