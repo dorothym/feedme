@@ -10,7 +10,7 @@ require('../../../server/db/models');
 
 var User = mongoose.model('User');
 
-describe('User model', function () {
+xdescribe('User model', function () {
 
     beforeEach('Establish DB connection', function (done) {
         if (mongoose.connection.db) return done();
@@ -21,25 +21,25 @@ describe('User model', function () {
         clearDB(done);
     });
 
-    it('should exist', function () {
+    xit('should exist', function () {
         expect(User).to.be.a('function');
     });
 
-    describe('password encryption', function () {
+    xdescribe('password encryption', function () {
 
-        describe('generateSalt method', function () {
+        xdescribe('generateSalt method', function () {
 
-            it('should exist', function () {
+            xit('should exist', function () {
                 expect(User.generateSalt).to.be.a('function');
             });
 
-            it('should return a random string basically', function () {
+            xit('should return a random string basically', function () {
                 expect(User.generateSalt()).to.be.a('string');
             });
 
         });
 
-        describe('encryptPassword', function () {
+        xdescribe('encryptPassword', function () {
 
             var cryptoStub;
             var hashUpdateSpy;
@@ -62,16 +62,16 @@ describe('User model', function () {
                 cryptoStub.restore();
             });
 
-            it('should exist', function () {
+            xit('should exist', function () {
                 expect(User.encryptPassword).to.be.a('function');
             });
 
-            it('should call crypto.createHash with "sha1"', function () {
+            xit('should call crypto.createHash with "sha1"', function () {
                 User.encryptPassword('asldkjf', 'asd08uf2j');
                 expect(cryptoStub.calledWith('sha1')).to.be.ok;
             });
 
-            it('should call hash.update with the first and second argument', function () {
+            xit('should call hash.update with the first and second argument', function () {
 
                 var pass = 'testing';
                 var salt = '1093jf10j23ej===12j';
@@ -83,7 +83,7 @@ describe('User model', function () {
 
             });
 
-            it('should call hash.digest with hex and return the result', function () {
+            xit('should call hash.digest with hex and return the result', function () {
 
                 var x = {};
                 hashDigestStub.returns(x);
@@ -97,7 +97,7 @@ describe('User model', function () {
 
         });
 
-        describe('on creation', function () {
+        xdescribe('on creation', function () {
 
             var encryptSpy;
             var saltSpy;
@@ -116,7 +116,7 @@ describe('User model', function () {
                 saltSpy.restore();
             });
 
-            it('should call User.encryptPassword with the given password and generated salt', function (done) {
+            xit('should call User.encryptPassword with the given password and generated salt', function (done) {
                 createUser().then(function () {
                     var generatedSalt = saltSpy.getCall(0).returnValue;
                     expect(encryptSpy.calledWith('potus', generatedSalt)).to.be.ok;
@@ -124,7 +124,7 @@ describe('User model', function () {
                 });
             });
 
-            it('should set user.salt to the generated salt', function (done) {
+            xit('should set user.salt to the generated salt', function (done) {
                createUser().then(function (user) {
                    var generatedSalt = saltSpy.getCall(0).returnValue;
                    expect(user.salt).to.be.equal(generatedSalt);
@@ -132,7 +132,7 @@ describe('User model', function () {
                });
             });
 
-            it('should set user.password to the encrypted password', function (done) {
+            xit('should set user.password to the encrypted password', function (done) {
                 createUser().then(function (user) {
                     var createdPassword = encryptSpy.getCall(0).returnValue;
                     expect(user.password).to.be.equal(createdPassword);
@@ -142,13 +142,13 @@ describe('User model', function () {
 
         });
 
-        describe('sanitize method', function () {
+        xdescribe('sanitize method', function () {
 
             var createUser = function () {
                 return User.create({ email: 'obama@gmail.com', password: 'potus' });
             };
 
-            it('should remove sensitive information from a user object', function () {
+            xit('should remove sensitive information from a user object', function () {
                 createUser().then(function (user) {
                     var sanitizedUser = user.sanitize();
                     expect(user.password).to.be.ok;

@@ -8,7 +8,7 @@ var cuisineArray = ['Italian','Indian','Thai','New American','Chinese','Japanese
 
 var mealSchema = new Schema({
   name:  { type: String, required: true},
-  cuisine: { type: String, required: true},
+  cuisine: { type: String, required: true, enum: cuisineArray },
   description: { type: String, required: true},
   photo: { data: Buffer },
   price: {type: Number, required: true},
