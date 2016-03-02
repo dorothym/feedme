@@ -43,9 +43,6 @@ describe('Meal model', function () {
           newMeal.save(done);
         });
 
-        afterEach(function () {
-            cryptoStub.restore();
-        });
 
         it('should successfully create a meal', function(done){
         Meal.find()
@@ -58,5 +55,35 @@ describe('Meal model', function () {
         .then(null, done);
 
         });
+
     });
+    
+    //  describe('Will reject invalid data', function () {
+
+    //     var newMeal;
+
+    //     beforeEach(function(done) {
+    //       newMeal = new Meal({
+    //         cuisine: 'Italian',
+    //         description: 'A savory dish from southern Italy, with fresh summer vegtables',
+    //         price: 10,
+    //         diet: 'Vegetarian',
+    //         servings: 2
+    //       });
+    //       newMeal.save(done);
+    //     });
+
+
+    //     it('should not create a meal missing required fields', function(done){
+    //     Meal.find()
+    //     .then(function(data){
+    //       expect(data).to.have.length(0);
+    //       done();
+    //     })
+    //     .then(null, done);
+
+    //     });
+
+    // });
+
 });
