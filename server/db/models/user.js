@@ -54,7 +54,7 @@ userSchema.methods.sanitize =  function () {
 //method to check is user has pending('stillShopping) transaction
 userSchema.methods.getCart = function () {
   var user = this;
-  return Transaction.find({customerId: user._id, status: 'stillShopping'})
+  return Transaction.findOne({customerId: user._id, status: 'stillShopping'})
 }
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
