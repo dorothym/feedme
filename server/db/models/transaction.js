@@ -10,8 +10,8 @@ var transactionSchema = new Schema({
 	totalprice: {type: Number},
 	mealId:  [{type: Schema.Types.ObjectId, ref: 'Meal'}],
  	pickupTime: {type: Date}, // need help - different options for formatting?
- 	isDeliveryOrder: {type: Boolean},
-	status: {type: String } // options: stillShopping, purchased, readyForPickup, pickedUp
+ 	isDeliveryOrder: {type: Boolean, default: true},
+	status: {type: String, enum: transactionStates }
 });
 
 module.exports = mongoose.model('Transaction', transactionSchema);
