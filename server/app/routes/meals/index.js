@@ -49,17 +49,4 @@ router.route('/:id')
       res.send(response);
     })
     .then(null, next)
-  })
-
-
-
-
-
-
-
-
-
-
-
-
-
+  });
