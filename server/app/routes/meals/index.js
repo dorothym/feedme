@@ -50,3 +50,6 @@ router.route('/:id')
     })
     .then(null, next)
   });
+
+//get all ratings for a meal
+router.use('/:id/ratings', require('../ratings'));

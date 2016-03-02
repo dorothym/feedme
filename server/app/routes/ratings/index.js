@@ -1,35 +1,38 @@
 'use strict';
 
-var router = require('express').Router();
+var router = require('express').Router({mergeParams: true});
 module.exports = router;
 var mongoose = require('mongoose');
 var Rating = mongoose.model('Rating');
 
+//get all ratings for a meal (cont.)
 router.get('/', function(req, res, next){
-  Rating.find({})
-  .then(function(allRating){
-    res.json(allRating);
+  Rating.find({meal: req.params.id})
+  .then(function(allRatings){
+    res.json(allRatings);
   })
   .then(null, next);
 });
 
-router.post('/', function(req, res, next){
-  Rating.create(req.body)
-  .then(function(createdRating){
-    res.json(createdRating);
-  })
-  .then(null, next);
-});
+//!! MAKE AN addRating method on meals !!
 
-router.param('id', function(req, res, next, id){
-  Rating.findById(id)
+//router.post('/', function(req, res, next){
+//  Rating.create(req.body)
+//  .then(function(createdRating){
+//    res.json(createdRating);
+//  })
+//  .then(null, next);
+//});
+
+router.param('ratingId', function(req, res, next, ratingId){
+  Rating.findById(ratingId)
   .then(function(rating){
     req.rating = rating;
     next();
   })
 });
 
-router.route('/:id')
+router.route('/:ratingId')
 //get one rating
   .get(function(req, res, next){
     res.json(req.rating);
