@@ -21,7 +21,11 @@ var mealSchema = new Schema({
 mealSchema.methods.getChef = function () {
   var meal = this;
   return mongoose.model('Chef').findOne({meals: {$elemMatch: {$eq : meal._id} } });
+}
 
+mealSchema.methods.getAllRatings = function () {
+  var meal = this;
+  return mongoose.model('Ratings').find({meal: meal._id})
 }
 
 module.exports = mongoose.model('Meal', mealSchema);

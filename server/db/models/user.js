@@ -63,7 +63,7 @@ userSchema.methods.getAllTransactions = function () {
           path: 'customer',
           match: {customer: user._id}
         })
-}
+};
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
 // are all used for local authentication security.
