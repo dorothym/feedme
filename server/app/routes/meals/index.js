@@ -55,5 +55,5 @@ router.route('/:id')
     .then(null, next)
   });
 
-//get all ratings for a meal
-//router.use('/:id/ratings', require('./ratings'));
+//route to transactions for logged in user
+router.use('/:id/transactions', require('./meals.transaction'));

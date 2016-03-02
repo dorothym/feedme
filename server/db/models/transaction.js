@@ -20,5 +20,9 @@ transactionSchema.methods.removeMeal = function (mealId){
   return this.save();
 }
 
-module.exports = mongoose.model('Transaction', transactionSchema);
+transactionSchema.methods.addMeal = function (mealId){
+  this.meals.addToSet(mealId);
+  return this.save();
+}
 
+module.exports = mongoose.model('Transaction', transactionSchema);
