@@ -7,7 +7,7 @@ var mealSchema = new Schema({
   name:  { type: String, required: true},
   cuisine: { type: String, required: true},
   description: { type: String, required: true},
-  photo: { data: Buffer },
+  photo: { type: String},
   price: {type: Number, required: true},
   diet: { type: Array },
   tags: { type: Array },

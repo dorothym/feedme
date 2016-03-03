@@ -9,11 +9,9 @@ var Chef = mongoose.model('Chef');
 var Meal = mongoose.model('Meal'); // ???
 var chance = require('chance')(123);
 var _ = require('lodash');
-// var Chef = require('./server/db/models/chef.js')
-// var Meal = require('./server/db/models/meal.js')
 
-var numChefs = 100;
-var numMeals = 500;
+var numChefs = 5;
+var numMeals = 10;
 var specialty = ['Indian', 'Vegetarian', 'Italian', 'French', 'American', 'Barbequeue', 'Mediterrenean', 'Brazilian', 'Spanish', 'Chinese', 'Japanese'];
 
 var emails = chance.unique(chance.email, numChefs);
@@ -40,10 +38,11 @@ function randChef(allMeals) {
         phoneNumber: chance.phone(),
         admin: chance.weighted([true, false], [5, 95]),
         picture: randUserPhoto(),
-        specialty: specialty[Math.random() * specialty.length-1],
+        specialty: chance.pickone(specialty),
         bio:  chance.paragraph(),
         rating: chance.integer({min: 1, max: 5}),
-        meals: _.times(chance.integer({min: 1, max: 10}), allMeals)
+        meals: chance.pickset(chance.integer({min: 1, max: 10}), allMeals)
+        // meals: _.times(chance.integer({min: 1, max: 10}), allMeals)
     });
 }
 // Storing url's of random meal photos form pixabay
@@ -61,34 +60,49 @@ function randMeal() {
         min: 3,
         max: 20
     });
-    return {
-          cuisine: specialty[Math.random() * specialty.length-1],
+    return new Meal({
+          name: chance.word(),
+          cuisine: chance.pickone(specialty),
           description: chance.paragraph(),
-          photo: randMealPhoto(mealPhotos),
+          photo: chance.pickone(mealPhotos),
           price: chance.integer({min: 10, max: 200}),
-          diet: diets[Math.random() * specialty.length-1],
+          diet: chance.pickone(diets),
           tags: [],
           servings: chance.integer({min: 1, max: 10})
-    }
-}
-// Generating random meal photo
-function randMealPhoto(allMealPhotos) {
-    return allMealPhotos[Math.random() * allMealPhotos.length-1]
+    })
 }
 
 function generateAll() {
     var meals = _.times(numMeals, function () {
         return randMeal();
     });
-    Meal.create(meals) //returns array of mea;s
-    .then(function(meals) {
-        var chefs = _.times(numChefs, function() {
-            return randChef(meals);
-        }); 
-          //returns a chef with meals array populated
-        return chefs.concat(meals);
-    })
+ // console.log('MEALS:', meals)
+    // var chefs = _.times(numChefs, function() {
+    //     return randChef(meals);
+    // }); 
+    // console.log('CHEFS:', chefs)
+    //  return chefs.concat(meals);
+   return meals;
+
 }
+
+
+
+// function generateAll() {
+//     var meals = _.times(numMeals, function () {
+//         return randMeal();
+//     });
+
+//     Meal.create(meals) //returns array of meals
+//     .then(function(meals) {
+//         var chefs = _.times(numChefs, function() {
+//             return randChef(meals);
+//         }); 
+//         console.log('CHEFS:', chefs)
+//           //returns a chef with meals array populated
+//         return chefs.concat(meals);
+//     })
+// }
 
 function seed() {
     var docs = generateAll();
