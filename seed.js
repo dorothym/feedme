@@ -35,14 +35,14 @@ function randUserPhoto () {
     return 'http://api.randomuser.me/portraits/thumb/' + g + '/' + n + '.jpg'
 }
 
-function mealPop(num) {
-    var result = []
-    for(var i = 0; i < num; i++) {
-        allMeals.pop()
-        result.push(allMeals.pop());
-    }
-    return result;
-}
+// function mealPop(num) {
+//     var result = []
+//     for(var i = 0; i < num; i++) {
+//         allMeals.pop()
+//         result.push(allMeals.pop());
+//     }
+//     return result;
+// }
 
 function randChef() {
     return new Chef({
@@ -59,8 +59,7 @@ function randChef() {
         specialty: chance.pickone(specialty),
         bio:  chance.paragraph(),
         rating: chance.integer({min: 1, max: 5}),
-        // meals: _.times(randNumber, allMeals.pop())
-        meals: mealPop(randNumber)
+        meals: [allMeals.pop(), allMeals.pop(), allMeals.pop(), allMeals.pop()]
     });
 }
 
