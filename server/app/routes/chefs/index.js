@@ -38,7 +38,8 @@ router.route('/:id')
   })
 //update one chef
   .put(function(req, res, next){
-    Chef.findByIdAndUpdate(req.chef._id, {$set: req.body}, {new: true, runValidators: true})
+    req.chef.set(req.body);
+    req.chef.save()
     .then(function(updatedChef){
       res.json(updatedChef)
     })
