@@ -4,6 +4,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var _ = require('lodash');
 
+var boroughArray = ['Bronx','Brooklyn','Queens','Staten Island','Manhattan'];
+
 var userSchema = new Schema({
     email: {
         type: String, 
@@ -46,6 +48,22 @@ var userSchema = new Schema({
 userSchema.methods.sanitize =  function () {
     return _.omit(this.toJSON(), ['password', 'salt']);
 };
+
+//method to check is user has pending('stillShopping') transaction
+userSchema.methods.getCart = function () {
+  var user = this;
+  return mongoose.model('Transaction').findOne({customer: user._id, status: 'stillShopping'})
+};
+
+userSchema.methods.getAllTransactions = function () {
+  var user = this;
+  return mongoose.model('Transaction').find({customer: user._id})
+};
+
+userSchema.methods.getAllRatingsWritten = function () {
+  var user = this;
+  return mongoose.model('Rating').find({author: user._id})
+}
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
 // are all used for local authentication security.
