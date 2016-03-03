@@ -11,14 +11,29 @@
 
     <title>Feed Me! Meal Exchange Community</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="../../../browser/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" />
+    <script src="/lodash/index.js"></script>
+    <script src="/angular/angular.js"></script>
+    <script src="/angular-animate/angular-animate.js"></script>
+    <script src="/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="/angular-ui-bootstrap/ui-bootstrap.js"></script>
+    <script src="/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="/socket.io-client/socket.io.js"></script>
+    <script src="/main.js"></script>
 
-    <!-- Custom CSS -->
-    <link href="../../../browser/css/meal-detail.css" rel="stylesheet">
-    <link href="../../../browser/css/meal-list.css" rel="stylesheet">
-    <link href="../../../browser/css/home.css" rel="stylesheet">
+    <!-- StartBootstrap Theme CSS -->
 
+    <!-- We should be able to remove lines 28-31 when we confirm they are gulped -->
+
+<!--     <link href="css/meal-detail.css" rel="stylesheet">
+    <link href="css/meal-list.css" rel="stylesheet">
+    <link href="css/home.css" rel="stylesheet">
+ -->
+
+    <!-- FSG Gulped CSS file -->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+   
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -84,7 +99,7 @@
 
         <!-- First Featurette -->
         <div class="featurette" id="about">
-            <a href="meal-list.html"><img class="featurette-image img-circle img-responsive pull-right" src="../../../public/images/steak_dinner_500x500.jpg"></a>
+            <a href="meal-list.html"><img class="featurette-image img-circle img-responsive pull-right" src="images/steak_dinner_500x500.jpg"></a>
             <h2 class="featurette-heading">Gourmet, individually prepared meals
                 <span class="text-muted">by local chefs</span>
             </h2>
@@ -95,7 +110,7 @@
 
         <!-- Second Featurette -->
         <div class="featurette" id="services">
-            <img class="featurette-image img-circle img-responsive pull-left" src="../../../public/images/steak_dinner_500x500.jpg">
+            <img class="featurette-image img-circle img-responsive pull-left" src="images/steak_dinner_500x500.jpg">
             <h2 class="featurette-heading">Like to cook?
                 <span class="text-muted">Join us as a chef!</span>
             </h2>
@@ -106,7 +121,7 @@
 
         <!-- Third Featurette -->
         <div class="featurette" id="contact">
-            <img class="featurette-image img-circle img-responsive pull-right" src="http://placehold.it/500x500">
+            <img class="featurette-image img-circle img-responsive pull-right" src="images/steak_dinner_500x500.jpg">
             <h2 class="featurette-heading">Got questions?
                 <span class="text-muted">Read more about the program here.</span>
             </h2>
@@ -128,10 +143,10 @@
     <!-- /.container -->
 
     <!-- jQuery -->
-    <script src="../../../browser/js/jquery.js"></script>
+    <script src="js/startbootstrap/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../../../browser/js/bootstrap.min.js"></script>
+    <script src="js/startbootstrap/bootstrap.min.js"></script>
 
 </body>
 
