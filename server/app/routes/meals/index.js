@@ -55,3 +55,4 @@ router.route('/:id')
     .then(null, next)
   });
 
+router.get('/:id/rating', require('./meal.rating'));

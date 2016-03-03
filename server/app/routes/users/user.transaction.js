@@ -1,18 +1,15 @@
-// 'use strict';
 
-// var router = require('express').Router({mergeParams: true});
-// module.exports = router;
-// var mongoose = require('mongoose');
-// var Meal = mongoose.model('Meal');
-// var Transaction = mongoose.model('Transaction');
+ 'use strict';
 
-// //all transactions for user
-// router.get('/', function(req, res, next){
-// var userId = req.params.id;
-//   Transaction.find({customer: userId})
-//   .then(res.json)
-//   .then(null, next)
-// });
+var router = require('express').Router({mergeParams: true});
+module.exports = router;
+var mongoose = require('mongoose');
+var Meal = mongoose.model('Meal');
+var Transaction = mongoose.model('Transaction');
 
-//cart (transaction with 'stillShopping' status)
-//router.get('/')
+//all transactions for user
+router.get('/', function(req, res, next){
+  Transaction.find({customer: req.params.id})
+  .then(res.json)
+  .then(null, next)
+});

@@ -20,9 +20,9 @@ transactionSchema.methods.removeMeal = function (mealId){
   return this.save();
 }
 
-transactionSchema.methods.addMeal = function (meal){
-	// Meals. 
-  this.meals.addToSet(meal);
+transactionSchema.methods.addMeal = function (mealId){
+  //changed from addToSet to push because we want to add repeat elements here
+  this.meals.push(mealId);
   return this.save();
 }
 
