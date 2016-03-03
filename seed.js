@@ -61,10 +61,11 @@ function randChef() {
 
 // Storing url's of random meal photos form pixabay
 // I change meals photo type from buffer to string, is it okay to use string instead of buffer? TO DO: add more pictures
+// dmoore - I added paths to actual images on our server
 var mealPhotos = [
-'https://pixabay.com/static/uploads/photo/2015/04/08/13/14/food-712667_960_720.jpg',
-'https://pixabay.com/static/uploads/photo/2015/04/10/00/41/food-715539_960_720.jpg',
-'https://pixabay.com/static/uploads/photo/2015/04/10/00/41/food-715542_960_720.jpg'
+'images/steak_dinner_300x300.jpg',
+'images/cheeses_selection_300x300.jpg',
+'images/green_capsicum_300x300.jpg'
  ];
 
 function randMeal() {
