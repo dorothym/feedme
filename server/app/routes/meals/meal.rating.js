@@ -8,10 +8,7 @@ var Rating = mongoose.model('Rating');
 
 //get all ratings for a meal
 router.get('/', function(req, res, next){
-  Meal.findById(req.params.id)
-  .then(function(meal){
-    return meal.getAllRatings()
-  })
+  req.meal.getAllRatings()
   .then(function(allRatings){
     res.json(allRatings)
   })
@@ -19,10 +16,7 @@ router.get('/', function(req, res, next){
 });
 //create a new rating for a meal
 router.post('/', function(req, res, next){
-  Meal.findById(req.params.id)
-  .then(function(meal){
-    return meal.addRating(req.body);
-  })
+   req.meal.addRating(req.body);
   .then(function(newRating){
     res.json(newRating);
   })
@@ -45,7 +39,8 @@ router.route('/:ratingId')
   })
 //update specific rating for meal
   .put(function(req, res, next){
-    Rating.findByIdAndUpdate(req.rating._id, {$set: req.body}, {new: true, runValidators: true})
+    req.rating.set(req.body);
+    req.rating.save()
     .then(function(updatedRating){
       res.json(updatedRating);
     })
