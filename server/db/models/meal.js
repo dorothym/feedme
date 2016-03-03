@@ -4,8 +4,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-var dietArray = ['Vegetarian','Vegan','Paleo','Gluten-free','Kosher','Halal']
-var cuisineArray = ['Italian','Indian','Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food']
+var dietArray = ['Vegetarian','Vegan','Paleo','Gluten-free','Kosher','Halal', 'None', 'Diary-free'];
+var cuisineArray = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish'];
 
 var mealSchema = new Schema({
   name:  { type: String, required: true},

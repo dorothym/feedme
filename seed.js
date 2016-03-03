@@ -12,9 +12,13 @@ var _ = require('lodash');
 
 var numChefs = 5;
 var numMeals = 20;
-var specialty = ['Indian', 'Vegetarian', 'Italian', 'French', 'American', 'Barbequeue', 'Mediterrenean', 'Brazilian', 'Spanish', 'Chinese', 'Japanese'];
+var cuisine = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish'];
 
-var diets = ['none', 'vegan', 'vegetarian', 'gluten-free', 'diary-free'];
+var specialty = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish', 'Vegetarian', 'Pastry', 'Deserts'];
+
+var diets = ['Vegetarian','Vegan','Paleo','Gluten-free','Kosher','Halal', 'None', 'Diary-free'];
+var borough = ['Bronx','Brooklyn','Queens','Staten Island','Manhattan'];
+
 var tags = specialty.concat(diets);
 
 var emails = chance.unique(chance.email, numChefs);
@@ -48,6 +52,7 @@ function randChef() {
         lastName: chance.last(),
         homeAddress: chance.address(),
         zip: chance.areacode(),
+        borough: chance.pickone(borough),
         phoneNumber: chance.phone(),
         admin: chance.weighted([true, false], [5, 95]),
         picture: randUserPhoto(),
@@ -74,7 +79,7 @@ function randMeal() {
     });
     return new Meal({
           name: chance.word(),
-          cuisine: chance.pickone(specialty),
+          cuisine: chance.pickone(cuisine),
           description: chance.paragraph(),
           photo: chance.pickone(mealPhotos),
           price: chance.integer({min: 10, max: 200}),
@@ -131,7 +136,6 @@ function seedChefs() {
         return doc.save();
     })
 }
-
 
 startDbPromise
 .then(function(db){
