@@ -8,7 +8,7 @@ var Meal = mongoose.model('Meal');
 
 //get all meals for chef
 router.get('/', function(req, res, next){
-  req.chef.populate('meals')
+  Promise.resolve(req.chef)
   .then(function(chef){
     res.json(chef.meals);
   })

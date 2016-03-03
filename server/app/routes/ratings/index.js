@@ -24,6 +24,8 @@ router.post('/', function(req, res, next){
 
 router.param('ratingId', function(req, res, next, ratingId){
   Rating.findById(ratingId)
+  .populate('meal')
+  .populate('author')
   .then(function(rating){
     req.rating = rating;
     next();
