@@ -14,6 +14,9 @@ var numChefs = 5;
 var numMeals = 5;
 var specialty = ['Indian', 'Vegetarian', 'Italian', 'French', 'American', 'Barbequeue', 'Mediterrenean', 'Brazilian', 'Spanish', 'Chinese', 'Japanese'];
 
+var diets = ['none', 'vegan', 'vegetarian', 'gluten-free', 'diary-free'];
+var tags = specialty.concat(diets);
+
 var emails = chance.unique(chance.email, numChefs);
 var allMeals = [];
 
@@ -41,21 +44,18 @@ function randChef() {
         specialty: chance.pickone(specialty),
         bio:  chance.paragraph(),
         rating: chance.integer({min: 1, max: 5}),
-        meals: chance.pickset(allMeals, chance.integer({min: 1, max: 10}))
+        meals: [allMeals.pop(), allMeals.pop()]
     });
 }
 
 // Storing url's of random meal photos form pixabay
-// I change meals photo type from buffer to string, is it okay to use string instead of buffer?
+// I change meals photo type from buffer to string, is it okay to use string instead of buffer? TO DO: add more pictures
 var mealPhotos = [
 'https://pixabay.com/static/uploads/photo/2015/04/08/13/14/food-712667_960_720.jpg',
 'https://pixabay.com/static/uploads/photo/2015/04/10/00/41/food-715539_960_720.jpg',
 'https://pixabay.com/static/uploads/photo/2015/04/10/00/41/food-715542_960_720.jpg'
  ];
 
-var diets = ['none', 'vegan', 'vegetarian', 'gluten-free', 'diary-free'];
-
-// Generating random meal
 function randMeal() {
     var numPars = chance.natural({
         min: 3,
@@ -68,7 +68,7 @@ function randMeal() {
           photo: chance.pickone(mealPhotos),
           price: chance.integer({min: 10, max: 200}),
           diet: chance.pickone(diets),
-          tags: [],
+          tags: chance.pickset(tags, chance.integer({min: 1, max: 5})),
           servings: chance.integer({min: 1, max: 10})
     })
 }
