@@ -143,7 +143,10 @@ startDbPromise
     db.drop()
     .then(function () {
         console.log('database successfully dropped, about to seed')
-        return seedMeals(), seedChefs();
+        return Promise.all([
+            seedMeals(), 
+            seedChefs()
+        ])
     })
     .then(function () {
         console.log('Seeding successful');

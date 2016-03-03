@@ -5,6 +5,7 @@ module.exports = router;
 var mongoose = require('mongoose');
 var Chef = mongoose.model('Chef');
 
+
 router.get('/', function(req, res, next){
   Chef.find({})
   .then(function(allChefs){
@@ -52,3 +53,10 @@ router.route('/:id')
   });
 
 router.get('/:id/meal', require('./chef.meals'));
+
+
+
+
+
+
+

@@ -8,9 +8,12 @@ var Meal = mongoose.model('Meal');
 
 //get all meals for chef
 router.get('/', function(req, res, next){
+
   Chef.findById(req.params.id)
   .populate('meals')
+console.log("req.params.id ")
   .then(function(chef){
+    console.log("CHEF IS", chef)
     res.json(chef.meals);
   })
   .then(null, next)
