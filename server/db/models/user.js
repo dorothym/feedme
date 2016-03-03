@@ -34,9 +34,8 @@ var userSchema = new Schema({
     firstName: String,
     lastName: String,
     homeAddress: String,
-    zip: Number,
-    borough: {type: String, enum: boroughArray },
-    phoneNumber: Number,
+    zip: String,
+    phoneNumber: String,
     admin: {
       type: Boolean,
       default: false
@@ -54,6 +53,16 @@ userSchema.methods.sanitize =  function () {
 userSchema.methods.getCart = function () {
   var user = this;
   return mongoose.model('Transction').findOne({customer: user._id, status: 'stillShopping'})
+};
+
+userSchema.methods.getAllTransactions = function () {
+  var user = this;
+  return mongoose.model('Transaction').find({customer: user._id})
+};
+
+userSchema.methods.getAllRatingsWritten = function () {
+  var user = this;
+  return mongoose.model('Rating').find({author: user._id})
 }
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations

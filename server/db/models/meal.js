@@ -11,7 +11,7 @@ var mealSchema = new Schema({
   name:  { type: String, required: true},
   cuisine: { type: String, required: true, enum: cuisineArray },
   description: { type: String, required: true},
-  photo: { data: Buffer },
+  photo: { type: String},
   price: {type: Number, required: true},
   diet: { type: Array, enum: dietArray },
   tags: { type: Array },
@@ -19,9 +19,13 @@ var mealSchema = new Schema({
 });
 
 mealSchema.methods.getChef = function () {
-  var meal = this;
-  return mongoose.model('Chef').findOne({meals: {$elemMatch: {$eq : meal._id} } });
+  var self = this;
+  return mongoose.model('Chef').findOne({meals: {$elemMatch: {$eq : self._id} } }).exec();
+}
 
+mealSchema.methods.getAllRatings = function () {
+  var self = this;
+  return mongoose.model('Ratings').find({meal: self._id}).exec();
 }
 
 module.exports = mongoose.model('Meal', mealSchema);
