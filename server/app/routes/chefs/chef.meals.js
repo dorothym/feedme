@@ -10,7 +10,6 @@ var Meal = mongoose.model('Meal');
 router.get('/', function(req, res, next){
   req.chef.populate('meals')
   .then(function(chef){
-    console.log("CHEF IS", chef)
     res.json(chef.meals);
   })
   .then(null, next)
