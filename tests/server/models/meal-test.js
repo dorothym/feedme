@@ -31,6 +31,23 @@ describe('Meal model', function () {
         expect(Meal).to.be.a('function');
     });
 
+    describe('Validate meal', function() {
+        var meal
+        beforeEach(function() {
+            meal = new Meal();
+        })
+
+        it('errors without required fields', function(done) {
+            meal.validate(function(err) {
+                expect(err.errors.name).to.be.an('object');
+                expect(err.errors.price).to.be.an('object');
+                expect(err.errors.description).to.be.an('object');
+                done();
+            })
+        })
+
+    })
+
     describe('Create a meal', function () {
 
         var newMeal;
@@ -83,8 +100,6 @@ describe('Meal model', function () {
         //   });
 
         // });
-
-
 
         it('should successfully create a meal', function(done){
             return Meal.find()

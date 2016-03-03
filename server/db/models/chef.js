@@ -12,11 +12,29 @@ var chefSchema = userSchema.extend({
     default: 0
   },
   meals: [{
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Meal'
   }]
 });
 
 // sballan consider static to get chef by rating, or even by average meal rating.
+chefSchema.methods.addNewMeal = function (mealData){
+  var self = this;
+  return Mongoose.model('Meal').create(mealData)
+          .then(function(meal){
+            self.meals.addToSet(meal._id);
+            return self.save();
+          });
+}
+
+chefSchema.methods.removeMeal = function(mealData){
+  //does .pull in mongoose work like array methods 'pull' or finds specific item and removes it?
+  var self = this;
+  return mongoose.model('Meal').findByIdAndRemove(mealData._id)
+  .then(function(){
+    self.meals.pull(mealData)
+    return self.save()
+  });
+}
 
 mongoose.model('Chef', chefSchema);

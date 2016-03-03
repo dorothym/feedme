@@ -1,23 +1,25 @@
-var mongoose = require('mongoose');
-var Promise = require('bluebird');
+
 var chalk = require('chalk');
-var connectToDb = require('./server/db');
-// var User = Promise.promisifyAll(mongoose.model('User')); // ???
+var Promise = require('bluebird');
+var mongoose = require('mongoose');
+Promise.promisifyAll(mongoose)
+var startDbPromise = require('./server/db')
+
+var Chef = mongoose.model('Chef');
+var Meal = mongoose.model('Meal'); // ???
 var chance = require('chance')(123);
 var _ = require('lodash');
-var User = require('./server/db/models/user.js')
-// require all the models
-// var Transaction = require('./server/db/models/transaction.js')
-// var Rating = require('./server/db/models/rating.js')
-// var Meal = require('./server/db/models/meal.js')
 
-// Instantiating chance:
-// var chance = new Chance();
-
-var numChefs = 100;
-var numMeals = 500;
+var numChefs = 5;
+var numMeals = 20;
 var specialty = ['Indian', 'Vegetarian', 'Italian', 'French', 'American', 'Barbequeue', 'Mediterrenean', 'Brazilian', 'Spanish', 'Chinese', 'Japanese'];
-var emails = chance.unique(chance.email, numUsers);
+
+var diets = ['none', 'vegan', 'vegetarian', 'gluten-free', 'diary-free'];
+var tags = specialty.concat(diets);
+
+var emails = chance.unique(chance.email, numChefs);
+var allMeals = [];
+var randNumber = chance.integer({min: 1, max: 5})
 
 // Random User photo
 function randUserPhoto () {
@@ -29,65 +31,115 @@ function randUserPhoto () {
     return 'http://api.randomuser.me/portraits/thumb/' + g + '/' + n + '.jpg'
 }
 
+function mealPop(num) {
+    var result = []
+    for(var i = 0; i < num; i++) {
+        allMeals.pop()
+        result.push(allMeals.pop());
+    }
+    return result;
+}
+
 function randChef() {
     return new Chef({
         email: emails.pop(),
         password: chance.word(),
         firstName: chance.first(), 
         lastName: chance.last(),
-        homeAddress: chance.areacode(),
-        zip: chance.integer({min: 10000, max: 99999}),
+        homeAddress: chance.address(),
+        zip: chance.areacode(),
         phoneNumber: chance.phone(),
-        admin: chance.weighted([true, false], [5, 95])
+        admin: chance.weighted([true, false], [5, 95]),
         picture: randUserPhoto(),
-        // transactions: {type: Schema.Types.ObjectId, ref: 'Transaction'}, 
-        specialty: specialty[Math.random() * specialty.length-1],
+        specialty: chance.pickone(specialty),
         bio:  chance.paragraph(),
-        rating: chance.integer({min: 1, max: 5})
+        rating: chance.integer({min: 1, max: 5}),
+        // meals: _.times(randNumber, allMeals.pop())
+        meals: mealPop(randNumber)
     });
 }
+
 // Storing url's of random meal photos form pixabay
+// I change meals photo type from buffer to string, is it okay to use string instead of buffer? TO DO: add more pictures
 var mealPhotos = [
 'https://pixabay.com/static/uploads/photo/2015/04/08/13/14/food-712667_960_720.jpg',
 'https://pixabay.com/static/uploads/photo/2015/04/10/00/41/food-715539_960_720.jpg',
 'https://pixabay.com/static/uploads/photo/2015/04/10/00/41/food-715542_960_720.jpg'
  ];
 
-// Generating random meal
-function randMeal(allChefs) {
-    name: chance.word(),
-    var chef = chance.pick(allChefs);
+function randMeal() {
     var numPars = chance.natural({
         min: 3,
         max: 20
     });
     return new Meal({
-        photo: randMealPhoto(mealPhotos),
-
+          name: chance.word(),
+          cuisine: chance.pickone(specialty),
+          description: chance.paragraph(),
+          photo: chance.pickone(mealPhotos),
+          price: chance.integer({min: 10, max: 200}),
+          diet: chance.pickone(diets),
+          tags: chance.pickset(tags, chance.integer({min: 1, max: 5})),
+          servings: chance.integer({min: 1, max: 10})
     })
 }
-// Generating random meal photo
-function randMealPhoto(allMealPhotos) {
-    return allMealPhotos[Math.random() * allMealPhotos.length-1]
+
+function generateAllMeals() {
+    var meals = _.times(numMeals, function () {
+        return randMeal();
+    });
+    meals.forEach(function(meal) {
+        allMeals.push(meal._id);
+    })
+   return meals;
 }
 
-function generateAll() {
-    var chefs = _times.(numChefs, randChefs);
+function generateAllChefs() {
+    var chefs = _.times(numChefs, function() {
+        return randChef(generateAllMeals());
+    }); 
+   return chefs;
+
 }
 
-function seed() {
-    var docs = generateAll();
-    return Promise.man(docs, function(docs) {
+// function generateAll() {
+//     var meals = _.times(numMeals, function () {
+//         return randMeal();
+//     });
+
+//     Meal.create(meals) //returns array of meals
+//     .then(function(meals) {
+//         var chefs = _.times(numChefs, function() {
+//             return randChef(meals);
+//         }); 
+//         console.log('CHEFS:', chefs)
+//           //returns a chef with meals array populated
+//         return chefs.concat(meals);
+//     })
+// }
+
+function seedMeals() {
+    var docs = generateAllMeals();
+    return Promise.map(docs, function(doc) {
         return doc.save();
     })
 }
 
-connectToDb.drop = Promise.promisify(connectToDb.connectToDb.dropDatabase.bind(connectToDb.connectToDb));
+function seedChefs() {
+    var docs = generateAllChefs();
+    return Promise.map(docs, function(doc) {
+        return doc.save();
+    })
+}
 
-connectToDb.on('open', function () {
-    conn.drop()
+
+startDbPromise
+.then(function(db){
+    db.drop = Promise.promisify(db.db.dropDatabase.bind(db.db));
+    db.drop()
     .then(function () {
-        return seed();
+        console.log('database successfully dropped, about to seed')
+        return seedMeals(), seedChefs();
     })
     .then(function () {
         console.log('Seeding successful');
@@ -98,10 +150,4 @@ connectToDb.on('open', function () {
     .then(function () {
         process.exit();
     });
-});
-
-// NOTES:
-// Include in html
-// <!– Load Chance –>
-// <script type=“text/javascript” src=“node_modules/chance/chance.js”></script>
-
+})

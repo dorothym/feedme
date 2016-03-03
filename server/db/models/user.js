@@ -35,9 +35,8 @@ var userSchema = new Schema({
     firstName: String,
     lastName: String,
     homeAddress: String,
-    zip: Number,
-    borough: {type: String, enum: boroughArray },
-    phoneNumber: Number,
+    zip: String,
+    phoneNumber: String,
     admin: {
       type: Boolean,
       default: false
@@ -54,12 +53,18 @@ userSchema.methods.sanitize =  function () {
 //method to check is user has pending('stillShopping') transaction
 userSchema.methods.getCart = function () {
   var user = this;
-// sballan Remove merge conflict remnants
-<<<<<<< HEAD
   return Transaction.findOne({customerId: user._id, status: 'stillShopping'})
-=======
   return mongoose.model('Transction').findOne({customer: user._id, status: 'stillShopping'})
->>>>>>> 4533740ce1c7ed3f0ea63f6c3480320ac9e7d51f
+};
+
+userSchema.methods.getAllTransactions = function () {
+  var user = this;
+  return mongoose.model('Transaction').find({customer: user._id})
+};
+
+userSchema.methods.getAllRatingsWritten = function () {
+  var user = this;
+  return mongoose.model('Rating').find({author: user._id})
 }
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations

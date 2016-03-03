@@ -23,8 +23,8 @@ transactionSchema.methods.removeMeal = function (mealId){
 }
 
 transactionSchema.methods.addMeal = function (mealId){
-	// sballan love the method addToSet! So useful. Just saying.
-  this.meals.addToSet(mealId);
+  //changed from addToSet to push because we want to add repeat elements here
+  this.meals.push(mealId);
   return this.save();
 }
 
