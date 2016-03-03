@@ -10,8 +10,8 @@ var Meal = mongoose.model('Meal'); // ???
 var chance = require('chance')(123);
 var _ = require('lodash');
 
-var numChefs = 5;
-var numMeals = 20;
+var numChefs = 1;
+var numMeals = 4;
 var cuisine = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish'];
 
 var specialty = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish', 'Vegetarian', 'Pastry', 'Deserts'];
@@ -23,6 +23,7 @@ var tags = specialty.concat(diets);
 
 var emails = chance.unique(chance.email, numChefs);
 var allMeals = [];
+console.log('allMEALS BEFORE: ', allMeals)
 var randNumber = chance.integer({min: 1, max: 5})
 
 // Random User photo
@@ -34,15 +35,6 @@ function randUserPhoto () {
     });
     return 'http://api.randomuser.me/portraits/thumb/' + g + '/' + n + '.jpg'
 }
-
-// function mealPop(num) {
-//     var result = []
-//     for(var i = 0; i < num; i++) {
-//         allMeals.pop()
-//         result.push(allMeals.pop());
-//     }
-//     return result;
-// }
 
 function randChef() {
     return new Chef({
@@ -92,15 +84,18 @@ function generateAllMeals() {
     var meals = _.times(numMeals, function () {
         return randMeal();
     });
+    console.log('allMeals before foreEach ,', allMeals)
     meals.forEach(function(meal) {
+        console.log('meal id: ', meal._id)
         allMeals.push(meal._id);
     })
+    console.log('allMeals after forEach ', allMeals)
    return meals;
 }
 
 function generateAllChefs() {
     var chefs = _.times(numChefs, function() {
-        return randChef(generateAllMeals());
+        return randChef();
     }); 
    return chefs;
 
