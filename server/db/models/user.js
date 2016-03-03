@@ -35,6 +35,7 @@ var userSchema = new Schema({
     lastName: String,
     homeAddress: String,
     zip: String,
+    borough: { type: String, enum: boroughArray },
     phoneNumber: String,
     admin: {
       type: Boolean,
