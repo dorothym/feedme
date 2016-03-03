@@ -6,6 +6,8 @@ var mongoose = require('mongoose');
 var Chef = mongoose.model('Chef');
 var Meal = mongoose.model('Meal');
 
+// sballan If wired up correctly, you won't need to lookup the chef again.
+// sballan You can use req.chef
 //get all meals for chef
 router.get('/', function(req, res, next){
   Chef.findById(req.params.id)
@@ -44,6 +46,14 @@ router.route('/:mealId')
 //have chef update a meal
 // sballan Use req.meal!
   .put(function(req, res, next){
+
+/*  sballan Validators and Hooks will be fired when you do it this way.
+  req.meal.set(req.body)
+  req.meal.save()
+  .then(function(meal) {
+    res.json(meal)
+  })
+*/
     Meal.findByIdAndUpdate(req.meal._id, {$set: req.body}, {new: true, runValidators: true})
     .then(function(updatedMeal){
       res.json(updatedMeal);

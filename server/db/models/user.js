@@ -42,6 +42,7 @@ var userSchema = new Schema({
       default: false
     },
     picture: String,
+    // sballan This array is unneeded.
     transactions: [{type: Schema.Types.ObjectId, ref: 'Transaction'}]
 }, {collection: 'users', discriminatorKey: 'type'});
 
@@ -53,16 +54,20 @@ userSchema.methods.sanitize =  function () {
 //method to check is user has pending('stillShopping') transaction
 userSchema.methods.getCart = function () {
   var user = this;
+
+  // sballan 58 shouldn't be there
   return Transaction.findOne({customerId: user._id, status: 'stillShopping'})
   return mongoose.model('Transction').findOne({customer: user._id, status: 'stillShopping'})
 };
 
 userSchema.methods.getAllTransactions = function () {
+  // sballan No need to save the 'this' value.
   var user = this;
   return mongoose.model('Transaction').find({customer: user._id})
 };
 
 userSchema.methods.getAllRatingsWritten = function () {
+  // sballan No need to save the 'this' value.
   var user = this;
   return mongoose.model('Rating').find({author: user._id})
 }

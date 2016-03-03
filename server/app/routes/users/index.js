@@ -24,8 +24,8 @@ router.post('/', function(req, res, next){
 
 router.param('id', function(req, res, next, id){
   User.findById(id)
-  .thUseren(function(user){
-    req.user = user;
+  .then(function(user){
+    req.user = user;  // sballan Will interfere with passport, try req.reqUser.
     next();
   })
 });

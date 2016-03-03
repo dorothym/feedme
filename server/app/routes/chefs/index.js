@@ -51,4 +51,5 @@ router.route('/:id')
     .then(null, next)
   });
 
+// sballan Make this .use() and move it higher
 router.get('/:id/meal', require('./chef.meals'));

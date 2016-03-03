@@ -9,6 +9,15 @@ var transactionSchema = new Schema({
 	customer:  {type: Schema.Types.ObjectId, ref: 'User'},
 	totalPrice: {type: Number},
   // sballan Make meals an object with a few values, so you can keep track of associated data like quantity.
+  /*
+    meals: [
+      {
+        meal: {type: Schema.Types.ObjectId, ref: 'Meal'},
+        orderPrice: Number,
+        quantity: Number
+      }
+    ]
+  */
 	meals:  [{type: Schema.Types.ObjectId, ref: 'Meal'}],
  	pickupTime: {type: Date}, // need help - different options for formatting?
  	isDeliveryOrder: {type: Boolean, default: true},
