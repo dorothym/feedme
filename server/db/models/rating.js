@@ -10,6 +10,10 @@ var ratingSchema = new Schema({
   	author: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
+ratingSchema.methods.addRating = function (ratingData){
+  Rating.create(ratingData)
+}
+
 module.exports = mongoose.model('Rating', ratingSchema);
 
 // need to require in index.js???
