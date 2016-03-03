@@ -12,18 +12,5 @@ var ratingSchema = new Schema({
 });
 
 //want to update chef rating (avg of all of the meal ratings) at save
-ratingSchema.pre('save', function(next){
-  var self = this;
-  mongoose.model('Rating')
-  .populate(self, 'meal')
-  .then(function(rating){
-    return self.meal.getChef()
-  })
-  .then(function(chef){
-    return Promise.map(chef.meals, function(meal){
-      return meal.getAllRatings();
-    })
-  })
-});
 
 module.exports = mongoose.model('Rating', ratingSchema);
