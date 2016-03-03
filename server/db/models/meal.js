@@ -28,4 +28,12 @@ mealSchema.methods.getAllRatings = function () {
   return mongoose.model('Ratings').find({meal: self._id}).exec();
 }
 
+mealSchema.methods.addRating = function (ratingData) {
+  ratingData.meal = this._id;
+  //user id??
+  return mongoose.model('Rating').create(ratingData).exec()
+}
+
+
 module.exports = mongoose.model('Meal', mealSchema);
+
