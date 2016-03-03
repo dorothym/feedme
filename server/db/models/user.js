@@ -52,7 +52,7 @@ userSchema.methods.sanitize =  function () {
 //method to check is user has pending('stillShopping') transaction
 userSchema.methods.getCart = function () {
   var user = this;
-  return mongoose.model('Transaction').findOne({customer: user._id, status: 'stillShopping'})
+  return mongoose.model('Transction').findOne({customer: user._id, status: 'stillShopping'})
 };
 
 userSchema.methods.getAllTransactions = function () {

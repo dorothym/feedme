@@ -1,4 +1,4 @@
-'use strict';
+ 'use strict';
 
 var router = require('express').Router({mergeParams: true});
 module.exports = router;
@@ -12,3 +12,4 @@ router.get('/', function(req, res, next){
   .then(res.json)
   .then(null, next)
 });
+
