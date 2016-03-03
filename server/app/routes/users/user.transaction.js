@@ -1,3 +1,4 @@
+
  'use strict';
 
 var router = require('express').Router({mergeParams: true});
@@ -12,4 +13,3 @@ router.get('/', function(req, res, next){
   .then(res.json)
   .then(null, next)
 });
-
