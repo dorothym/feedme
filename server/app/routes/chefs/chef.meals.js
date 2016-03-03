@@ -37,7 +37,23 @@ router.param('mealId', function(req, res, next, mealId){
   .then(null, next)
 });
 
+router.route('/:mealId')
+  .get(function(req, res, next){
+    res.json(req.meal);
+  })
 //have chef update a meal
-//router.put('/:mealId', function(req, res, next){
-//  
-//});
+  .put(function(req, res, next){
+    Meal.findByIdAndUpdate(req.meal._id, {$set: req.body}, {new: true, runValidators: true})
+    .then(function(updatedMeal){
+      res.json(updatedMeal);
+    })
+    .then(null, next)
+})
+//have chef remove a meal
+  .delete(function(req, res, next){
+    Meal.removeMeal(req.meal)
+    .then(function(updatedChef){
+      res.json(updatedChef);
+    })
+    .then(null, next)
+  });
