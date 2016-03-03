@@ -16,7 +16,7 @@ var cuisine = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai'
 
 var specialty = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish', 'Vegetarian', 'Pastry', 'Deserts'];
 
-var diets = ['Vegetarian','Vegan','Paleo','Gluten-free','Kosher','Halal', 'None', 'Diary-free'];
+var diets = ['Vegetarian','Vegan','Paleo','Gluten-free','Kosher','Halal', 'None', 'Dairy-free'];
 var borough = ['Bronx','Brooklyn','Queens','Staten Island','Manhattan'];
 
 var tags = specialty.concat(diets);
