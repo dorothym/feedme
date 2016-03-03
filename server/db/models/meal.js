@@ -19,13 +19,13 @@ var mealSchema = new Schema({
 });
 
 mealSchema.methods.getChef = function () {
-  var meal = this;
-  return mongoose.model('Chef').findOne({meals: {$elemMatch: {$eq : meal._id} } }).exec();
+  var self = this;
+  return mongoose.model('Chef').findOne({meals: {$elemMatch: {$eq : self._id} } }).exec();
 }
 
 mealSchema.methods.getAllRatings = function () {
-  var meal = this;
-  return mongoose.model('Ratings').find({meal: meal._id}).exec();
+  var self = this;
+  return mongoose.model('Ratings').find({meal: self._id}).exec();
 }
 
 module.exports = mongoose.model('Meal', mealSchema);

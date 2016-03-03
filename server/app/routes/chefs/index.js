@@ -50,3 +50,5 @@ router.route('/:id')
     })
     .then(null, next)
   });
+
+router.get('/:id/meals', require('./chef.meals'))

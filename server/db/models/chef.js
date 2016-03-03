@@ -18,12 +18,16 @@ var chefSchema = userSchema.extend({
 });
 
 chefSchema.methods.addNewMeal = function (mealData){
-  var chef = this;
+  var self = this;
   return Mongoose.model('Meal').create(mealData)
           .then(function(meal){
-            chef.meals.addToSet(meal._id);
-            return chef.save();
+            self.meals.addToSet(meal._id);
+            return self.save();
           })
+}
+
+chefSchema.methods.removeMeal = function(mealId){
+  
 }
 
 mongoose.model('Chef', chefSchema);
