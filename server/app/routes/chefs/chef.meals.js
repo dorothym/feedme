@@ -42,6 +42,7 @@ router.route('/:mealId')
     res.json(req.meal);
   })
 //have chef update a meal
+// sballan Use req.meal!
   .put(function(req, res, next){
     Meal.findByIdAndUpdate(req.meal._id, {$set: req.body}, {new: true, runValidators: true})
     .then(function(updatedMeal){

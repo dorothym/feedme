@@ -2,12 +2,13 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
+// sballan Pick one, 'status' or 'states'
 var transactionStates = ['stillShopping', 'checkingOut', 'placedOrder', 'cookingOrder','orderDelivered'];
 
 var transactionSchema = new Schema({
 	customer:  {type: Schema.Types.ObjectId, ref: 'User'},
 	totalPrice: {type: Number},
+  // sballan Make meals an object with a few values, so you can keep track of associated data like quantity.
 	meals:  [{type: Schema.Types.ObjectId, ref: 'Meal'}],
  	pickupTime: {type: Date}, // need help - different options for formatting?
  	isDeliveryOrder: {type: Boolean, default: true},

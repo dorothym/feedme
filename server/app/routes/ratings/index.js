@@ -36,6 +36,8 @@ router.route('/:ratingId')
     res.json(req.rating);
   })
 //update one rating
+
+// sballan You already have the ratingId
   .put(function(req, res, next){
     Rating.findByIdAndUpdate(req.rating._id, {$set: req.body}, {new: true, runValidators: true})
     .then(function(updatedRating){

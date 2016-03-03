@@ -18,6 +18,8 @@ var chefSchema = userSchema.extend({
 });
 
 // sballan consider static to get chef by rating, or even by average meal rating.
+
+
 chefSchema.methods.addNewMeal = function (mealData){
   var self = this;
   return Mongoose.model('Meal').create(mealData)

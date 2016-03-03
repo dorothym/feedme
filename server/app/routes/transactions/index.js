@@ -36,6 +36,7 @@ router.route('/:id')
   })
 //update one transaction
   .put(function(req, res, next){
+    // sballan You already have the transaction
     Transaction.findByIdAndUpdate(req.transaction._id, {$set: req.body}, {new: true, runValidators: true})
     .then(function(updatedTransaction){
       res.json(updatedTransaction)

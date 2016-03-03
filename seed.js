@@ -2,6 +2,7 @@
 var chalk = require('chalk');
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
+// sballan Actually not needed in Mongoose 4.0
 Promise.promisifyAll(mongoose)
 var startDbPromise = require('./server/db')
 
@@ -34,6 +35,7 @@ function randUserPhoto () {
 function mealPop(num) {
     var result = []
     for(var i = 0; i < num; i++) {
+        // sballan Pop twice? Pop removes and returns the last item.
         allMeals.pop()
         result.push(allMeals.pop());
     }
@@ -41,10 +43,11 @@ function mealPop(num) {
 }
 
 function randChef() {
+    // sballan Consider Chef.create()
     return new Chef({
         email: emails.pop(),
         password: chance.word(),
-        firstName: chance.first(), 
+        firstName: chance.first(),
         lastName: chance.last(),
         homeAddress: chance.address(),
         zip: chance.areacode(),
@@ -68,10 +71,12 @@ var mealPhotos = [
  ];
 
 function randMeal() {
+    // sballan is numPars being used?
     var numPars = chance.natural({
         min: 3,
         max: 20
     });
+    // I think you want to return Meal.create()
     return new Meal({
           name: chance.word(),
           cuisine: chance.pickone(specialty),
@@ -84,20 +89,23 @@ function randMeal() {
     })
 }
 
+// sballan You're going to want to use Promise.each, since you'll want to use the .create() async function
 function generateAllMeals() {
     var meals = _.times(numMeals, function () {
         return randMeal();
     });
     meals.forEach(function(meal) {
+        // sballan Meal will not have _id since it was not persisted in the db.
         allMeals.push(meal._id);
     })
    return meals;
 }
 
+// sballan You're going to want to use Promise.each, since you'll want to use the .create() async function.  This may mean rethinking the use of _.times, or running everything through a Promise.all.
 function generateAllChefs() {
     var chefs = _.times(numChefs, function() {
         return randChef(generateAllMeals());
-    }); 
+    });
    return chefs;
 
 }
@@ -111,7 +119,7 @@ function generateAllChefs() {
 //     .then(function(meals) {
 //         var chefs = _.times(numChefs, function() {
 //             return randChef(meals);
-//         }); 
+//         });
 //         console.log('CHEFS:', chefs)
 //           //returns a chef with meals array populated
 //         return chefs.concat(meals);
@@ -139,6 +147,7 @@ startDbPromise
     db.drop()
     .then(function () {
         console.log('database successfully dropped, about to seed')
+        // sballan Cannot return two things in JavaScript; did you mean return Promise.all()?
         return seedMeals(), seedChefs();
     })
     .then(function () {
