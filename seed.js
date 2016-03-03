@@ -11,7 +11,7 @@ var chance = require('chance')(123);
 var _ = require('lodash');
 
 var numChefs = 5;
-var numMeals = 5;
+var numMeals = 20;
 var specialty = ['Indian', 'Vegetarian', 'Italian', 'French', 'American', 'Barbequeue', 'Mediterrenean', 'Brazilian', 'Spanish', 'Chinese', 'Japanese'];
 
 var diets = ['none', 'vegan', 'vegetarian', 'gluten-free', 'diary-free'];
@@ -19,6 +19,7 @@ var tags = specialty.concat(diets);
 
 var emails = chance.unique(chance.email, numChefs);
 var allMeals = [];
+var randNumber = chance.integer({min: 1, max: 5})
 
 // Random User photo
 function randUserPhoto () {
@@ -28,6 +29,15 @@ function randUserPhoto () {
         max: 96
     });
     return 'http://api.randomuser.me/portraits/thumb/' + g + '/' + n + '.jpg'
+}
+
+function mealPop(num) {
+    var result = []
+    for(var i = 0; i < num; i++) {
+        allMeals.pop()
+        result.push(allMeals.pop());
+    }
+    return result;
 }
 
 function randChef() {
@@ -44,7 +54,8 @@ function randChef() {
         specialty: chance.pickone(specialty),
         bio:  chance.paragraph(),
         rating: chance.integer({min: 1, max: 5}),
-        meals: [allMeals.pop(), allMeals.pop()]
+        // meals: _.times(randNumber, allMeals.pop())
+        meals: mealPop(randNumber)
     });
 }
 
