@@ -10,6 +10,8 @@ var Transaction = mongoose.model('Transaction');
 //all transactions for user
 router.get('/', function(req, res, next){
   Transaction.find({customer: req.params.id})
+  .populate('meals')
+  .populate('customer')
   .then(res.json)
   .then(null, next)
 });
