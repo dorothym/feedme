@@ -25,7 +25,7 @@ mealSchema.methods.getChef = function () {
 
 mealSchema.methods.getAllRatings = function () {
   var self = this;
-  return mongoose.model('Ratings').find({meal: self._id}).exec();
+  return mongoose.model('Rating').find({meal: self._id}).exec();
 }
 
 mealSchema.methods.addRating = function (ratingData) {
