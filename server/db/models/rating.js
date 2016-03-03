@@ -20,7 +20,7 @@ ratingSchema.pre('save', function(next){
     return self.meal.getChef()
   })
   .then(function(chef){
-    Promise.map(chef.meals, function(meal){
+    return Promise.map(chef.meals, function(meal){
       return meal.getAllRatings();
     })
   })
