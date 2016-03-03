@@ -53,7 +53,11 @@ userSchema.methods.sanitize =  function () {
 //method to check is user has pending('stillShopping') transaction
 userSchema.methods.getCart = function () {
   var user = this;
+<<<<<<< HEAD
+  return Transaction.findOne({customerId: user._id, status: 'stillShopping'})
+=======
   return mongoose.model('Transction').findOne({customer: user._id, status: 'stillShopping'})
+>>>>>>> 4533740ce1c7ed3f0ea63f6c3480320ac9e7d51f
 }
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
