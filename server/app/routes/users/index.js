@@ -5,6 +5,9 @@ module.exports = router;
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
+//route to transactions for logged in user
+router.use('/:id/transaction', require('./user.transaction'));
+
 router.get('/', function(req, res, next){
   User.find(req.body)
   .populate('meals')
@@ -24,8 +27,8 @@ router.post('/', function(req, res, next){
 
 router.param('id', function(req, res, next, id){
   User.findById(id)
-  .thUseren(function(user){
-    req.user = user;
+  .then(function(user){
+    req.currentUser = user;
     next();
   })
 });
@@ -33,11 +36,12 @@ router.param('id', function(req, res, next, id){
 router.route('/:id')
 //get one user
   .get(function(req, res, next){
-    res.json(req.user);
+    res.json(req.currentUser);
   })
 //update one user
   .put(function(req, res, next){
-    User.findByIdAndUpdate(req.user._id, {$set: req.body}, {new: true, runValidators: true})
+    req.curretUser.set(req.body);
+    req.curretUser.save()
     .then(function(updatedUser){
       res.json(updatedUser)
     })
@@ -45,13 +49,9 @@ router.route('/:id')
   })
 //delete one user
   .delete(function(req, res, next){
-    req.user.remove()
+    req.currentUser.remove()
     .then(function(response){
       res.send(response);
     })
     .then(null, next)
   });
-
-
-//route to transactions for logged in user
- router.use('/:id/transaction', require('./user.transaction'));

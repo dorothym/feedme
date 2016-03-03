@@ -41,8 +41,7 @@ var userSchema = new Schema({
       type: Boolean,
       default: false
     },
-    picture: String,
-    transactions: [{type: Schema.Types.ObjectId, ref: 'Transaction'}]
+    picture: String
 }, {collection: 'users', discriminatorKey: 'type'});
 
 // method to remove sensitive information from user objects before sending them out
@@ -52,18 +51,15 @@ userSchema.methods.sanitize =  function () {
 
 //method to check is user has pending('stillShopping') transaction
 userSchema.methods.getCart = function () {
-  var user = this;
-  return mongoose.model('Transction').findOne({customer: user._id, status: 'stillShopping'})
+  return mongoose.model('Transction').findOne({customer: this._id, status: 'stillShopping'})
 };
 
 userSchema.methods.getAllTransactions = function () {
-  var user = this;
-  return mongoose.model('Transaction').find({customer: user._id})
+  return mongoose.model('Transaction').find({customer: this._id})
 };
 
 userSchema.methods.getAllRatingsWritten = function () {
-  var user = this;
-  return mongoose.model('Rating').find({author: user._id})
+  return mongoose.model('Rating').find({author: this._id})
 }
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations

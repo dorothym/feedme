@@ -14,7 +14,7 @@ var mealSchema = new Schema({
   photo: { type: String},
   price: {type: Number, required: true},
   diet: { type: Array, enum: dietArray },
-  tags: { type: Array },
+  tags: { type: [String] },
   servings: { type: Number }
 });
 
@@ -28,4 +28,12 @@ mealSchema.methods.getAllRatings = function () {
   return mongoose.model('Ratings').find({meal: self._id}).exec();
 }
 
+mealSchema.methods.addRating = function (ratingData) {
+  ratingData.meal = this._id;
+  //user id??
+  return mongoose.model('Rating').create(ratingData).exec()
+}
+
+
 module.exports = mongoose.model('Meal', mealSchema);
+
