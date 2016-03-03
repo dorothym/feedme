@@ -11,7 +11,6 @@ var ratingSchema = new Schema({
   	author: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
-// need to require in index.js???
 //want to update chef rating (avg of all of the meal ratings) at save
 ratingSchema.pre('save', function(next){
   var self = this;
