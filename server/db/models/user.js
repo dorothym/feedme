@@ -8,8 +8,8 @@ var boroughArray = ['Bronx','Brooklyn','Queens','Staten Island','Manhattan'];
 
 var userSchema = new Schema({
     email: {
-        type: String, 
-        required: true, 
+        type: String,
+        required: true,
         unique: true
     },
     password: {
@@ -19,6 +19,7 @@ var userSchema = new Schema({
     salt: {
         type: String
     },
+    // sballan Consider which of these services you want to support
     twitter: {
         id: String,
         username: String,
@@ -53,6 +54,7 @@ userSchema.methods.sanitize =  function () {
 //method to check is user has pending('stillShopping') transaction
 userSchema.methods.getCart = function () {
   var user = this;
+// sballan Remove merge conflict remnants
 <<<<<<< HEAD
   return Transaction.findOne({customerId: user._id, status: 'stillShopping'})
 =======

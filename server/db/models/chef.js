@@ -12,9 +12,11 @@ var chefSchema = userSchema.extend({
     default: 0
   },
   meals: [{
-    type: Schema.Types.ObjectId, 
+    type: Schema.Types.ObjectId,
     ref: 'Meal'
   }]
 });
+
+// sballan consider static to get chef by rating, or even by average meal rating.
 
 mongoose.model('Chef', chefSchema);

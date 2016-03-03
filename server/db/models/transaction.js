@@ -6,13 +6,15 @@ var Schema = mongoose.Schema;
 var transactionStates = ['stillShopping', 'checkingOut', 'placedOrder', 'cookingOrder','orderDelivered'];
 
 var transactionSchema = new Schema({
-	customer:  {type: Schema.Types.ObjectId, ref: 'User'}, 
+	customer:  {type: Schema.Types.ObjectId, ref: 'User'},
 	totalPrice: {type: Number},
 	meals:  [{type: Schema.Types.ObjectId, ref: 'Meal'}],
  	pickupTime: {type: Date}, // need help - different options for formatting?
  	isDeliveryOrder: {type: Boolean, default: true},
 	status: {type: String, enum: transactionStates }
 });
+
+// sballan Consider adding methods for get all transactions of a particular status, or date range, or even location range for shipping.
 
 transactionSchema.methods.removeMeal = function (mealId){
   var i = this.meals.indexOf(mealId);
@@ -21,6 +23,7 @@ transactionSchema.methods.removeMeal = function (mealId){
 }
 
 transactionSchema.methods.addMeal = function (mealId){
+	// sballan love the method addToSet! So useful. Just saying.
   this.meals.addToSet(mealId);
   return this.save();
 }

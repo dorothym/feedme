@@ -10,6 +10,8 @@ var ratingSchema = new Schema({
   	author: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
+// sballan consider static for getting ratings between a certain range or of a certain value.
+
 module.exports = mongoose.model('Rating', ratingSchema);
 
 // need to require in index.js???

@@ -1,6 +1,8 @@
 'use strict';
 module.exports = function (app) {
 
+    //sballan In meeting, discuss the work to be done on config/auth
+
     // setValue and getValue are merely alias
     // for app.set and app.get used in the less
     // common way of setting application variables.
