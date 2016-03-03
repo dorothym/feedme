@@ -4,15 +4,9 @@ var Schema = mongoose.Schema;
 var extend = require('mongoose-schema-extend');
 var userSchema = mongoose.model('User').schema;
 
-var ratingRange = [1,2,3,4,5];
-
 var chefSchema = userSchema.extend({
   specialty: String,
   bio: String,
-  rating: {
-    type: Number,
-    enum: ratingRange
-  },
   meals: [{
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Meal'

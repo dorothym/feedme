@@ -48,8 +48,7 @@ function randChef() {
         admin: chance.weighted([true, false], [5, 95]),
         picture: randUserPhoto(),
         specialty: chance.pickone(specialty),
-        bio:  chance.paragraph(),
-        rating: chance.integer({min: 1, max: 5}),
+        bio:  chance.paragraph()
         meals: [allMeals.pop(), allMeals.pop(), allMeals.pop(), allMeals.pop()]
     });
 }
