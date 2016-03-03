@@ -16,7 +16,7 @@ router.get('/', function(req, res, next){
 });
 //create a new rating for a meal
 router.post('/', function(req, res, next){
-   req.meal.addRating(req.body);
+   req.meal.addRating(req.body)
   .then(function(newRating){
     res.json(newRating);
   })
