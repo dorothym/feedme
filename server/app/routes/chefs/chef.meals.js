@@ -8,8 +8,7 @@ var Meal = mongoose.model('Meal');
 
 //get all meals for chef
 router.get('/', function(req, res, next){
-  Chef.findById(req.params.id)
-  .populate('meals')
+  req.chef
   .then(function(chef){
     res.json(chef.meals);
   })
@@ -18,10 +17,7 @@ router.get('/', function(req, res, next){
 
 //have chef add a new meal
 router.post('/', function(req, res, next){
-  Chef.findById(req.params.id)
-  .then(function(chef){
-    return chef.addNewMeal(req.body)
-  })
+  req.chef.addNewMeal(req.body)
   .then(function(chefWithNewMeal){
     res.json(chefWithNewMeal)
   })
@@ -43,7 +39,8 @@ router.route('/:mealId')
   })
 //have chef update a meal
   .put(function(req, res, next){
-    Meal.findByIdAndUpdate(req.meal._id, {$set: req.body}, {new: true, runValidators: true})
+    req.meal.set(req.body);
+    req.meal.save()
     .then(function(updatedMeal){
       res.json(updatedMeal);
     })
@@ -51,7 +48,7 @@ router.route('/:mealId')
 })
 //have chef remove a meal
   .delete(function(req, res, next){
-    Meal.removeMeal(req.meal)
+    req.meal.remove()
     .then(function(updatedChef){
       res.json(updatedChef);
     })

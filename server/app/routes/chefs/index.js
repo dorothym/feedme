@@ -5,6 +5,8 @@ module.exports = router;
 var mongoose = require('mongoose');
 var Chef = mongoose.model('Chef');
 
+router.use('/:id/meal', require('./chef.meals'));
+
 router.get('/', function(req, res, next){
   Chef.find({})
   .then(function(allChefs){
@@ -36,7 +38,8 @@ router.route('/:id')
   })
 //update one chef
   .put(function(req, res, next){
-    Chef.findByIdAndUpdate(req.chef._id, {$set: req.body}, {new: true, runValidators: true})
+    req.chef.set(req.body);
+    req.chef.save()
     .then(function(updatedChef){
       res.json(updatedChef)
     })
@@ -50,5 +53,3 @@ router.route('/:id')
     })
     .then(null, next)
   });
-
-router.get('/:id/meal', require('./chef.meals'));

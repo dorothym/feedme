@@ -12,9 +12,13 @@ var _ = require('lodash');
 
 var numChefs = 5;
 var numMeals = 20;
-var specialty = ['Indian', 'Vegetarian', 'Italian', 'French', 'American', 'Barbequeue', 'Mediterrenean', 'Brazilian', 'Spanish', 'Chinese', 'Japanese'];
+var cuisine = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish'];
 
-var diets = ['none', 'vegan', 'vegetarian', 'gluten-free', 'diary-free'];
+var specialty = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish', 'Vegetarian', 'Pastry', 'Deserts'];
+
+var diets = ['Vegetarian','Vegan','Paleo','Gluten-free','Kosher','Halal', 'None', 'Dairy-free'];
+var borough = ['Bronx','Brooklyn','Queens','Staten Island','Manhattan'];
+
 var tags = specialty.concat(diets);
 
 var emails = chance.unique(chance.email, numChefs);
@@ -31,15 +35,6 @@ function randUserPhoto () {
     return 'http://api.randomuser.me/portraits/thumb/' + g + '/' + n + '.jpg'
 }
 
-function mealPop(num) {
-    var result = []
-    for(var i = 0; i < num; i++) {
-        allMeals.pop()
-        result.push(allMeals.pop());
-    }
-    return result;
-}
-
 function randChef() {
     return new Chef({
         email: emails.pop(),
@@ -48,14 +43,13 @@ function randChef() {
         lastName: chance.last(),
         homeAddress: chance.address(),
         zip: chance.areacode(),
+        borough: chance.pickone(borough),
         phoneNumber: chance.phone(),
         admin: chance.weighted([true, false], [5, 95]),
         picture: randUserPhoto(),
         specialty: chance.pickone(specialty),
-        bio:  chance.paragraph(),
-        rating: chance.integer({min: 1, max: 5}),
-        // meals: _.times(randNumber, allMeals.pop())
-        meals: mealPop(randNumber)
+        bio:  chance.paragraph()
+        meals: [allMeals.pop(), allMeals.pop(), allMeals.pop(), allMeals.pop()]
     });
 }
 
@@ -75,7 +69,7 @@ function randMeal() {
     });
     return new Meal({
           name: chance.word(),
-          cuisine: chance.pickone(specialty),
+          cuisine: chance.pickone(cuisine),
           description: chance.paragraph(),
           photo: chance.pickone(mealPhotos),
           price: chance.integer({min: 10, max: 200}),
@@ -97,27 +91,11 @@ function generateAllMeals() {
 
 function generateAllChefs() {
     var chefs = _.times(numChefs, function() {
-        return randChef(generateAllMeals());
+        return randChef();
     }); 
    return chefs;
 
 }
-
-// function generateAll() {
-//     var meals = _.times(numMeals, function () {
-//         return randMeal();
-//     });
-
-//     Meal.create(meals) //returns array of meals
-//     .then(function(meals) {
-//         var chefs = _.times(numChefs, function() {
-//             return randChef(meals);
-//         }); 
-//         console.log('CHEFS:', chefs)
-//           //returns a chef with meals array populated
-//         return chefs.concat(meals);
-//     })
-// }
 
 function seedMeals() {
     var docs = generateAllMeals();
@@ -133,14 +111,16 @@ function seedChefs() {
     })
 }
 
-
 startDbPromise
 .then(function(db){
     db.drop = Promise.promisify(db.db.dropDatabase.bind(db.db));
     db.drop()
     .then(function () {
         console.log('database successfully dropped, about to seed')
-        return seedMeals(), seedChefs();
+        return Promise.all([
+            seedMeals(), 
+            seedChefs()
+        ])
     })
     .then(function () {
         console.log('Seeding successful');
