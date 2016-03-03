@@ -107,22 +107,6 @@ function generateAllChefs() {
 
 }
 
-// function generateAll() {
-//     var meals = _.times(numMeals, function () {
-//         return randMeal();
-//     });
-
-//     Meal.create(meals) //returns array of meals
-//     .then(function(meals) {
-//         var chefs = _.times(numChefs, function() {
-//             return randChef(meals);
-//         }); 
-//         console.log('CHEFS:', chefs)
-//           //returns a chef with meals array populated
-//         return chefs.concat(meals);
-//     })
-// }
-
 function seedMeals() {
     var docs = generateAllMeals();
     return Promise.map(docs, function(doc) {
