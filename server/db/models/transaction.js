@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var transactionStates = ['stillShopping', 'checkingOut', 'placedOrder', 'cookingOrder','orderDelivered'];
+var transactionStatus = ['stillShopping', 'checkingOut', 'placedOrder', 'cookingOrder','orderDelivered'];
 
 var transactionSchema = new Schema({
 	customer:  {type: Schema.Types.ObjectId, ref: 'User'}, 
@@ -11,7 +11,7 @@ var transactionSchema = new Schema({
 	meals:  [{type: Schema.Types.ObjectId, ref: 'Meal'}],
  	pickupTime: {type: Date}, // need help - different options for formatting?
  	isDeliveryOrder: {type: Boolean, default: true},
-	status: {type: String, enum: transactionStates }
+	status: {type: String, enum: transactionStatus }
 });
 
 transactionSchema.methods.removeMeal = function (mealId){
