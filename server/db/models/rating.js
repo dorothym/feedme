@@ -11,6 +11,5 @@ var ratingSchema = new Schema({
   	author: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
-//want to update chef rating (avg of all of the meal ratings) at save
 
 module.exports = mongoose.model('Rating', ratingSchema);

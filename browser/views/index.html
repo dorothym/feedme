@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <base href="/" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Feed Me! Meal Exchange Community</title>
+
+    <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" />
+    <!-- jQuery as specified by StartBootstrap theme -->
+    <script src="js/startbootstrap/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript as specified by StartBoostrap theme -->
+    <script src="js/startbootstrap/bootstrap.min.js"></script>
+
+
+    <!-- FSG files --> 
+    <script src="/lodash/index.js"></script>
+    <script src="/angular/angular.js"></script>
+    <script src="/angular-animate/angular-animate.js"></script>
+    <script src="/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="/angular-ui-bootstrap/ui-bootstrap.js"></script>
+    <script src="/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="/socket.io-client/socket.io.js"></script>
+    <script src="/main.js"></script>
+
+    <!-- StartBootstrap Theme CSS -->
+
+    <!-- We should be able to remove lines 28-31 when we confirm they are gulped -->
+
+<!--     <link href="css/meal-detail.css" rel="stylesheet">
+    <link href="css/meal-list.css" rel="stylesheet">
+    <link href="css/home.css" rel="stylesheet">
+ -->
+
+    <!-- FSG Gulped CSS file -->
+
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+   
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body ng-app="FullstackGeneratedApp"> <!-- from FSG -->
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="home.html">Feed Me!</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="meal-list.html">Browse Meals</a>
+                    </li>
+                    <li>
+                        <a href="#">Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="#">Become a Chef</a>
+                    </li>
+                    <li>
+                        <a href="#">Login</a>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- from FSG -->
+    <div id="main" ui-view> 
+
+    </div> <!-- // end #main -->
+
+
+    <!-- Footer from FSG -->
+    <div class="container">
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Generated at Fullstack / Grace Hopper</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+
+
+
+</body>
+
+</html>

@@ -31,7 +31,7 @@ gulp.task('reloadCSS', function () {
 
 gulp.task('lintJS', function () {
 
-    return gulp.src(['./browser/js/**/*.js', './server/**/*.js'])
+    return gulp.src(['./browser/js/**/*.js', './server/**/*.js','!./browser/js/startbootstrap/*']) // dmoore ignore jslint errors on bootstrap & JQuery // 030316
         .pipe(plumber({
             errorHandler: notify.onError('Linting FAILED! Check your gulp process.')
         }))
@@ -146,7 +146,8 @@ gulp.task('default', function () {
     gulp.watch('server/**/*.js', ['lintJS']);
 
     // Reload when a template (.html) file changes.
-    gulp.watch(['browser/**/*.html', 'server/app/views/*.html'], ['reload']);
+    // dmoore modified server/app to browser/ 03-03-16
+    gulp.watch(['browser/**/*.html', 'browser/views/*.html'], ['reload']);
 
     // Run server tests when a server file or server test file changes.
     gulp.watch(['tests/server/**/*.js'], ['testServerJS']);
