@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var Promise = require('bluebird');
 
 var ratingSchema = new Schema({
 	meal: { type: Schema.Types.ObjectId, ref: 'Meal' },
@@ -10,21 +11,25 @@ var ratingSchema = new Schema({
   	author: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
+ratingSchema.methods.addRating = function (ratingData){
+  Rating.create(ratingData)
+}
+
+
+// need to require in index.js???
 //want to update chef rating (avg of all of the meal ratings) at save
-//ratingSchema.pre('save', function(next){
-////  var allRatings = [];
-////  meal.getChef()
-////  .populate('meals')
-////  .then(function(chef){
-////    return Promise.all(chef.meals.map(function(meal){
-////      meal.getAllRatings();
-////    }))
-////  })
-////  .then(function(arrOfPromises){
-////    return Promise.all(arrOfPromises.map(function(promise){
-////      
-////    }))
-////  })
-//});
+ratingSchema.pre('save', function(next){
+  var self = this;
+  mongoose.model('Rating')
+  .populate(self, 'meal')
+  .then(function(rating){
+    return self.meal.getChef()
+  })
+  .then(function(chef){
+    Promise.map(chef.meals, function(meal){
+      return meal.getAllRatings();
+    })
+  })
+});
 
 module.exports = mongoose.model('Rating', ratingSchema);
