@@ -14,6 +14,7 @@ var transactionSchema = new Schema({
 	status: {type: String, enum: transactionStates }
 });
 
+
 transactionSchema.methods.removeMeal = function (mealId){
   var i = this.meals.indexOf(mealId);
   this.meals = this.meals.splice(i, 1);
