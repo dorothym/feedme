@@ -23,8 +23,6 @@ router.post('/', function(req, res, next){
 
 router.param('id', function(req, res, next, id){
   Transaction.findById(id)
-  .populate('meals')
-  .populate('customer')
   .then(function(transaction){
     req.transaction = transaction;
     next();
