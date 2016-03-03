@@ -12,6 +12,3 @@ router.get('/', function(req, res, next){
   .then(res.json)
   .then(null, next)
 });
-
-//cart (transaction with 'stillShopping' status)
-//router.get('/')
