@@ -17,4 +17,13 @@ var chefSchema = userSchema.extend({
   }]
 });
 
+chefSchema.methods.addNewMeal = function (mealData){
+  var chef = this;
+  return Mongoose.model('Meal').create(mealData)
+          .then(function(meal){
+            chef.meals.addToSet(meal._id);
+            return chef.save();
+          })
+}
+
 mongoose.model('Chef', chefSchema);
