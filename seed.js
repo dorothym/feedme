@@ -11,10 +11,11 @@ var chance = require('chance')(123);
 var _ = require('lodash');
 
 var numChefs = 5;
-var numMeals = 10;
+var numMeals = 5;
 var specialty = ['Indian', 'Vegetarian', 'Italian', 'French', 'American', 'Barbequeue', 'Mediterrenean', 'Brazilian', 'Spanish', 'Chinese', 'Japanese'];
 
 var emails = chance.unique(chance.email, numChefs);
+var allMeals = [];
 
 // Random User photo
 function randUserPhoto () {
@@ -26,8 +27,7 @@ function randUserPhoto () {
     return 'http://api.randomuser.me/portraits/thumb/' + g + '/' + n + '.jpg'
 }
 
-// Currently each chef has only one meal, need to change
-function randChef(allMeals) {
+function randChef() {
     return new Chef({
         email: emails.pop(),
         password: chance.word(),
@@ -41,11 +41,12 @@ function randChef(allMeals) {
         specialty: chance.pickone(specialty),
         bio:  chance.paragraph(),
         rating: chance.integer({min: 1, max: 5}),
-        meals: chance.pickset(chance.integer({min: 1, max: 10}), allMeals)
-        // meals: _.times(chance.integer({min: 1, max: 10}), allMeals)
+        meals: chance.pickset(allMeals, chance.integer({min: 1, max: 10}))
     });
 }
+
 // Storing url's of random meal photos form pixabay
+// I change meals photo type from buffer to string, is it okay to use string instead of buffer?
 var mealPhotos = [
 'https://pixabay.com/static/uploads/photo/2015/04/08/13/14/food-712667_960_720.jpg',
 'https://pixabay.com/static/uploads/photo/2015/04/10/00/41/food-715539_960_720.jpg',
@@ -72,21 +73,23 @@ function randMeal() {
     })
 }
 
-function generateAll() {
+function generateAllMeals() {
     var meals = _.times(numMeals, function () {
         return randMeal();
     });
- // console.log('MEALS:', meals)
-    // var chefs = _.times(numChefs, function() {
-    //     return randChef(meals);
-    // }); 
-    // console.log('CHEFS:', chefs)
-    //  return chefs.concat(meals);
+    meals.forEach(function(meal) {
+        allMeals.push(meal._id);
+    })
    return meals;
-
 }
 
+function generateAllChefs() {
+    var chefs = _.times(numChefs, function() {
+        return randChef(generateAllMeals());
+    }); 
+   return chefs;
 
+}
 
 // function generateAll() {
 //     var meals = _.times(numMeals, function () {
@@ -104,15 +107,19 @@ function generateAll() {
 //     })
 // }
 
-function seed() {
-    var docs = generateAll();
+function seedMeals() {
+    var docs = generateAllMeals();
     return Promise.map(docs, function(doc) {
         return doc.save();
     })
 }
 
-
-// console.log('connect', connectToDb)
+function seedChefs() {
+    var docs = generateAllChefs();
+    return Promise.map(docs, function(doc) {
+        return doc.save();
+    })
+}
 
 
 startDbPromise
@@ -121,7 +128,7 @@ startDbPromise
     db.drop()
     .then(function () {
         console.log('database successfully dropped, about to seed')
-        return seed();
+        return seedMeals(), seedChefs();
     })
     .then(function () {
         console.log('Seeding successful');
@@ -133,50 +140,3 @@ startDbPromise
         process.exit();
     });
 })
-
-// -- Manual seeding
-
-// var mongoose = require('mongoose');
-// var Promise = require('bluebird');
-// var chalk = require('chalk');
-// var connectToDb = require('./server/db');
-// var Chef = Promise.promisifyAll(mongoose.model('Chef'));
-
-
-// var seedChefs = function () {
-
-//     var chefs = [
-//         {
-//             email: 'testing@fsa.com',
-//             password: 'password'
-//         },
-//         {
-//             email: 'obama@gmail.com',
-//             password: 'potus'
-//         }
-//     ];
-
-//     return Chef.createAsync(chefs);
-
-// };
-
-// connectToDb.then(function () {
-//     Chef.findAsync({}).then(function (chefs) {
-//         if (users.length === 0) {
-//             return seedChefs();
-//         } else {
-//             console.log(chalk.magenta('Seems to already be user data, exiting!'));
-//             process.kill(0);
-//         }
-//     }).then(function () {
-//         console.log(chalk.green('Seed successful!'));
-//         process.kill(0);
-//     }).catch(function (err) {
-//         console.error(err);
-//         process.kill(1);
-//     });
-// });
-
-
-
-
