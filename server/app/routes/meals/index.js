@@ -6,10 +6,15 @@ var mongoose = require('mongoose');
 var Meal = mongoose.model('Meal');
 
 router.use('/:id/rating', require('./meal.rating'));
+// router.use('/browse', require('./meals.browse.js'));
 
+
+// Passed query
 router.get('/', function(req, res, next){
-  Meal.find({})
+  console.log('req query: ', req.query)
+  Meal.find(req.query)
   .then(function(allMeals){
+    console.log('all meals: ', allMeals)
     res.json(allMeals);
   })
   .then(null, next);

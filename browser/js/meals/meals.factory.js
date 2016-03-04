@@ -4,24 +4,24 @@ app.factory('MealsFactory', function($http) {
 	var MealsFactory = {};
 	var allMeals = [];
 
-	function setCache(meals){
-		angular.copy(meals, allMeals)
-		return allMeals; 
+	var cache = {
+		'Meals': []
+	}
+
+	function setCache(obj){
+		angular.copy(obj.data, cache[obj.type])
+		return cache[obj.type]; 
 	}
 
 	MealsFactory.fetchAllMeals = function() {
 		return $http.get('/api/meals')
 		.then(function extractData(response) {
-			return response.data;
+			return {type: 'Meals', data: response.data };
 		})
 		.then(setCache)
-		
+
 	}
 
-
-	// MealsFactory.fetchAllCuisines = function() {
-	// 	return $http.get('/api/')
-	// }
 
 	return MealsFactory;
 

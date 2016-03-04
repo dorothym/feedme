@@ -4,38 +4,35 @@
     <div class="row">
 
         <div class="col-md-3">
-            <p class="lead">Browse Meals by Cuisine</p>
-           <!--  <div class="list-group">
-                <a href="meals?cuisine=italian" class="list-group-item">Italian</a>
-                <a href="meals?cuisine=indian" class="list-group-item">Indian</a>
-                <a href="meals?cuisine=thai" class="list-group-item">Thai</a>
-            </div>
-            <p class="lead">Browse Meals by Diet</p>
-            <div class="list-group">
-                <a href="meals?diet=vegetarian" class="list-group-item">Vegetarian</a>
-                <a href="meals?diet=italian" class="list-group-item">Vegan</a>
-                <a href="meals?diet=gluten%20free" class="list-group-item">Gluten-Free</a>
-            </div> -->
-        <div class="col-md-3">
-            <p class="lead">Browse Meals by Cuisine</p>
+            <p class="lead">Browse by Cuisine</p>
             <div class="form-group">
                 <label>Selects</label>
-                <select class="form-control" >
+                <select class="form-control"  ng-model="cuisine">
                     <option ng-repeat="cuisine in cuisines">{{cuisine}}</option>
                 </select>
             </div>
 
-            <p class="lead">Browse Meals by Diet</p>
+            <p class="lead">Browse by Diet</p>
             <div class="form-group">
                 <label>Selects</label>
-                <select class="form-control">
+                <select class="form-control" ng-model="diet">
                     <option ng-repeat="diet in diets">{{diet}}</option>
                 </select>
             </div>
+
+            <p class="lead">Browse by Rating</p>
+                <div class="form-group">
+                    <label>Selects</label>
+                    <select class="form-control">
+                        <option ng-repeat="rating in ratings">{{rating}}</option>
+                    </select>
+                </div>
+                <input type="submit" class="btn" value="Submit"  ng-click="updateMeals()">
         </div> <!-- class="col-md-3" -->
 
 
-        </div>
+
+
         <div class="col-md-9">
 
             <div class="row carousel-holder">
@@ -80,6 +77,7 @@
                             <h4 class="pull-right"> {{meal.price }} </h4>
                             <h4><a href="meal"> {{meal.name}} </a>
                             </h4>
+                            <p>Cuisine: {{ meal.cuisine }}</p>
                             <p>{{ meal.description }}</p>
                         </div>
                         <div class="ratings">
@@ -106,9 +104,9 @@
 
             </div>
 
-        </div>
+        </div> <!-- class="col-md-9" -->
 
-    </div>
+    </div> <!-- class="row" -->
 
 </div>
 <!-- /.container -->
