@@ -1,23 +1,20 @@
 <!-- Page Content -->
 <div class="container">
-<h1>Angular test: {{angularTest}}</h1>
-</div>
-<div class="container">
 
     <div class="row">
 
         <div class="col-md-3">
             <p class="lead">Browse Meals by Cuisine</p>
             <div class="list-group">
-                <a href="#" class="list-group-item">Italian</a>
-                <a href="#" class="list-group-item">Indian</a>
-                <a href="#" class="list-group-item">Thai</a>
+                <a href="meals?cuisine=italian" class="list-group-item">Italian</a>
+                <a href="meals?cuisine=indian" class="list-group-item">Indian</a>
+                <a href="meals?cuisine=thai" class="list-group-item">Thai</a>
             </div>
             <p class="lead">Browse Meals by Diet</p>
             <div class="list-group">
-                <a href="#" class="list-group-item">Vegetarian</a>
-                <a href="#" class="list-group-item">Vegan</a>
-                <a href="#" class="list-group-item">Gluten-Free</a>
+                <a href="meals?diet=vegetarian" class="list-group-item">Vegetarian</a>
+                <a href="meals?diet=italian" class="list-group-item">Vegan</a>
+                <a href="meals?diet=gluten%20free" class="list-group-item">Gluten-Free</a>
             </div>
         </div>
         <div class="col-md-9">
@@ -55,37 +52,13 @@
 
             <div class="row">
 
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                      <img src="images/green_capsicum_300x300.jpg" alt="">
-                        <div class="caption">
-                            <h4 class="pull-right">$11.99</h4>
-                            <h4><a href="#">Vegetarian lasagna</a>
-                            </h4>
-                            <p>A wonderful description of lasagna goes here. <a target="_blank" href="http://www.bootsnipp.com">See meal details</a></p>
-                        </div>
-                        <div class="ratings">
-                            <p class="pull-right">15 reviews</p>
-                            <p>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                            </p>
-                        </div>
-                        <div class="panel-body">
-                           <a class="btn btn-primary" target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">Add to Cart</a>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="col-sm-4 col-lg-4 col-md-4">
                     <div class="thumbnail">
                       <img src="images/steak_dinner_300x300.jpg" alt="">
                         <div class="caption">
                             <h4 class="pull-right">$13.99</h4>
-                            <h4><a href="#">Second Meal</a>
+                            <h4><a href="meal">Another awesome meal</a>
                             </h4>
                             <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                         </div>
@@ -100,7 +73,7 @@
                             </p>
                         </div>
                         <div class="panel-body">
-                           <a class="btn btn-primary" target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">Add to Cart</a>
+                           <a class="btn btn-primary" target="_blank" href="#">Add to Cart</a>
                         </div>
                     </div>
                 </div>
@@ -110,7 +83,7 @@
                       <img src="images/cheeses_selection_300x300.jpg" alt="">
                         <div class="caption">
                             <h4 class="pull-right">$74.99</h4>
-                            <h4><a href="#">Third Product</a>
+                            <h4><a href="meal">Third Product</a>
                             </h4>
                             <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                         </div>
@@ -125,7 +98,7 @@
                             </p>
                         </div>
                         <div class="panel-body">
-                           <a class="btn btn-primary" target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">Add to Cart</a>
+                           <a class="btn btn-primary" target="_blank" href="#">Add to Cart</a>
                         </div>
                     </div>
                 </div>
@@ -135,7 +108,7 @@
                         <img src="images/steak_dinner_300x300.jpg" alt="">
                         <div class="caption">
                             <h4 class="pull-right">$84.99</h4>
-                            <h4><a href="#">Fourth Product</a>
+                            <h4><a href="meal">A terrific dish</a>
                             </h4>
                             <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                         </div>
@@ -150,7 +123,7 @@
                             </p>
                         </div>
                         <div class="panel-body">
-                           <a class="btn btn-primary" target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">Add to Cart</a>
+                           <a class="btn btn-primary" target="_blank" href="#">Add to Cart</a>
                         </div>
                     </div>
                 </div>
@@ -160,7 +133,7 @@
                       <img src="images/green_capsicum_300x300.jpg" alt="">
                         <div class="caption">
                             <h4 class="pull-right">$94.99</h4>
-                            <h4><a href="#">Fifth Product</a>
+                            <h4><a href="meal">Meatloaf</a>
                             </h4>
                             <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                         </div>
@@ -175,7 +148,7 @@
                             </p>
                         </div>
                         <div class="panel-body">
-                           <a class="btn btn-primary" target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">Add to Cart</a>
+                           <a class="btn btn-primary" target="_blank" href="#">Add to Cart</a>
                         </div>
                     </div>
                 </div>
