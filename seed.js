@@ -57,9 +57,10 @@ function randChef() {
 // I change meals photo type from buffer to string, is it okay to use string instead of buffer? TO DO: add more pictures
 // dmoore - I added paths to actual images on our server
 var mealPhotos = [
-'images/steak_dinner_300x300.jpg',
-'images/cheeses_selection_300x300.jpg',
-'images/green_capsicum_300x300.jpg'
+'https://pixabay.com/static/uploads/photo/2015/04/08/13/13/food-712665_960_720.jpg'
+// 'images/steak_dinner_300x300.jpg',
+// 'images/cheeses_selection_300x300.jpg',
+// 'images/green_capsicum_300x300.jpg'
  ];
 
 function randMeal() {
@@ -70,7 +71,7 @@ function randMeal() {
     return new Meal({
           name: chance.word(),
           cuisine: chance.pickone(cuisine),
-          description: chance.paragraph(),
+          description: chance.sentence(),
           photo: chance.pickone(mealPhotos),
           price: chance.integer({min: 10, max: 200}),
           diet: chance.pickone(diets),

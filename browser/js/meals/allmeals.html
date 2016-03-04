@@ -4,19 +4,35 @@
     <div class="row">
 
         <div class="col-md-3">
-            <p class="lead">Browse Meals by Cuisine</p>
-            <div class="list-group">
-                <a href="meals?cuisine=italian" class="list-group-item">Italian</a>
-                <a href="meals?cuisine=indian" class="list-group-item">Indian</a>
-                <a href="meals?cuisine=thai" class="list-group-item">Thai</a>
+            <p class="lead">Browse by Cuisine</p>
+            <div class="form-group">
+                <label>Selects</label>
+                <select class="form-control"  ng-model="cuisine">
+                    <option ng-repeat="cuisine in cuisines">{{cuisine}}</option>
+                </select>
             </div>
-            <p class="lead">Browse Meals by Diet</p>
-            <div class="list-group">
-                <a href="meals?diet=vegetarian" class="list-group-item">Vegetarian</a>
-                <a href="meals?diet=italian" class="list-group-item">Vegan</a>
-                <a href="meals?diet=gluten%20free" class="list-group-item">Gluten-Free</a>
+
+            <p class="lead">Browse by Diet</p>
+            <div class="form-group">
+                <label>Selects</label>
+                <select class="form-control" ng-model="diet">
+                    <option ng-repeat="diet in diets">{{diet}}</option>
+                </select>
             </div>
-        </div>
+
+            <p class="lead">Browse by Rating</p>
+                <div class="form-group">
+                    <label>Selects</label>
+                    <select class="form-control">
+                        <option ng-repeat="rating in ratings">{{rating}}</option>
+                    </select>
+                </div>
+                <input type="submit" class="btn" value="Submit"  ng-click="updateMeals()">
+        </div> <!-- class="col-md-3" -->
+
+
+
+
         <div class="col-md-9">
 
             <div class="row carousel-holder">
@@ -27,7 +43,7 @@
                             <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
                             <li data-target="#carousel-example-generic" data-slide-to="1"></li>
                             <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                        </ol>
+                        </ol>          
                         <div class="carousel-inner">
                             <div class="item active">
                                 <img class="slide-image" src="images/cooked_pork_dinner_800x300.jpg" alt="">
@@ -53,14 +69,16 @@
             <div class="row">
 
 
-                <div class="col-sm-4 col-lg-4 col-md-4">
+
+                <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="meal in allMeals">
                     <div class="thumbnail">
-                      <img src="images/steak_dinner_300x300.jpg" alt="">
+                      <img src= {{meal.photo}} alt="">
                         <div class="caption">
-                            <h4 class="pull-right">$13.99</h4>
-                            <h4><a href="meal">Another awesome meal</a>
+                            <h4 class="pull-right"> {{meal.price }} </h4>
+                            <h4><a href="meal"> {{meal.name}} </a>
                             </h4>
-                            <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <p>Cuisine: {{ meal.cuisine }}</p>
+                            <p>{{ meal.description }}</p>
                         </div>
                         <div class="ratings">
                             <p class="pull-right">12 reviews</p>
@@ -78,88 +96,17 @@
                     </div>
                 </div>
 
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                      <img src="images/cheeses_selection_300x300.jpg" alt="">
-                        <div class="caption">
-                            <h4 class="pull-right">$74.99</h4>
-                            <h4><a href="meal">Third Product</a>
-                            </h4>
-                            <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </div>
-                        <div class="ratings">
-                            <p class="pull-right">31 reviews</p>
-                            <p>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star-empty"></span>
-                            </p>
-                        </div>
-                        <div class="panel-body">
-                           <a class="btn btn-primary" target="_blank" href="#">Add to Cart</a>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                        <img src="images/steak_dinner_300x300.jpg" alt="">
-                        <div class="caption">
-                            <h4 class="pull-right">$84.99</h4>
-                            <h4><a href="meal">A terrific dish</a>
-                            </h4>
-                            <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </div>
-                        <div class="ratings">
-                            <p class="pull-right">6 reviews</p>
-                            <p>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star-empty"></span>
-                                <span class="glyphicon glyphicon-star-empty"></span>
-                            </p>
-                        </div>
-                        <div class="panel-body">
-                           <a class="btn btn-primary" target="_blank" href="#">Add to Cart</a>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <div class="thumbnail">
-                      <img src="images/green_capsicum_300x300.jpg" alt="">
-                        <div class="caption">
-                            <h4 class="pull-right">$94.99</h4>
-                            <h4><a href="meal">Meatloaf</a>
-                            </h4>
-                            <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </div>
-                        <div class="ratings">
-                            <p class="pull-right">18 reviews</p>
-                            <p>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star-empty"></span>
-                            </p>
-                        </div>
-                        <div class="panel-body">
-                           <a class="btn btn-primary" target="_blank" href="#">Add to Cart</a>
-                        </div>
-                    </div>
-                </div>
 
-               
+
+        
 
             </div>
 
-        </div>
+        </div> <!-- class="col-md-9" -->
 
-    </div>
+    </div> <!-- class="row" -->
 
 </div>
 <!-- /.container -->

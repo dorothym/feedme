@@ -38,5 +38,6 @@ mealSchema.methods.addRating = function (ratingData) {
 }
 
 
+
 module.exports = mongoose.model('Meal', mealSchema);
 
