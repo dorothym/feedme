@@ -32,4 +32,8 @@ transactionSchema.methods.getByStatus = function (statusType){
   return this.find({status: statusType});
 }
 
+transactionSchema.methods.getByDateRange = function (startDate, endDate){
+  return this.find({date: {"$lt": new Date(startDate), "$gte": new Date(endDate)}})
+}
+
 module.exports = mongoose.model('Transaction', transactionSchema);
