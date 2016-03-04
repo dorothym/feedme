@@ -28,12 +28,12 @@ transactionSchema.methods.addMeal = function (mealId){
   return this.save();
 }
 
-transactionSchema.methods.getByStatus = function (statusType){
+transactionSchema.statics.getByStatus = function (statusType){
   return this.find({status: statusType});
 }
 
-transactionSchema.methods.getByDateRange = function (startDate, endDate){
-  return this.find({date: {"$lt": new Date(startDate), "$gte": new Date(endDate)}})
+transactionSchema.statics.getByDateRange = function (startDate, endDate){
+  return this.find({date: {"$gte": new Date(startDate), "$lt": new Date(endDate)}})
 }
 
 module.exports = mongoose.model('Transaction', transactionSchema);
