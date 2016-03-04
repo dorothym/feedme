@@ -34,8 +34,7 @@ router.route('/:id')
   .get(function(req, res, next){
     req.meal.getChef()
     .then(function(chef){
-      var resObj = req.meal;
-      resObj.chef = chef;
+      var resObj = {meal: req.meal, chef: chef}
       res.json(resObj);
     })
     .then(null, next)

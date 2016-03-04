@@ -1,40 +1,41 @@
 <!-- Page Content -->
 <div class="container">
-    <h1>Steak Dinner</h1>
+    <h1>{{ meal.name }}</h1>
     </div>
     <div class="container">
 
         <div class="row">
 
             <div class="col-md-3">
-                <p class="lead">$24.99</p>
+                <p class="lead">${{ meal.price }}.00</p>
                 <div class="well">
-                    <h4>Categories</h4>
+                    <h4>Cuisine</h4>
 
-                        <p><a href="meals?cuisine=brazilian">Brazilian</a></p>
-                        <p><a href="meals?diet=gluten%20free">Gluten-free</a></p>  
-
+                        <p>
+                          <a ui-sref="meals">{{ meal.cuisine }}</a>
+                  
+                        </p>
+                      
                 </div>
             </div>
-
 
             <div class="col-md-9">
 
                 <div class="thumbnail">
-                    <img class="img-responsive" src="images/steak_dinner_800x300.jpg" alt="">
+                    <img class="img-responsive" src="{{meal.photo}}" alt="">
                     <div class="panel-body">
-                        <h4 class="pull-right">$24.99</h4>
-                        <h4>Chef: <a href="chefs/23858">Julian Aguilar</a>
+                        <h4 class="pull-right">${{ meal.price }}.00</h4>
+                        <h4>Chef: <a ui-sref="chef({id: chef._id})">{{ chef.firstName }} {{ chef.lastName }}</a>
                         </h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                        <h5>Servings: 3</h5>
+                        <p>{{ meal.description }}</p>
+                        <h5>Servings: {{ meal.servings }}</h5>
                         <div class="panel-body">
                            <a class="btn btn-primary" target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">Add to Cart</a>
                         </div>
                     </div>
 
                     <div class="ratings">
-                        <p class="pull-right">3 reviews</p>
+                        <p class="pull-right">{{ ratings.length }} reviews</p>
                         <p>
                             <span class="glyphicon glyphicon-star"></span>
                             <span class="glyphicon glyphicon-star"></span>
@@ -54,48 +55,22 @@
 
                     <hr>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            Anonymous
-                            <span class="pull-right">10 days ago</span>
-                            <p>This product was great in terms of quality. I would definitely buy another!</p>
-                        </div>
-                    </div>
-
                     <hr>
 
-                    <div class="row">
+                    <div class="row" ng-repeat="rating in ratings">
                         <div class="col-md-12">
                             <span class="glyphicon glyphicon-star"></span>
                             <span class="glyphicon glyphicon-star"></span>
                             <span class="glyphicon glyphicon-star"></span>
                             <span class="glyphicon glyphicon-star"></span>
                             <span class="glyphicon glyphicon-star-empty"></span>
-                            Anonymous
+                            {{rating.author}}
                             <span class="pull-right">12 days ago</span>
-                            <p>I've alredy ordered another one!</p>
+                            <p>{{ rating.ratingText }}</p>
                         </div>
                     </div>
-
+                  
                     <hr>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            Anonymous
-                            <span class="pull-right">15 days ago</span>
-                            <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
-                        </div>
-                    </div>
 
                 </div>
 
