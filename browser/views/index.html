@@ -12,12 +12,15 @@
     <title>Feed Me! Meal Exchange Community</title>
 
     <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" />
+
     <!-- jQuery as specified by StartBootstrap theme -->
     <script src="js/startbootstrap/jquery.js"></script>
 
-    <!-- Bootstrap Core JavaScript as specified by StartBoostrap theme -->
-    <script src="js/startbootstrap/bootstrap.min.js"></script>
+    <!-- Bootstrap JS is required by by StartBoostrap theme -->
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
 
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <!-- FSG files --> 
     <script src="/lodash/index.js"></script>
@@ -28,15 +31,6 @@
     <script src="/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/socket.io-client/socket.io.js"></script>
     <script src="/main.js"></script>
-
-    <!-- StartBootstrap Theme CSS -->
-
-    <!-- We should be able to remove lines 28-31 when we confirm they are gulped -->
-
-<!--     <link href="css/meal-detail.css" rel="stylesheet">
-    <link href="css/meal-list.css" rel="stylesheet">
-    <link href="css/home.css" rel="stylesheet">
- -->
 
     <!-- FSG Gulped CSS file -->
 
@@ -64,7 +58,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">Feed Me!</a>
+                <a class="navbar-brand" href="/"><img class="img-circle" width="75" height="75" src="images/pigbasket_150x150.png"></a>
+
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -73,15 +68,13 @@
                         <a href="meals">Browse Meals</a>
                     </li>
                     <li>
-                        <a href="#">Sign Up</a>
-                    </li>
-                    <li>
                         <a href="#">Become a Chef</a>
                     </li>
-                    <li>
-                        <a href="#">Login</a>
-                    </li>
-
+                </ul>
+                <ul class="nav navbar-nav pull-right" id="main-navigation">
+                    <li><a href="#">Sign Up</a></li>
+                    <li><a href="login" class="pull-right">Login</a></li>
+                    <li><a href="logout" class="pull-right">Logout</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
