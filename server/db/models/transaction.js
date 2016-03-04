@@ -11,7 +11,8 @@ var transactionSchema = new Schema({
 	meals:  [{type: Schema.Types.ObjectId, ref: 'Meal'}],
  	pickupTime: {type: Date}, // need help - different options for formatting?
  	isDeliveryOrder: {type: Boolean, default: true},
-	status: {type: String, enum: transactionStatus }
+	status: {type: String, enum: transactionStatus },
+    date: { type: Date, default: Date.now }
 });
 
 
@@ -25,6 +26,10 @@ transactionSchema.methods.addMeal = function (mealId){
   //changed from addToSet to push because we want to add repeat elements here
   this.meals.push(mealId);
   return this.save();
+}
+
+transactionSchema.methods.getByStatus = function (statusType){
+  return this.find({status: statusType});
 }
 
 module.exports = mongoose.model('Transaction', transactionSchema);
