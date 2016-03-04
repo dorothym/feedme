@@ -15,8 +15,5 @@ app.controller('AllMealsController', function ($scope) {
 
 	$scope.angularTest = "successful"
 
-    // Images of beautiful Fullstack people.
-    // $scope.images = _.shuffle(FullstackPics);
-
 });
 
