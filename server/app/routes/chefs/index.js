@@ -24,6 +24,7 @@ router.post('/', function(req, res, next){
 });
 
 router.param('id', function(req, res, next, id){
+console.log("inside routes -> param. id is",id)
   Chef.findById(id)
   .then(function(chef){
     req.chef = chef;
@@ -34,6 +35,7 @@ router.param('id', function(req, res, next, id){
 router.route('/:id')
 //get one chef
   .get(function(req, res, next){
+    console.log("inside routes -> chef get by id. req chef is",req.chef)
     res.json(req.chef);
   })
 //update one chef

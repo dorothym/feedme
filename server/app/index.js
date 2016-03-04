@@ -12,6 +12,10 @@ require('./configure')(app);
 // /api so they are isolated from our GET /* wildcard.
 app.use('/api', require('./routes'));
 
+// redirect to github repo (required in learndot submission guidelines)
+app.get('/github', function(req, res, next){
+  res.redirect('https://github.com/dorothym/feedme');
+});
 
 /*
  This middleware will catch any URLs resembling a file extension
