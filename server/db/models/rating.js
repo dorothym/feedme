@@ -11,5 +11,8 @@ var ratingSchema = new Schema({
   	author: { type: Schema.Types.ObjectId, ref: 'User' }
 });
 
+ratingSchema.statics('getByRating', function(num){
+  return this.find({rating: num})
+});
 
 module.exports = mongoose.model('Rating', ratingSchema);
