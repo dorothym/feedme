@@ -1,41 +1,24 @@
 // meals.js
 
 app.config(function ($stateProvider) {
-
     // Register our *about* state.
     $stateProvider.state('allMeals', {
         url: '/meals',
         controller: 'AllMealsController',
-        templateUrl: 'js/meals/allmeals.html'
+        templateUrl: 'js/meals/allmeals.html', 
+        resolve: {
+            allMeals: function(MealsFactory) {
+                return MealsFactory.fetchAllMeals();
+            }
+        }
     });
 
 });
 
-app.controller('AllMealsController', function ($scope) {
+app.controller('AllMealsController', function ($scope, allMeals) {
 
-	$scope.angularTest = "successful"
+    $scope.diets = ['Vegetarian','Vegan','Paleo','Gluten-free','Kosher','Halal', 'None', 'Dairy-free'];
+    $scope.cuisines = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish'];
 
-    // Images of beautiful Fullstack people.
-    // $scope.images = _.shuffle(FullstackPics);
-
-});
-
-app.config(function ($stateProvider) {
-
-    // Register our *about* state.
-    $stateProvider.state('meal', {
-        url: '/meal',
-        controller: 'MealController',
-        templateUrl: 'js/meals/meal.html'
-    });
-
-});
-
-app.controller('MealController', function ($scope) {
-
-	$scope.angularTest = "hooray!"
-
-    // Images of beautiful Fullstack people.
-    // $scope.images = _.shuffle(FullstackPics);
-
+    $scope.allMeals =  allMeals;
 });
