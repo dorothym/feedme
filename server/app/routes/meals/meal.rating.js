@@ -5,6 +5,7 @@ module.exports = router;
 var mongoose = require('mongoose');
 var Meal = mongoose.model('Meal');
 var Rating = mongoose.model('Rating');
+var Promise = require('bluebird')
 
 //get all ratings for a meal
 router.get('/', function(req, res, next){

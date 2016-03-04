@@ -1,0 +1,84 @@
+<!-- Page Content -->
+<div class="container">
+    <h1>{{ meal.name }}</h1>
+    </div>
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <p class="lead">${{ meal.price }}.00</p>
+                <div class="well">
+                    <h4>Cuisine</h4>
+
+                        <p>
+                          <a ui-sref="meals">{{ meal.cuisine }}</a>
+                  
+                        </p>
+                      
+                </div>
+            </div>
+
+            <div class="col-md-9">
+
+                <div class="thumbnail">
+                    <img class="img-responsive" src="{{meal.photo}}" alt="">
+                    <div class="panel-body">
+                        <h4 class="pull-right">${{ meal.price }}.00</h4>
+                        <h4>Chef: <a ui-sref="chef({id: chef._id})">{{ chef.firstName }} {{ chef.lastName }}</a>
+                        </h4>
+                        <p>{{ meal.description }}</p>
+                        <h5>Servings: {{ meal.servings }}</h5>
+                        <div class="panel-body">
+                           <a class="btn btn-primary" target="_blank" href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">Add to Cart</a>
+                        </div>
+                    </div>
+
+                    <div class="ratings">
+                        <p class="pull-right">{{ ratings.length }} reviews</p>
+                        <p>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                            4.0 stars
+                        </p>
+                    </div>
+                </div>
+
+                <div class="well">
+
+                    <div class="text-left">
+                        <h3>Meal reviews</h3>
+                    </div>
+
+                    <hr>
+
+                    <hr>
+
+                    <div class="row" ng-repeat="rating in ratings">
+                        <div class="col-md-12">
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                            {{rating.author}}
+                            <span class="pull-right">12 days ago</span>
+                            <p>{{ rating.ratingText }}</p>
+                        </div>
+                    </div>
+                  
+                    <hr>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<!-- /.container -->
+
