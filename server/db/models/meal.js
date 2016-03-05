@@ -19,24 +19,21 @@ var mealSchema = new Schema({
 });
 
 mealSchema.methods.getChef = function () {
-  var self = this;
   return mongoose.model('Chef')
-        .findOne({meals: {$elemMatch: {$eq : self._id} } }).exec();
+        .findOne({meals: {$elemMatch: {$eq : this._id} } }).exec();
 }
 
 mealSchema.methods.getAllRatings = function () {
-  var self = this;
   return mongoose.model('Rating')
-        .find({meal: self._id}).exec();
+        .find({meal: this._id}).exec();
 }
 
 mealSchema.methods.addRating = function (ratingData) {
   ratingData.meal = this._id;
   //user id??
   return mongoose.model('Rating')
-        .create(ratingData).exec()
+        .create(ratingData)
 }
-
 
 
 module.exports = mongoose.model('Meal', mealSchema);

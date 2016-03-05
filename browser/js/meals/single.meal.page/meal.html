@@ -36,13 +36,9 @@
 
                     <div class="ratings">
                         <p class="pull-right">{{ ratings.length }} reviews</p>
-                        <p>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            4.0 stars
+                        <p ng-show="avgRating>0">
+                          <avg-rating-stars></avg-rating-stars>
+                            {{avgRating}} stars
                         </p>
                     </div>
                 </div>
@@ -59,13 +55,9 @@
 
                     <div class="row" ng-repeat="rating in ratings">
                         <div class="col-md-12">
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
+                          <rating-stars></rating-stars>
                             {{rating.author}}
-                            <span class="pull-right">12 days ago</span>
+                            <span class="pull-right">{{ rating.date }}</span>
                             <p>{{ rating.ratingText }}</p>
                         </div>
                     </div>
