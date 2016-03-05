@@ -43,26 +43,15 @@ module.exports = function (app) {
 
     };
 
-
-
     passport.use(new GoogleStrategy(googleCredentials, verifyCallback));
 
     app.get('/auth/google', passport.authenticate('google', {
         scope: ['profile', 'email']
     }));
 
-    app.get('/googleSuccess', function(req, res, next) {
-        res.send('google login success,user is: ', req.user)
-       // next()
-    })
-
-    app.get('/googleFail', function(req, res, next) {
-        res.send('google login fail')
-        // next()
-    })
 
     app.get('/auth/google/callback', passport.authenticate('google', { 
-        failureRedirect: '/googleFail',
-        successRedirect: '/googleSuccess'
+        failureRedirect: '/login',
+        successRedirect: '/meals'
     }));
 }
