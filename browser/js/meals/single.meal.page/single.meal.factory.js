@@ -15,6 +15,14 @@ app.factory('SingleMeal', function($http){
       return res.data
     })
   }
+   
+  SingleMeal.getAvgRating = function (ratings){
+    if (ratings.length === 0) return 0;
+    var sum = ratings.reduce(function(prev, curr){
+      return Number(prev.rating) + Number(curr.rating);
+    });
+    return Math.floor(sum/ratings.length)
+  }
   
   SingleMeal.getChef = function (id){
     return $http.get('/api/meals/' + id)
@@ -25,20 +33,4 @@ app.factory('SingleMeal', function($http){
   
   return SingleMeal;
   
-});
-
-app.config(function ($stateProvider) {
-
-    // Register our *about* state.
-    $stateProvider.state('meal', {
-        url: '/meals/:id',
-        controller: 'MealController',
-        templateUrl: 'js/meals/single.meal.page/meal.html',
-        resolve: {
-          meal: function(SingleMeal, $stateParams){
-            return SingleMeal.getMeal($stateParams.id);
-          }
-        }
-    });
-
 });

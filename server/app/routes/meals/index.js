@@ -4,6 +4,7 @@ var router = require('express').Router();
 module.exports = router;
 var mongoose = require('mongoose');
 var Meal = mongoose.model('Meal');
+var Promise = require('bluebird');
 
 router.use('/:id/rating', require('./meal.rating'));
 // router.use('/browse', require('./meals.browse.js'));
@@ -37,9 +38,10 @@ router.param('id', function(req, res, next, id){
 router.route('/:id')
 //get one meal
   .get(function(req, res, next){
-    req.meal.getChef()
-    .then(function(chef){
-      var resObj = {meal: req.meal, chef: chef}
+    Promise.all([req.meal.getChef(), req.meal.getAllRatings()])
+//    req.meal.getChef()
+    .then(function(arr){
+      var resObj = {meal: req.meal, chef: arr[0], ratings: arr[1]}
       res.json(resObj);
     })
     .then(null, next)

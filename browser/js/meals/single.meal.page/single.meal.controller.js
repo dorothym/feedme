@@ -1,15 +1,12 @@
-app.controller('MealController', function ($scope, meal, SingleMeal, $stateParams) {
+app.controller('MealController', function ($scope, meal, ratings, chef, SingleMeal) {
 
-	$scope.meal = meal;
-    
-    SingleMeal.getRatings($stateParams.id)
-    .then(function(ratings){
-      $scope.ratings = ratings;
-    });
-  
-  SingleMeal.getChef($stateParams.id)
-  .then(function(chef){
-    $scope.chef = chef;
-  })
-  
+  $scope.meal = meal;
+
+  $scope.ratings = ratings;
+  console.log(ratings)
+
+  $scope.chef = chef;
+
+  $scope.avgRating = SingleMeal.getAvgRating(ratings);
+
 });

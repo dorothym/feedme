@@ -8,7 +8,8 @@ var ratingSchema = new Schema({
 	meal: { type: Schema.Types.ObjectId, ref: 'Meal' },
 	rating: {type: Number, required: true, default: 0},
   	ratingText: {type: String, required: true},
-  	author: { type: Schema.Types.ObjectId, ref: 'User' }
+  	author: { type: Schema.Types.ObjectId, ref: 'User' },
+    date: {type: Date, default: Date.now}
 });
 
 ratingSchema.static('getByRating', function(num){
