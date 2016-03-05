@@ -48,6 +48,13 @@ userSchema.methods.getCart = function () {
   return mongoose.model('Transction').findOne({customer: this._id, status: 'stillShopping'})
 };
 
+//userSchema.methods.addToCart = function (mealId) {
+//  return mongoose.model('Transaction').findOne({customer: this._id, status: 'stillShopping'})
+//  .then(function(cart){
+//    return cart.addMeal(mealId)
+//  })
+//};
+
 userSchema.methods.getAllTransactions = function () {
   return mongoose.model('Transaction').find({customer: this._id})
 };
