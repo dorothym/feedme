@@ -53,12 +53,12 @@ module.exports = function (app) {
 
     app.get('/googleSuccess', function(req, res, next) {
         res.send('google login success,user is: ', req.user)
-        next()
+       // next()
     })
 
     app.get('/googleFail', function(req, res, next) {
         res.send('google login fail')
-        next()
+        // next()
     })
 
     app.get('/auth/google/callback', passport.authenticate('google', { 
