@@ -1,7 +1,6 @@
 // meals.js
 
 app.config(function ($stateProvider) {
-    // Register our *about* state.
     $stateProvider.state('allMeals', {
         url: '/meals',
         controller: 'AllMealsController',
