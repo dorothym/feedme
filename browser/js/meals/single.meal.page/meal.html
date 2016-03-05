@@ -37,16 +37,7 @@
                     <div class="ratings">
                         <p class="pull-right">{{ ratings.length }} reviews</p>
                         <p ng-show="avgRating>0">
-                            <span class="glyphicon glyphicon-star" ng-show="avgRating >= 1"></span>
-                            <span class="glyphicon glyphicon-star" ng-show="avgRating >= 2"></span>
-                            <span class="glyphicon glyphicon-star" ng-show="avgRating >= 3"></span>
-                            <span class="glyphicon glyphicon-star" ng-show="avgRating >= 4"></span>
-                            <span class="glyphicon glyphicon-star" ng-show="avgRating === 5"></span>
-                              <span class="glyphicon glyphicon-star-empty" ng-show="avgRating < 5"></span>
-                            <span class="glyphicon glyphicon-star-empty" ng-show="avgRating < 4"></span>
-                            <span class="glyphicon glyphicon-star-empty" ng-show="avgRating < 3"></span>
-                            <span class="glyphicon glyphicon-star-empty" ng-show="avgRating < 2"></span>
-                            <span class="glyphicon glyphicon-star-empty" ng-show="avgRating < 1"></span>
+                          <avg-rating-stars></avg-rating-stars>
                             {{avgRating}} stars
                         </p>
                     </div>
@@ -64,16 +55,7 @@
 
                     <div class="row" ng-repeat="rating in ratings">
                         <div class="col-md-12">
-                            <span class="glyphicon glyphicon-star" ng-show="rating.rating >= 1"></span>
-                            <span class="glyphicon glyphicon-star" ng-show="rating.rating >= 2"></span>
-                            <span class="glyphicon glyphicon-star" ng-show="rating.rating >= 3"></span>
-                             <span class="glyphicon glyphicon-star" ng-show="rating.rating >= 4"></span>
-                            <span class="glyphicon glyphicon-star" ng-show="rating.rating === 5"></span>
-                              <span class="glyphicon glyphicon-star-empty" ng-show="rating.rating < 5"></span>
-                            <span class="glyphicon glyphicon-star-empty" ng-show="rating.rating < 4"></span>
-                            <span class="glyphicon glyphicon-star-empty" ng-show="rating.rating < 3"></span>
-                            <span class="glyphicon glyphicon-star-empty" ng-show="rating.rating < 2"></span>
-                            <span class="glyphicon glyphicon-star-empty" ng-show="rating.rating < 1"></span>
+                          <rating-stars></rating-stars>
                             {{rating.author}}
                             <span class="pull-right">{{ rating.date }}</span>
                             <p>{{ rating.ratingText }}</p>
