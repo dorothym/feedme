@@ -47,13 +47,13 @@
                         </ol>          
                         <div class="carousel-inner">
                             <div class="item active">
-                                <img class="slide-image" src="images/cooked_pork_dinner_800x300.jpg" alt="">
+                                <img class="slide-image" src="https://static.pexels.com/photos/5876/food-salad-healthy-vegetables.jpg" alt="">
                             </div>
                             <div class="item">
-                                <img class="slide-image" src="images/japanese_ramen_800x300.jpg" alt="">
+                                <img class="slide-image" src="https://static.pexels.com/photos/6461/food-plate-rucola-salad.jpg" alt="">
                             </div>
                             <div class="item">
-                                <img class="slide-image" src="images/steak_dinner_800x300.jpg" alt="">
+                                <img class="slide-image" src="https://static.pexels.com/photos/6431/food-sweet-cake-glace-icing.jpg" alt="">
                             </div>
                         </div>
                         <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
@@ -76,7 +76,7 @@
                       <img src= {{meal.photo}} alt="">
                         <div class="caption">
                             <h4 class="pull-right"> {{meal.price }} </h4>
-                            <h4><a ui-sref="meal"> {{meal.name}} </a>
+                            <h4><a ui-sref="meal({id: meal._id})"> {{meal.name}} </a>
                             </h4>
                             <p>Cuisine: {{ meal.cuisine }}</p>
                             <p>{{ meal.description }}</p>
