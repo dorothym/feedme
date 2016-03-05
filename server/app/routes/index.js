@@ -8,6 +8,7 @@ router.use('/chefs', require('./chefs'));
 router.use('/users', require('./users'));
 router.use('/ratings', require('./ratings'));
 router.use('/transactions', require('./transactions'));
+router.use('/cart', require('./cart'));
 
 
 // Make sure this is after all of
