@@ -63,7 +63,7 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav" id="main-navigation">
                     <li>
                         <a ui-sref="allMeals">Browse Meals</a>
                     </li>
@@ -72,7 +72,11 @@
                     </li>
                     <li><a ui-sref="signup">Sign Up to Purchase Meals</a></li>
                 </ul>
-                <ul class="nav navbar-nav pull-right" id="main-navigation">
+                <ul class="nav navbar-nav pull-right" id="user-navigation">
+                    <li>
+                        <a ui-sref="checkout">Checkout</a>
+                    </li>
+                    <li><a ui-sref="checkout"><i class="fa fa-shopping-cart fa-1x"></i>&nbsp;5</a></li>
                     <li><a ui-sref="login" class="pull-right">Login</a></li>
                     <li><a href="logout" class="pull-right">Logout</a></li>
                 </ul>
