@@ -53,6 +53,7 @@
         function onSuccessfulLogin(response) {
             var data = response.data;
             Session.create(data.id, data.user);
+            // console.log("SESSION  ", Session.user)
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             return data.user;
         }
@@ -61,7 +62,7 @@
         // authenticated user is currently registered.
         this.isAuthenticated = function () {
             return !!Session.user;
-        };
+        }
 
         this.getLoggedInUser = function (fromServer) {
 
@@ -93,6 +94,14 @@
                     return $q.reject({ message: 'Invalid login credentials.' });
                 });
         };
+
+        this.signup = function(credentials) {
+            return $http.post('/users', credentials)
+                .then(onSuccessfulLogin)
+                .catch(function () {
+                    return $q.reject({ message: 'Invalid login credentials.' });
+                });
+        }
 
         this.logout = function () {
             return $http.get('/logout').then(function () {
