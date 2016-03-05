@@ -13,8 +13,8 @@ var userSchema = new Schema({
         unique: true
     },
     password: {
-        type: String,
-        required: true
+        type: String
+        // required: true
     },
     salt: {
         type: String
@@ -23,7 +23,9 @@ var userSchema = new Schema({
         id: String
     },
     google: {
-        id: String
+        id: String, 
+        // email: String,
+        token: String
     },
     firstName: String,
     lastName: String,
