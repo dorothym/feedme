@@ -11,7 +11,7 @@ var ENABLED_AUTH_STRATEGIES = [
     'local',
     //'twitter',
     //'facebook',
-    //'google'
+    'google'
 ];
 
 module.exports = function (app) {
@@ -59,9 +59,11 @@ module.exports = function (app) {
         res.status(200).end();
     });
 
-    // Each strategy enabled gets registered.
+    //Each strategy enabled gets registered.
     ENABLED_AUTH_STRATEGIES.forEach(function (strategyName) {
         require(path.join(__dirname, strategyName))(app);
     });
+
+    //app.use('/', require('./google.js'));
 
 };

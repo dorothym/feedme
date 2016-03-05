@@ -10,22 +10,26 @@ module.exports = function (app) {
     var googleConfig = app.getValue('env').GOOGLE;
 
     var googleCredentials = {
-        clientID: googleConfig.clientID,
-        clientSecret: googleConfig.clientSecret,
-        callbackURL: googleConfig.callbackURL
+        clientID: "584975833793-93n95u5p4fpetdo9lts874gp65qqka6c.apps.googleusercontent.com",
+        clientSecret: "aEbr5ybBhEK0tecfKtAskVjh",
+        callbackURL: "http://127.0.0.1:1337/auth/google/callback"
     };
 
-    var verifyCallback = function (accessToken, refreshToken, profile, done) {
-
+    var verifyCallback = function (token, refreshToken, profile, done) {
         UserModel.findOne({ 'google.id': profile.id }).exec()
             .then(function (user) {
-
                 if (user) {
                     return user;
                 } else {
                     return UserModel.create({
+                        email: profile._json.email,
+                        picture: profile._json.picture,
+                        firstName: profile.name.givenName,
+                        lastName: profile.name.familyName,
                         google: {
-                            id: profile.id
+                            id: profile.id,
+                            email: profile._json.email,
+                            token: token
                         }
                     });
                 }
@@ -39,19 +43,26 @@ module.exports = function (app) {
 
     };
 
+
+
     passport.use(new GoogleStrategy(googleCredentials, verifyCallback));
 
     app.get('/auth/google', passport.authenticate('google', {
-        scope: [
-            'https://www.googleapis.com/auth/userinfo.profile',
-            'https://www.googleapis.com/auth/userinfo.email'
-        ]
+        scope: ['profile', 'email']
     }));
 
-    app.get('/auth/google/callback',
-        passport.authenticate('google', { failureRedirect: '/login' }),
-        function (req, res) {
-            res.redirect('/');
-        });
+    app.get('/googleSuccess', function(req, res, next) {
+        res.send('google login success,user is: ', req.user)
+        next()
+    })
 
-};
+    app.get('/googleFail', function(req, res, next) {
+        res.send('google login fail')
+        next()
+    })
+
+    app.get('/auth/google/callback', passport.authenticate('google', { 
+        failureRedirect: '/googleFail',
+        successRedirect: '/googleSuccess'
+    }));
+}
