@@ -37,9 +37,43 @@ router.route('/:cart')
   })
 //delete cart
   .delete(function(req, res, next){
-    return req.cart.remove()
+    req.cart.remove()
     .then(function(response){
       res.json(response);
     })
     .then(null, next)
   })
+
+router.param('transactionId', function(req, res, next, transactionId){
+  Transaction.findOne({customer: req.params.currentUser._id})
+  .then(function(transaction){
+    req.transaction = transaction;
+    next();
+  })
+});
+
+router.route('/:transactionId')
+//general routes for any specific transaction
+  .get(function(req, res, next){
+    res.json(req.transaction);
+  })
+
+  .post(function(req, res, next){
+    req.transaction.set(req.body);
+    req.transaction.save()
+    .then(function(updatedTransaction){
+      res.json(updatedTransaction);
+    })
+    .then(null, next)
+  })
+
+  .delete(function(req, res, next){
+    req.transaction.remove()
+    .then(function(response){
+      res.json(response);
+    })
+    .then(null, next)
+  })
+
+
+
