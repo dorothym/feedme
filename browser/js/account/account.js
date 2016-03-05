@@ -22,6 +22,4 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService) {
 
     setUser();
 
-    // $rootScope.$on(AUTH_EVENTS.loginSuccess, setUser);
-
 })
