@@ -5,11 +5,21 @@ module.exports = router;
 var mongoose = require('mongoose');
 var Transaction = mongoose.model('Transaction');
 
+router.use('/:cart/:mealId', require('./user.cart.meal'));
+
 //all transactions for user
 router.get('/', function(req, res, next){
   Transaction.find({customer: req.params.currentUser})
   .then(res.json)
   .then(null, next)
+});
+//create a new transaction (becomes cart?)
+router.post('/', function(req, res, next){
+  Transactions.create(req.body)
+  .then(function(createdTransaction){
+    res.json(createdTransaction);
+  })
+  .then(null, next);
 });
 
 
@@ -74,6 +84,3 @@ router.route('/:transactionId')
     })
     .then(null, next)
   })
-
-
-
