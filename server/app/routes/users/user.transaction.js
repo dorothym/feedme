@@ -12,11 +12,34 @@ router.get('/', function(req, res, next){
   .then(null, next)
 });
 
-//get cart as the specific transaction of interest
-router.get('/cart', function(req, res, next){
+
+router.param('cart', function(req, res, next, cart){
   req.params.currentUser.getCart()
   .then(function(cart){
-    res.json(cart);
+    req.cart = cart;
+    next();
   })
 });
 
+router.route('/:cart')
+//get cart as the specific transaction of interest
+  .get(function(req, res, next){
+  res.json(req.cart);
+  })
+//update to cart
+  .post(function(req, res, next){
+    req.cart.set(req.body);
+    req.cart.save()
+    .then(function(updatedCart){
+      res.json(updatedCart);
+    })
+    .then(null, next)
+  })
+//delete cart
+  .delete(function(req, res, next){
+    return req.cart.remove()
+    .then(function(response){
+      res.json(response);
+    })
+    .then(null, next)
+  })
