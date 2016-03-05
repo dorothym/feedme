@@ -1,0 +1,63 @@
+<div class="col-lg-12">
+    <h1>Checkout</h1>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+        <form id="checkout-form" name="checkoutForm" ng-submit="checkoutForm.$valid && sendcheckout(checkout)">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Shopping cart contents:
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Meal</th>
+                                                    <th>Quantity</th>
+                                                    <th>Unit Price</th>
+                                                    <th>Total Price</th>
+                                                    <th>&nbsp;</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Lasagna</td>
+                                                    <td><input type="text" placeholder="2"></td></td>
+                                                    <td>12</td>
+                                                    <td>24</td>
+                                                    <td><button type="button" class="btn btn-success">Update Quantity</button></td>
+                                                    <td><button type="button" class="btn btn-danger">Remove from Cart</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Bento box</td>
+                                                    <td><input type="text" placeholder="1"></td>
+                                                    <td>8</td>
+                                                    <td>8</td>
+                                                    <td><button type="button" class="btn btn-success">Update Quantity</button></td>
+                                                    <td><button type="button" class="btn btn-danger">Remove from Cart</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Steak dinner</td>
+                                                    <td><input type="text" placeholder="1"></td>
+                                                    <td>24</td>
+                                                    <td>24</td>
+                                                    <td><button type="button" class="btn btn-success">Update Quantity</button></td>
+                                                    <td><button type="button" class="btn btn-danger">Remove from Cart</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                        </div>
+                    </div>
+
+            <button type="submit" class="btn btn-default">Purchase</button>
+            <button type="submit" class="btn btn-default">Cancel &amp; Continue Shopping</button>
+        </form>
+        </div>
+
+    </div>
+</div>
