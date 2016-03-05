@@ -8,21 +8,27 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('SignupCtrl', function ($scope, AuthService, $state) {
+app.controller('SignupCtrl', function ($scope, AuthService, $state, $http, $rootScope) {
 
-    // $scope.signup = {};
-    // $scope.error = null;
+    $scope.log = function() {
+        SignupFactory.signup()
+    }
+    $scope.successmessage = null;
+    
 
-    // $scope.sendsignup = function (signupInfo) {
+    $scope.signup = {};
+    $scope.error = null;
 
-    //     $scope.error = null;
-
-    //     AuthService.signup(signupInfo).then(function () {
-    //         $state.go('home');
-    //     }).catch(function () {
-    //         $scope.error = 'Invalid signup credentials.';
-    //     });
-
-    // };
-
+    $scope.sendsignup = function (signupInfo) {
+        console.log('hello')
+        return $http.post('api/users', signupInfo)
+        .then(function(newUser) {
+                $rootScope.newUser = true;
+                $state.go('login');
+            })
+            .catch(function (err) {
+                // console.log('err after all ', err)
+                $scope.error = 'Invalid signup credentials.'
+            });
+    }
 });
