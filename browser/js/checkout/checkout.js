@@ -46,6 +46,7 @@ app.controller('CheckoutCtrl', function ($scope, cart, user, CheckoutFactory) {
     if (result.error) {
         window.alert('it failed! error: ' + result.error.message);
     } else {
+      console.log(result)
         window.alert('success! token: ' + result.id);
     }
   };
