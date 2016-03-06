@@ -12,7 +12,7 @@ router.use('/:id/rating', require('./meal.rating'));
 
 // Passed query
 router.get('/', function(req, res, next){
-  Meal.find(req.query)
+  Meal.find()
   .then(function(allMeals){
     res.json(allMeals);
   })

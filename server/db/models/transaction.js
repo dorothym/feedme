@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var transactionStatus = ['stillShopping', 'checkingOut', 'placedOrder', 'cookingOrder','orderDelivered'];
+var transactionStatus = ['Open', 'On the Way', 'Delivered', 'stillShopping', 'checkingOut', 'placedOrder', 'cookingOrder','orderDelivered'];
 
 var transactionSchema = new Schema({
 	customer:  {type: Schema.Types.ObjectId, ref: 'User', required: true}, 
