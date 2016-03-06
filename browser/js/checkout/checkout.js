@@ -43,10 +43,3 @@ app.controller('CheckoutCtrl', function ($scope, cart, user, CheckoutFactory) {
   }
   
 });
-
-//firstName: String,
-//    lastName: String,
-//    homeAddress: String,
-//    zip: String,
-//    borough: { type: String, enum: boroughArray },
-//    phoneNumber: String,

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon --watch server -e js,html server/start.js",
     "postinstall": "gulp build",
-     "test": "./node_modules/.bin/mocha -w tests/**/*-test.js"
+    "test": "./node_modules/.bin/mocha -w tests/**/*-test.js"
   },
   "engines": {
     "node": ">=4.0.0"
@@ -15,6 +15,7 @@
     "angular": "^1.5.0-beta.0",
     "angular-animate": "^1.4.7",
     "angular-mocks": "^1.4.0",
+    "angular-payments": "^1.0.7",
     "angular-ui-bootstrap": "^0.14.3",
     "angular-ui-router": "^0.2.15",
     "babel": "^5.0.12",
