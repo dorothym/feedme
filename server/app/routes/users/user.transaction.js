@@ -8,7 +8,9 @@ var Transaction = mongoose.model('Transaction');
 //router.use('/:cart/:mealId', require('./user.cart.meal'));
 //all transactions for user
 router.get('/', function(req, res, next){
+
   Transaction.find({customer: req.currentUser})
+  .populate('meals')
   .then(function(transaction){
     res.json(transaction);
   })
@@ -16,7 +18,7 @@ router.get('/', function(req, res, next){
 });
 //create a new transaction (becomes cart?)
 router.post('/', function(req, res, next){
-  Transactions.create(req.body)
+  Transaction.create(req.body)
   .then(function(createdTransaction){
     res.json(createdTransaction);
   })

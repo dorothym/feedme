@@ -30,7 +30,7 @@
                     <li><a ui-sref="checkout"><i class="fa fa-shopping-cart fa-1x"></i>&nbsp;5</a></li>
                     <li ng-if="isLoggedIn()"><a ui-sref="admin" class="pull-right">Admin</a></li>
                     <li ng-if="!isLoggedIn()"><a ui-sref="login" class="pull-right">Login</a></li>
-                    <li ng-if="isLoggedIn()"><a ui-sref="account">Welcome!</a></li>
+                    <li ng-if="isLoggedIn()"><a ui-sref="account({id: user._id})">Welcome!</a></li>
                     <li ng-if="isLoggedIn()"><a href="logout" ng-click="logout()" class="pull-right">Logout</a></li>
                 </ul>
             </div>
