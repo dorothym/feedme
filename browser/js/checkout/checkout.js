@@ -18,6 +18,7 @@ app.factory('CheckoutFactory', function($http, AuthService) {
     .then(setCache)
   }
     
+    
   CheckoutFactory.deleteMealFromCart = function(meal){
     var i = cache.Content.indexOf(meal);
     var mealToDelete = cache.Content.splice(i, 1);

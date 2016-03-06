@@ -40,8 +40,8 @@ router.route('/:id')
   })
 //update one user
   .put(function(req, res, next){
-    req.curretUser.set(req.body);
-    req.curretUser.save()
+    req.currentUser.set(req.body);
+    req.currentUser.save()
     .then(function(updatedUser){
       res.json(updatedUser)
     })

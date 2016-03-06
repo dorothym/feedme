@@ -14,10 +14,31 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, AdminFactory) {
+
 	$scope.allUsers = allUsers;
-    $scope.removeUser = function() {
-    	AdminFactory.removeUser();
+	$scope.updated = false;
+	$scope.showme = false;
+	$scope.updatedUser ={}
+
+    $scope.removeUser = function(userId) {
+    	$scope.updated = true;
+    	$scope.action = "removed";
+    	AdminFactory.removeUser(userId);
     }
+
+
+    $scope.updateUser = function(userId) {
+    	$scope.updated = true;
+    	$scope.action = "updated";
+    	AdminFactory.updateUser(userId);
+    }
+
+    $scope.assignAdmin = function(userId) {
+    	$scope.updated = true;
+    	$scope.action = "assign as an admin";
+    	AdminFactory.assignAdmin(userId);
+    }
+
 
 });
 
@@ -37,6 +58,16 @@ app.factory('AdminFactory', function($http) {
 			return res.data;
 		})
 	}
+ 	
+ 	AdminFactory.assignAdmin = function(id) {
+		return $http.put('/api/users/' + id, {admin: true})
+	}
+
+	AdminFactory.updateUser = function(id, data) {
+		return $http.put('/api/users/' + id, data)
+	}
 
 	return AdminFactory;
 })
+
+
