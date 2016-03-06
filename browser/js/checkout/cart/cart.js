@@ -8,14 +8,28 @@ app.factory('CartFactory', function($http, AuthService) {
   }
   
   CartFactory.getUserCart = function (){
-    return AuthService.getLoggedInUser()
+    if (!AuthService.isAuthenticated()) return {type: 'Content', data: []};
+    else {
+      return AuthService.getLoggedInUser()
+      .then(function(user){
+        return $http.get('/api/users/' + user._id + '/transaction/cart')
+      })
+      .then(function(cart){
+        if (!cart.data) return makeCart();
+        return {type: 'Content', data: cart.data.meals}
+      })
+      .then(setCache)
+    }
+  }
+  
+  function makeCart (){
+    AuthService.getLoggedInUser()
     .then(function(user){
-      return $http.get('/api/users/' + user._id + '/transaction/cart')
+      $http.post('/api/users/' + user._id + '/transaction', {customer: user._id, status: 'stillShopping'})
     })
     .then(function(cart){
       return {type: 'Content', data: cart.data.meals}
     })
-    .then(setCache)
   }
   
   CartFactory.deleteMealFromCart = function(meal){
