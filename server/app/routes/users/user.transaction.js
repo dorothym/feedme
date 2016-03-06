@@ -5,12 +5,13 @@ module.exports = router;
 var mongoose = require('mongoose');
 var Transaction = mongoose.model('Transaction');
 
-router.use('/:cart/:mealId', require('./user.cart.meal'));
-
+//router.use('/:cart/:mealId', require('./user.cart.meal'));
 //all transactions for user
 router.get('/', function(req, res, next){
-  Transaction.find({customer: req.params.currentUser})
-  .then(res.json)
+  Transaction.find({customer: req.currentUser})
+  .then(function(transaction){
+    res.json(transaction);
+  })
   .then(null, next)
 });
 //create a new transaction (becomes cart?)
@@ -24,7 +25,7 @@ router.post('/', function(req, res, next){
 
 
 router.param('cart', function(req, res, next, cart){
-  req.params.currentUser.getCart()
+  req.currentUser.getCart()
   .then(function(cart){
     req.cart = cart;
     next();
@@ -34,10 +35,14 @@ router.param('cart', function(req, res, next, cart){
 router.route('/:cart')
 //get cart as the specific transaction of interest
   .get(function(req, res, next){
-  res.json(req.cart);
+//    req.currentUser.getCart()
+//    .then(function(cart){
+//      res.json(cart)
+//    })
+  res.json(req.cart)
   })
 //update to cart
-  .post(function(req, res, next){
+  .put(function(req, res, next){
     req.cart.set(req.body);
     req.cart.save()
     .then(function(updatedCart){
@@ -55,7 +60,7 @@ router.route('/:cart')
   })
 
 router.param('transactionId', function(req, res, next, transactionId){
-  Transaction.findOne({customer: req.params.currentUser._id})
+  Transaction.findOne({customer: req.currentUser._id})
   .then(function(transaction){
     req.transaction = transaction;
     next();

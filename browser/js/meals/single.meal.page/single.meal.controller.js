@@ -1,4 +1,4 @@
-app.controller('MealController', function ($scope, meal, ratings, chef, SingleMeal) {
+app.controller('MealController', function ($scope, meal, ratings, chef, SingleMeal, CheckoutFactory) {
 
   $scope.meal = meal;
 
@@ -7,5 +7,9 @@ app.controller('MealController', function ($scope, meal, ratings, chef, SingleMe
   $scope.chef = chef;
 
   $scope.avgRating = SingleMeal.getAvgRating(ratings);
+  
+  $scope.addMeal = function (meal){
+    CheckoutFactory.addMealToCart(meal);
+  }
 
 });
