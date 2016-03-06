@@ -50,18 +50,30 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
 app.factory('AdminFactory', function($http) {
 	var AdminFactory = {};
 
+    var cache = [];
+
+    function setCache(obj) {
+        angular.copy(obj, cache)
+        return cache;
+    }
+
+
 	AdminFactory.fetchAllUsers = function() {
 		return $http.get('/api/users')
 		.then(function(res) {
 			return res.data;
 		})
+         .then(setCache)
 	}
 
-	AdminFactory.removeUser = function(id) {
-		return $http.delete('/api/users/' + id)
-		.then(function(res) {
-			return res.data;
-		})
+	AdminFactory.removeUser = function(user) {
+        var index = cache.indexOf(user);
+        var userToRemove = cache.splice(index, 1)
+		return $http.delete('/api/users/' + user._id)
+		// .then(function(res) {
+		// 	return res.data;
+		// })
+       
 	}
  	
  	AdminFactory.assignAdmin = function(id) {
