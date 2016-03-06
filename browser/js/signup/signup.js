@@ -19,8 +19,51 @@ app.controller('SignupCtrl', function ($scope, AuthService, $state, $http, $root
     $scope.signup = {};
     $scope.error = null;
 
+    $scope.isChef = function() {
+        return false;
+    }
+
     $scope.sendsignup = function (signupInfo) {
-        console.log('hello')
+        console.log('hello. regular user signup')
+        return $http.post('api/users', signupInfo)
+        .then(function(newUser) {
+                $rootScope.newUser = true;
+                $state.go('login');
+            })
+            .catch(function (err) {
+                // console.log('err after all ', err)
+                $scope.error = 'Invalid signup credentials.'
+            });
+    }
+});
+
+app.config(function ($stateProvider) {
+
+    $stateProvider.state('chefsignup', {
+        url: '/chefsignup',
+        templateUrl: 'js/signup/signup.html',
+        controller: 'ChefSignupCtrl'
+    });
+
+});
+
+app.controller('ChefSignupCtrl', function ($scope, AuthService, $state, $http, $rootScope) {
+    console.log("chef signup controller")
+
+    $scope.log = function() {
+        SignupFactory.signup()
+    }
+    $scope.successmessage = null;
+    
+    $scope.isChef = function() {
+        return true;
+    }
+
+    $scope.signup = {};
+    $scope.error = null;
+
+    $scope.sendsignup = function (signupInfo) {
+        console.log('chef signup')
         return $http.post('api/users', signupInfo)
         .then(function(newUser) {
                 $rootScope.newUser = true;
