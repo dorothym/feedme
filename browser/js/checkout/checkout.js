@@ -1,38 +1,8 @@
 app.factory('CheckoutFactory', function($http, AuthService) {
   var CheckoutFactory = {};
-  var cache = { 'Content' : [] }
   
-  function setCache(obj){
-      angular.copy(obj.data, cache[obj.type])
-      return cache[obj.type]; 
-  }
-  
-  CheckoutFactory.getUserCart = function (){
+  CheckoutFactory.userInfo = function () {
     return AuthService.getLoggedInUser()
-    .then(function(user){
-      return $http.get('/api/users/' + user._id + '/transaction/cart')
-    })
-    .then(function(cart){
-      return {type: 'Content', data: cart.data.meals}
-    })
-    .then(setCache)
-  }
-    
-  CheckoutFactory.deleteMealFromCart = function(meal){
-    var i = cache.Content.indexOf(meal);
-    var mealToDelete = cache.Content.splice(i, 1);
-    return AuthService.getLoggedInUser()
-    .then(function(user){
-      $http.put('/api/users/' + user._id + '/transaction/cart', {meals: cache.Content});
-    })
-  }
-  
-  CheckoutFactory.addMealToCart = function (meal){
-    cache.Content.push(meal);
-    return AuthService.getLoggedInUser()
-    .then(function(user){
-      $http.put('/api/users/' + user._id + '/transaction/cart', {meals: cache.Content});
-    })
   }
   
   return CheckoutFactory;
@@ -41,24 +11,44 @@ app.factory('CheckoutFactory', function($http, AuthService) {
 app.config(function ($stateProvider) {
 
     $stateProvider.state('checkout', {
-        url: '/cart',
+        url: '/checkout',
         templateUrl: 'js/checkout/checkout.html',
         controller: 'CheckoutCtrl',
         resolve: {
-          cart: function (CheckoutFactory) {
-            return CheckoutFactory.getUserCart();
+          cart: function (CartFactory) {
+            return CartFactory.getUserCart();
+          },
+          user: function(CheckoutFactory){
+            return CheckoutFactory.userInfo();
           }
         }
     });
 
 });
 
-app.controller('CheckoutCtrl', function ($scope, cart, CheckoutFactory) {
-
+app.controller('CheckoutCtrl', function ($scope, cart, user, CheckoutFactory) {
   $scope.cart = cart;
   
-  $scope.removeFromCart = function (meal){
-    CheckoutFactory.deleteMealFromCart(meal)
+  if (user){
+    $scope.user = user;
+    $scope.checkoutUser = {
+      firstname: user.firstName,
+      lastname: user.lastName,
+      address: user.homeAddress,
+      zip: user.zip,
+      borough: user.borough,
+      phone: user.phone,
+      email: user.email
+    }
   }
+  
+  $scope.stripeCallback = function (code, result) {
+    if (result.error) {
+        window.alert('it failed! error: ' + result.error.message);
+    } else {
+      console.log(result)
+        window.alert('success! token: ' + result.id);
+    }
+  };
   
 });

@@ -4,45 +4,80 @@
             <h1>Checkout</h1>
         </div>
     </div>
+</div>
+<div class="container">
+    <form id="checkout-form" name="checkoutForm" ng-submit="undecided"> 
     <div class="row">
         <div class="col-lg-12">
-        <form id="checkout-form" name="checkoutForm" ng-submit="checkoutForm.$valid && sendcheckout(checkout)">
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Shopping cart contents:
+                    User information:
                 </div>
                 <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Meal</th>
-                                    <th>Quantity</th>
-                                    <th>Unit Price</th>
-                                    <th>Total Price</th>
-                                    <th>&nbsp;</th>
-                                </tr>
-                            </thead>
-                            <tbody ng-repeat="meal in cart">
-                                <tr>
-                                    <td>{{meal.name}}</td>
-                                    <td><input type="text" placeholder="1"></td></td>
-                                    <td>${{meal.price}}.00</td>
-                                    <td>${{meal.price}}.00</td>
-                                    <td><button type="button" class="btn btn-success">Update Quantity</button></td>
-                                    <td><button type="button" class="btn btn-danger" ng-click="removeFromCart(meal)">Remove from Cart</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                      </div>
+                        <div class="col-lg-6">
+
+                            <div class="form-group">
+                                <label for="firstname">First Name</label>
+                                <input type="text" ng-model="checkoutUser.firstname" class="form-control" id="firstname" placeholder="Enter first name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastname">Last Name</label>
+                                <input type="text" ng-model="checkoutUser.lastname" class="form-control" id="lastname" placeholder="Enter last name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Phone number</label>
+                                <input type="text" ng-model="checkoutUser.phone" class="form-control" id="phone" placeholder="Enter phone number">
+                            </div>
+                          
+                            <div class="form-group">
+                              <label for="email">E-mail</label>
+                              <input type="text" ng-model="checkoutUser.email" class="form-control" id="email" placeholder="Enter email">
+                            </div>
 
                         </div>
-                    </div>
 
-            <button type="submit" class="btn btn-default">Purchase</button>
-            <button type="submit" class="btn btn-default" ui-sref="allMeals">Continue Shopping</button>
+                        <div class="col-lg-6">
+
+                            <div class="form-group">
+                                <label for="homeaddress">Address</label>
+                                <input type="text" ng-model="checkoutUser.homeaddress" class="form-control" id="address" placeholder="Enter address">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="zip">Zip code</label>
+                                <input type="text" ng-model="checkoutUser.zip" class="form-control" id="zip" placeholder="Enter zip code">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="borough">Borough</label>
+                                <select ng-model="checkoutUser.borough" class="form-control" id="borough" placeholder="Select borough">
+                                <option value="Aueens">Queens</option>
+                                <option value="Brooklyn">Brooklyn</option>
+                                <option value="Bronx">Bronx</option>
+                                <option value="StatenIsland">Staten Island</option>
+                                <option value="Manhattan">Manhattan</option>
+                                </select>
+                            </div>
+
+
+                        </div>       
+                    
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="reset" class="btn btn-default" ui-sref="cart">Cancel Checkout</button>
         </form>
+      
+        <form stripe-form="stripeCallback">
+          <input ng-model="number" placeholder="Card Number" />
+          <input ng-model="expiry" placeholder="Expiration" />
+          <input ng-model="cvc" placeholder="CVC" />
+          <button type="submit" class="btn btn-default">Submit</button>
+      </form>
         </div>
 
     </div>
