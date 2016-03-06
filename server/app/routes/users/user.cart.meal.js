@@ -9,16 +9,17 @@ var Transaction = mongoose.model('Transaction');
 //'users/:id/transaction''/:cart/:mealId'
 
 //route for adding a meal to the cart
-router.put('/add', function(req, res, next){
-  req.params.cart.addMeal(req.params.mealId)
+router.put('/', function(req, res, next){
+  req.cart.addMeal(req.mealId)
   .then(function(updatedCart){
     res.json(updatedCart);
   })
   .then(null, next)
 });
 //route for removing a meal from cart
-router.put('/add', function(req, res, next){
-  req.params.cart.removeMeal(req.params.mealId)
+router.delete('/', function(req, res, next){
+  console.log('id', req.cart)
+  req.cart.removeMeal(req.param.mealId)
   .then(function(updatedCart){
     res.json(updatedCart);
   })

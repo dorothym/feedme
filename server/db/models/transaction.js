@@ -6,12 +6,12 @@ var Schema = mongoose.Schema;
 var transactionStatus = ['stillShopping', 'checkingOut', 'placedOrder', 'cookingOrder','orderDelivered'];
 
 var transactionSchema = new Schema({
-	customer:  {type: Schema.Types.ObjectId, ref: 'User'}, 
+	customer:  {type: Schema.Types.ObjectId, ref: 'User', required: true}, 
 	totalPrice: {type: Number},
 	meals:  [{type: Schema.Types.ObjectId, ref: 'Meal'}],
  	pickupTime: {type: Date}, // need help - different options for formatting?
  	isDeliveryOrder: {type: Boolean, default: true},
-	status: {type: String, enum: transactionStatus },
+	status: {type: String, enum: transactionStatus, required: true},
     date: { type: Date, default: Date.now }
 });
 
