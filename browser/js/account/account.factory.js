@@ -2,6 +2,7 @@
 
 app.factory('AccountFactory', function($http) {
 	var AccountFactory = {};
+
 	var allTransactions = [];
 
 	var cache = {
@@ -21,14 +22,6 @@ app.factory('AccountFactory', function($http) {
 		.then(setCache)
 
 	}
-	// AccountFactory.fetchAllTransactions = function(id) {
-	// 	return $http.get('/api/users/' + id + '/transaction')
-	// 	.then(function(res) {
-	// 		return res.data;
-	// 	})
-	// }
-
-
 
 	return AccountFactory;
 

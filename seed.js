@@ -27,6 +27,10 @@ var emails = chance.unique(chance.email, numChefs);
 var allMeals = [];
 var randNumber = chance.integer({min: 1, max: 5})
 
+var mealsFT = [];
+var customersFT = ["56dba9f9ccbb8a3412f3013f"];
+var transactionStatus = ['Open', 'On the Way', 'Delivered'];
+
 
 // Random User photo
 function randUserPhoto () {
@@ -83,9 +87,13 @@ function randMeal() {
     })
 }
 
-var mealsFT = [];
-var customersFT = ["56dba9f9ccbb8a3412f3013f"];
-var transactionStatus = ['stillShopping', 'checkingOut', 'placedOrder', 'cookingOrder','orderDelivered'];
+function randTransaction() {
+    return new Transaction({
+        customer: chance.pickone(customersFT),
+        status: chance.pickone(transactionStatus),
+        meals: [mealsFT.pop(), mealsFT.pop(), mealsFT.pop()]
+    })
+}
 
 function generateAllMeals() {
     var meals = _.times(numMeals, function () {
@@ -103,16 +111,8 @@ function generateAllChefs() {
         return randChef();
     }); 
    return chefs;
-
 }
 
-function randTransaction() {
-    return new Transaction({
-        customer: chance.pickone(customersFT),
-        status: chance.pickone(transactionStatus),
-        meals: [mealsFT.pop(), mealsFT.pop(), mealsFT.pop()]
-    })
-}
 function generateAllTransactions() {
     var transactions = _.times(numTransactions, function() {
         return randTransaction();
