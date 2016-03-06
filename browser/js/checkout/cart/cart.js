@@ -39,6 +39,14 @@ app.factory('CartFactory', function($http, AuthService) {
     })
   }
   
+  CartFactory.getSubtotal = function () {
+    var total = 0;
+    cache.Content.forEach(function(item){
+      total+=item.price;
+    })
+    return total;
+  }
+  
   return CartFactory;
 });
 
@@ -61,8 +69,14 @@ app.controller('CartCtrl', function ($scope, cart, CartFactory) {
 
   $scope.cart = cart;
   
-  $scope.removeFromCart = function (meal){
-    CartFactory.deleteMealFromCart(meal)
+  $scope.addAnotherToCart = function (meal){
+    CartFactory.addMealToCart(meal);
   }
+  
+  $scope.removeFromCart = function (meal){
+    CartFactory.deleteMealFromCart(meal);
+  }
+  
+  $scope.subTotal = CartFactory.getSubtotal();
   
 });
