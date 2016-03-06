@@ -6,12 +6,14 @@ Promise.promisifyAll(mongoose)
 var startDbPromise = require('./server/db')
 
 var Chef = mongoose.model('Chef');
-var Meal = mongoose.model('Meal'); // ???
+var Meal = mongoose.model('Meal'); 
+var Transaction = mongoose.model('Transaction'); 
 var chance = require('chance')(123);
 var _ = require('lodash');
 
 var numChefs = 5;
 var numMeals = 20;
+var numTransactions = 5;
 var cuisine = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish'];
 
 var specialty = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish', 'Vegetarian', 'Pastry', 'Deserts'];
@@ -24,6 +26,7 @@ var tags = specialty.concat(diets);
 var emails = chance.unique(chance.email, numChefs);
 var allMeals = [];
 var randNumber = chance.integer({min: 1, max: 5})
+
 
 // Random User photo
 function randUserPhoto () {
@@ -80,12 +83,17 @@ function randMeal() {
     })
 }
 
+var mealsFT = [];
+var customersFT = ["56dba9f9ccbb8a3412f3013f"];
+var transactionStatus = ['stillShopping', 'checkingOut', 'placedOrder', 'cookingOrder','orderDelivered'];
+
 function generateAllMeals() {
     var meals = _.times(numMeals, function () {
         return randMeal();
     });
     meals.forEach(function(meal) {
         allMeals.push(meal._id);
+        mealsFT.push(meal._id);
     })
    return meals;
 }
@@ -96,6 +104,20 @@ function generateAllChefs() {
     }); 
    return chefs;
 
+}
+
+function randTransaction() {
+    return new Transaction({
+        customer: chance.pickone(customersFT),
+        status: chance.pickone(transactionStatus),
+        meals: [mealsFT.pop(), mealsFT.pop(), mealsFT.pop()]
+    })
+}
+function generateAllTransactions() {
+    var transactions = _.times(numTransactions, function() {
+        return randTransaction();
+    }); 
+   return transactions;
 }
 
 function seedMeals() {
@@ -112,6 +134,13 @@ function seedChefs() {
     })
 }
 
+function seedTransactions() {
+    var docs = generateAllTransactions();
+    return Promise.map(docs, function(doc) {
+        return doc.save();
+    })
+}
+
 startDbPromise
 .then(function(db){
     db.drop = Promise.promisify(db.db.dropDatabase.bind(db.db));
@@ -120,7 +149,8 @@ startDbPromise
         console.log('database successfully dropped, about to seed')
         return Promise.all([
             seedMeals(), 
-            seedChefs()
+            seedChefs(), 
+            seedTransactions()
         ])
     })
     .then(function () {
