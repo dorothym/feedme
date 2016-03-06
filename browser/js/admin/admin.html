@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Admin</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+        <form id="checkout-form" name="checkoutForm" ng-submit="checkoutForm.$valid && sendcheckout(checkout)">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Administer users</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>User type</th>
+                                        <th>Email address</th>
+                                        <th>&nbsp;</th>
+                                        <th>&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Jane Addams</td>
+                                        <td>User</td></td>
+                                        <td>jane@addams.com</td>
+                                        <td><button type="button" class="btn btn-success">Update User</button></td>
+                                        <td><button type="button" class="btn btn-danger">Remove User</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Floyd deBarber</td>
+                                        <td>Chef</td>
+                                        <td>f1@hotmail.com</td>
+                                        <td><button type="button" class="btn btn-success">Update User</button></td>
+                                        <td><button type="button" class="btn btn-danger">Remove User</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Joe Axelrod</td>
+                                        <td>Admin</td>
+                                        <td>joe@gmail.com</td>
+                                        <td><button type="button" class="btn btn-success">Update User</button></td>
+                                        <td><button type="button" class="btn btn-danger">Remove User</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        </div>
+                    </div>
+
+        </form>
+        </div>
+
+    </div>
+</div>
