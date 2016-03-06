@@ -1,5 +1,5 @@
-app.factory('CheckoutFactory', function($http, AuthService) {
-  var CheckoutFactory = {};
+app.factory('CartFactory', function($http, AuthService) {
+  var CartFactory = {};
   var cache = { 'Content' : [] }
   
   function setCache(obj){
@@ -7,7 +7,7 @@ app.factory('CheckoutFactory', function($http, AuthService) {
       return cache[obj.type]; 
   }
   
-  CheckoutFactory.getUserCart = function (){
+  CartFactory.getUserCart = function (){
     return AuthService.getLoggedInUser()
     .then(function(user){
       return $http.get('/api/users/' + user._id + '/transaction/cart')
@@ -17,8 +17,8 @@ app.factory('CheckoutFactory', function($http, AuthService) {
     })
     .then(setCache)
   }
-    
-  CheckoutFactory.deleteMealFromCart = function(meal){
+  
+  CartFactory.deleteMealFromCart = function(meal){
     var i = cache.Content.indexOf(meal);
     var mealToDelete = cache.Content.splice(i, 1);
     return AuthService.getLoggedInUser()
@@ -27,7 +27,11 @@ app.factory('CheckoutFactory', function($http, AuthService) {
     })
   }
   
-  CheckoutFactory.addMealToCart = function (meal){
+  CartFactory.numItemsInCart = function () {
+    return cache.Content.length;
+  }
+  
+  CartFactory.addMealToCart = function (meal){
     cache.Content.push(meal);
     return AuthService.getLoggedInUser()
     .then(function(user){
@@ -35,30 +39,30 @@ app.factory('CheckoutFactory', function($http, AuthService) {
     })
   }
   
-  return CheckoutFactory;
+  return CartFactory;
 });
 
 app.config(function ($stateProvider) {
 
     $stateProvider.state('checkout', {
         url: '/cart',
-        templateUrl: 'js/checkout/checkout.html',
-        controller: 'CheckoutCtrl',
+        templateUrl: 'js/checkout/cart/cart.html',
+        controller: 'CartCtrl',
         resolve: {
-          cart: function (CheckoutFactory) {
-            return CheckoutFactory.getUserCart();
+          cart: function (CartFactory) {
+            return CartFactory.getUserCart();
           }
         }
     });
 
 });
 
-app.controller('CheckoutCtrl', function ($scope, cart, CheckoutFactory) {
+app.controller('CartCtrl', function ($scope, cart, CartFactory) {
 
   $scope.cart = cart;
   
   $scope.removeFromCart = function (meal){
-    CheckoutFactory.deleteMealFromCart(meal)
+    CartFactory.deleteMealFromCart(meal)
   }
   
 });

@@ -39,7 +39,7 @@ router.route('/:cart')
 //    .then(function(cart){
 //      res.json(cart)
 //    })
-  res.json(req.cart)
+    res.json(req.cart)
   })
 //update to cart
   .put(function(req, res, next){

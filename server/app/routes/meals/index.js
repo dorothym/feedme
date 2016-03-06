@@ -12,10 +12,8 @@ router.use('/:id/rating', require('./meal.rating'));
 
 // Passed query
 router.get('/', function(req, res, next){
-  console.log('req query: ', req.query)
   Meal.find(req.query)
   .then(function(allMeals){
-    console.log('all meals: ', allMeals)
     res.json(allMeals);
   })
   .then(null, next);
