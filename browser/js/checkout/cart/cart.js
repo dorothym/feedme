@@ -52,7 +52,7 @@ app.factory('CartFactory', function($http, AuthService) {
 
 app.config(function ($stateProvider) {
 
-    $stateProvider.state('checkout', {
+    $stateProvider.state('cart', {
         url: '/cart',
         templateUrl: 'js/checkout/cart/cart.html',
         controller: 'CartCtrl',
@@ -65,7 +65,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CartCtrl', function ($scope, cart, CartFactory) {
+app.controller('CartCtrl', function ($scope, cart, CartFactory, $state) {
 
   $scope.cart = cart;
   
@@ -78,5 +78,9 @@ app.controller('CartCtrl', function ($scope, cart, CartFactory) {
   }
   
   $scope.subTotal = CartFactory.getSubtotal();
+  
+  $scope.checkout = function () {
+    $state.go('checkout')
+  }
   
 });
