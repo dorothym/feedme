@@ -25,27 +25,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Jane Addams</td>
-                                        <td>User</td></td>
-                                        <td>jane@addams.com</td>
+                                    <tr ng-repeat="user in allUsers">
+                                        <td>{{user.firstName}}  {{user.lastName}}</td>
+                                        <td>{{user.type}}</td>
+                                        <td>{{user.email}}</td>
                                         <td><button type="button" class="btn btn-success">Update User</button></td>
-                                        <td><button type="button" class="btn btn-danger">Remove User</button></td>
+                                        <td><button type="button" class="btn btn-danger" ng-click="removeUser(user._id)">Remove User</button></td>
                                     </tr>
-                                    <tr>
-                                        <td>Floyd deBarber</td>
-                                        <td>Chef</td>
-                                        <td>f1@hotmail.com</td>
-                                        <td><button type="button" class="btn btn-success">Update User</button></td>
-                                        <td><button type="button" class="btn btn-danger">Remove User</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Joe Axelrod</td>
-                                        <td>Admin</td>
-                                        <td>joe@gmail.com</td>
-                                        <td><button type="button" class="btn btn-success">Update User</button></td>
-                                        <td><button type="button" class="btn btn-danger">Remove User</button></td>
-                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>
