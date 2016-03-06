@@ -7,7 +7,8 @@ app.controller('AllChefsController', function ($scope) {
 app.controller('ChefController', function ($scope, $state, ChefFactory,theChef) {
 	console.log("chef controller. URL param is",$state.params.id)
 
-	// $scope.chef = ChefFactory.getChef($state.params.id);
+	$scope.chef = theChef;
+	console.log($scope.chef)
 
 	$scope.chef = theChef;
 
