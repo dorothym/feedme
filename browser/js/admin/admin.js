@@ -24,25 +24,27 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
 		$scope.showForm = true;
 	}
 
-    $scope.removeUser = function(userId) {
+    $scope.removeUser = function(user) {
     	$scope.updated = true;
     	$scope.action = "removed";
-    	AdminFactory.removeUser(userId);
+    	AdminFactory.removeUser(user);
     }
 
 
-    $scope.updateUser = function(userId, data) {
-    	console.log('USER ID: ', userId)
+    $scope.updateUser = function(user, data) {
+    	console.log('USER ID: ', user)
     	console.log('USER DATA: ', data)
     	$scope.updated = true;
     	$scope.action = "updated";
-    	AdminFactory.updateUser(userId, data);
+    	AdminFactory.updateUser(user, data);
     }
 
-    $scope.assignAdmin = function(userId) {
+    $scope.assignAdmin = function(user) {
+        console.log('USER: ', user)
+
     	$scope.updated = true;
     	$scope.action = "assign as an admin";
-    	AdminFactory.assignAdmin(userId);
+    	AdminFactory.assignAdmin(user);
     }
 
 });
@@ -70,18 +72,15 @@ app.factory('AdminFactory', function($http) {
         var index = cache.indexOf(user);
         var userToRemove = cache.splice(index, 1)
 		return $http.delete('/api/users/' + user._id)
-		// .then(function(res) {
-		// 	return res.data;
-		// })
        
 	}
  	
- 	AdminFactory.assignAdmin = function(id) {
-		return $http.put('/api/users/' + id, {admin: true})
+ 	AdminFactory.assignAdmin = function(user) {
+		return $http.put('/api/users/' + user._id, {admin: true})
 	}
 
-	AdminFactory.updateUser = function(id, data) {
-		return $http.put('/api/users/' + id, data)
+	AdminFactory.updateUser = function(user, data) {
+		return $http.put('/api/users/' + user._id, data)
 	}
 
 	return AdminFactory;
