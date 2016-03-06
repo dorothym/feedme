@@ -42,4 +42,12 @@ app.controller('CheckoutCtrl', function ($scope, cart, user, CheckoutFactory) {
     }
   }
   
+  $scope.stripeCallback = function (code, result) {
+    if (result.error) {
+        window.alert('it failed! error: ' + result.error.message);
+    } else {
+        window.alert('success! token: ' + result.id);
+    }
+  };
+  
 });
