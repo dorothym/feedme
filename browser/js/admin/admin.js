@@ -17,8 +17,12 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
 
 	$scope.allUsers = allUsers;
 	$scope.updated = false;
-	$scope.showme = false;
-	$scope.updatedUser ={}
+	$scope.showForm = false;
+	$scope.updatedUser ={};
+
+	$scope.showUpdateForm = function(user) {
+		$scope.showForm = true;
+	}
 
     $scope.removeUser = function(userId) {
     	$scope.updated = true;
@@ -27,10 +31,12 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
     }
 
 
-    $scope.updateUser = function(userId) {
+    $scope.updateUser = function(userId, data) {
+    	console.log('USER ID: ', userId)
+    	console.log('USER DATA: ', data)
     	$scope.updated = true;
     	$scope.action = "updated";
-    	AdminFactory.updateUser(userId);
+    	AdminFactory.updateUser(userId, data);
     }
 
     $scope.assignAdmin = function(userId) {
@@ -38,7 +44,6 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
     	$scope.action = "assign as an admin";
     	AdminFactory.assignAdmin(userId);
     }
-
 
 });
 
