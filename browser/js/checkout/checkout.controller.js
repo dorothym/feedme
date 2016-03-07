@@ -1,5 +1,5 @@
-app.controller('CheckoutCtrl', function ($scope, cart, user, CheckoutFactory) {
-  $scope.cart = cart;
+app.controller('CheckoutCtrl', function ($scope, CheckoutFactory, CartFactory, user) {
+  $scope.cart = CartFactory.getCartCache();
   
   if (user){
     $scope.user = user;
