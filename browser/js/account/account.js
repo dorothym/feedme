@@ -7,25 +7,24 @@ app.config(function($stateProvider) {
         resolve: {
             allTransactions: function(AccountFactory, $stateParams) {
                 return AccountFactory.fetchAllTransactions($stateParams.id);
+            }, 
+            getAllMeals: function(ChefFactory, $stateParams) {
+                return ChefFactory.getMeals($stateParams.id)
             }
+
         }
     });
 })
 
-app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTransactions, AccountFactory, ChefFactory, MealsFactory) {
+app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTransactions, AccountFactory, ChefFactory, MealsFactory, getAllMeals) {
 
     $scope.allTransactions = allTransactions;
 
-   $scope.user = null;
+    $scope.user = null;
+    $scope.newMeal = {};
+    $scope.updatedMeal= {};
 
-   $scope.newMeal = {};
-   $scope.updatedMeal= {};
-
-   $scope.allMyMeals = function() {
-    return ChefFactory.updateCache("Meals")
-   }
-
-
+   $scope.allMyMeals = getAllMeals;
 
    $scope.isLoggedIn = function () {
         return AuthService.isAuthenticated();
@@ -39,7 +38,12 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
 
     $scope.isChef = function() {
         // TBD. for now return true
-        return true;
+        if($scope.user.type === "Chef")
+            return true;
+    }
+
+    $scope.isAdmin =  function() {
+        return $scope.user.admin;
     }
 
     $scope.addMeal = function(data) {
