@@ -11,16 +11,18 @@ app.config(function ($stateProvider) {
 });
 
 app.config(function ($stateProvider) {
-
     $stateProvider.state('chef', {
-        url: '/chef/:id',
+        url: '/chefs/:id',
         controller: 'ChefController',
         templateUrl: 'js/chefs/chef.html',
         resolve: {
-			theChef: function(ChefFactory,$stateParams) {
-          		return ChefFactory.getChef($stateParams.id);
+			theChef: function(ChefFactory, $stateParams) {
+          		return ChefFactory.getChef($stateParams.id)
+            },
+            meals: function(ChefFactory, $stateParams) {
+                return ChefFactory.getMeals($stateParams.id)
+            }
         }
-      }
     });
 
 });

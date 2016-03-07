@@ -30,23 +30,29 @@
                               <tbody>
                                   <tr ng-repeat="user in allUsers">
                                       <div ng-show="showForm">
-                                          <form class="form-inline" name="userUpdateForm>
-                                              <p>Update {{user.firstName}} {{user.lastName}}</p>
+                                          <form class="form-inline">
+                                              <p> Update {{user.firstName}} {{user.lastName}}</p>
                                               <input type="text" class="form-control" placeholder="First Name" ng-model="updatedUser.firstName">
                                               <input type="text" class="form-control" placeholder="Last Name" ng-model="updatedUser.lastName">
                                               <input type="text" class="form-control" placeholder="Email">
                                               <input type="text" class="form-control" placeholder="Type">
                                               <input type="text" class="form-control" placeholder="Address">
+                                              <input type="text" class="form-control" placeholder="Zip">
+                                              <input type="text" class="form-control" placeholder="Borough">
                                               <input type="text" class="form-control" placeholder="Phone">
-                                              <button type="button" class="btn btn-submit" ng-click="updateUser(user._id, updatedUser)">Submit</button>
+                                              <input type="text" class="form-control" placeholder="Picture Url">
+                                              <h5>For chefs only</h5>
+                                              <input type="text" class="form-control" placeholder="Specialty">
+                                              <input type="text" class="form-control" placeholder="Bio">
+                                              <button type="button" class="btn btn-submit" ng-click="updateUser(user, updatedUser)">Submit</button>
                                           </form>
                                       </div>  <!-- ng-show="showUpdateForm"  --> 
                                       <td><a ui-sref="account({id: user._id})">{{user.firstName}}  {{user.lastName}}</a></td>
                                       <td>{{user.type}}</td>
                                       <td>{{user.email}}</td>
                                       <td><button type="button" class="btn btn-primary" ng-click="showUpdateForm()">Update User</button></td>
-                                      <td><button type="button" class="btn btn-primary" ng-click="assignAdmin(user._id)">Assign Admin</button></td>
-                                      <td><button type="button" class="btn btn-danger" ng-click="removeUser(user._id)">Remove User</button></td>
+                                      <td><button type="button" class="btn btn-primary" ng-click="assignAdmin(user)">Assign Admin</button></td>
+                                      <td><button type="button" class="btn btn-danger" ng-click="removeUser(user)">Remove User</button></td>
                                   </tr>
                               </tbody>
 

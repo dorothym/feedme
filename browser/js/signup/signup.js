@@ -24,7 +24,6 @@ app.controller('SignupCtrl', function ($scope, AuthService, $state, $http, $root
     }
 
     $scope.sendsignup = function (signupInfo) {
-        console.log('hello. regular user signup')
         return $http.post('api/users', signupInfo)
         .then(function(newUser) {
                 $rootScope.newUser = true;
@@ -48,7 +47,6 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('ChefSignupCtrl', function ($scope, AuthService, $state, $http, $rootScope) {
-    console.log("chef signup controller")
 
     $scope.log = function() {
         SignupFactory.signup()

@@ -25,6 +25,7 @@ router.post('/', function(req, res, next){
 
 router.param('id', function(req, res, next, id){
   Chef.findById(id)
+  .populate('meals')
   .then(function(chef){
     req.chef = chef;
     next();

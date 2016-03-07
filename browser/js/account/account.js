@@ -16,10 +16,6 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
 
     $scope.allTransactions = allTransactions;
 
-    $scope.log = function() {
-        console.log("$scope.allTransactions: ", $scope.allTransactions)
-    }
-
    $scope.user = null;
 
    $scope.isLoggedIn = function () {

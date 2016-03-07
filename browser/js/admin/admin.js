@@ -24,25 +24,23 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
 		$scope.showForm = true;
 	}
 
-    $scope.removeUser = function(userId) {
+    $scope.removeUser = function(user) {
     	$scope.updated = true;
     	$scope.action = "removed";
-    	AdminFactory.removeUser(userId);
+    	AdminFactory.removeUser(user);
     }
 
 
-    $scope.updateUser = function(userId, data) {
-    	console.log('USER ID: ', userId)
-    	console.log('USER DATA: ', data)
+    $scope.updateUser = function(user, data) {
     	$scope.updated = true;
     	$scope.action = "updated";
-    	AdminFactory.updateUser(userId, data);
+    	AdminFactory.updateUser(user, data);
     }
 
-    $scope.assignAdmin = function(userId) {
+    $scope.assignAdmin = function(user) {
     	$scope.updated = true;
     	$scope.action = "assign as an admin";
-    	AdminFactory.assignAdmin(userId);
+    	AdminFactory.assignAdmin(user);
     }
 
 });
@@ -50,26 +48,35 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
 app.factory('AdminFactory', function($http) {
 	var AdminFactory = {};
 
+    var cache = [];
+
+    function setCache(obj) {
+        angular.copy(obj, cache)
+        return cache;
+    }
+
+
 	AdminFactory.fetchAllUsers = function() {
 		return $http.get('/api/users')
 		.then(function(res) {
 			return res.data;
 		})
+         .then(setCache)
 	}
 
-	AdminFactory.removeUser = function(id) {
-		return $http.delete('/api/users/' + id)
-		.then(function(res) {
-			return res.data;
-		})
+	AdminFactory.removeUser = function(user) {
+        var index = cache.indexOf(user);
+        var userToRemove = cache.splice(index, 1)
+		return $http.delete('/api/users/' + user._id)
+       
 	}
  	
- 	AdminFactory.assignAdmin = function(id) {
-		return $http.put('/api/users/' + id, {admin: true})
+ 	AdminFactory.assignAdmin = function(user) {
+		return $http.put('/api/users/' + user._id, {admin: true})
 	}
 
-	AdminFactory.updateUser = function(id, data) {
-		return $http.put('/api/users/' + id, data)
+	AdminFactory.updateUser = function(user, data) {
+		return $http.put('/api/users/' + user._id, data)
 	}
 
 	return AdminFactory;
