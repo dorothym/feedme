@@ -1,6 +1,6 @@
-app.controller('AllChefsController', function ($scope) {
+app.controller('AllChefsController', function ($scope, allChefs) {
 
-	$scope.angularTest = "successful"
+	$scope.allChefs = allChefs;
 
 });
 

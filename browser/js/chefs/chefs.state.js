@@ -5,7 +5,12 @@ app.config(function ($stateProvider) {
     $stateProvider.state('allChefs', {
         url: '/chefs',
         controller: 'AllChefsController',
-        templateUrl: 'js/chefs/allchefs.html'
+        templateUrl: 'js/chefs/allchefs.html', 
+        resolve: {
+            allChefs: function(ChefFactory) {
+                return ChefFactory.getAllChefs();
+            }
+        }
     });
 
 });
