@@ -6,14 +6,19 @@ var mongoose = require('mongoose');
 var Chef = mongoose.model('Chef');
 var Meal = mongoose.model('Meal');
 
-//get all meals for chef
 router.get('/', function(req, res, next){
-  req.chef
-  .then(function(chef){
+    res.json(req.chef.meals);
+
+});
+
+router.get('/', function(req, res, next) {
+  Chef.find({_id: req.chef._id})
+  .populate('meals')
+  .then(function(chef) {
     res.json(chef.meals);
   })
   .then(null, next)
-});
+})
 
 //have chef add a new meal
 router.post('/', function(req, res, next){
