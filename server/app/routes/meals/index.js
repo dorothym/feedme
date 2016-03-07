@@ -21,7 +21,6 @@ router.get('/', function(req, res, next){
 router.post('/', function(req, res, next){
   Meal.create(req.body)
   .then(function(meal) {
-    console.log("REQ USER FROM BACKEND",req.user)
     return meal.addMealToChef(req.user)
   })
   .then(function(meal) {
