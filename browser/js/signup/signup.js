@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('SignupCtrl', function ($scope, AuthService, $state, $http, $rootScope) {
+app.controller('SignupCtrl', function ($scope, AuthService, $state, $http) {
 
     $scope.log = function() {
         SignupFactory.signup()
@@ -26,8 +26,6 @@ app.controller('SignupCtrl', function ($scope, AuthService, $state, $http, $root
     $scope.sendsignup = function (signupInfo) {
         return $http.post('api/users', signupInfo)
         .then(function(newUser) {
-                // $rootScope.newUser = true;
-                // moved the logic to a state parameter rather than putting on rootscope
                 $state.go('login',{
                     successmessage: 'Successful signup! Please log in.'
                 });
@@ -49,7 +47,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('ChefSignupCtrl', function ($scope, AuthService, $state, $http, $rootScope) {
+app.controller('ChefSignupCtrl', function ($scope, AuthService, $state, $http) {
 
     $scope.log = function() {
         SignupFactory.signup()
@@ -66,11 +64,9 @@ app.controller('ChefSignupCtrl', function ($scope, AuthService, $state, $http, $
     $scope.error = null;
 
     $scope.sendsignup = function (signupInfo) {
-        // console.log('chef signup sendsignup',signupInfo)
-        signupInfo.type="chef";
+        signupInfo.type="Chef";
         return $http.post('api/chefs', signupInfo)
         .then(function(newUser) {
-                $rootScope.newUser = true;
                 $state.go('login',{
                   successmessage: 'Successful signup! Please log in.'
                 });
