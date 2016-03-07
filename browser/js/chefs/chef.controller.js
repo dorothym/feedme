@@ -7,7 +7,4 @@ app.controller('AllChefsController', function ($scope) {
 app.controller('ChefController', function ($scope, $state, ChefFactory,theChef, meals) {
 	$scope.chef = theChef;
 	$scope.meals = meals;
-
-	console.log(meals)
-
 });

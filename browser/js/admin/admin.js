@@ -32,16 +32,12 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
 
 
     $scope.updateUser = function(user, data) {
-    	console.log('USER ID: ', user)
-    	console.log('USER DATA: ', data)
     	$scope.updated = true;
     	$scope.action = "updated";
     	AdminFactory.updateUser(user, data);
     }
 
     $scope.assignAdmin = function(user) {
-        console.log('USER: ', user)
-
     	$scope.updated = true;
     	$scope.action = "assign as an admin";
     	AdminFactory.assignAdmin(user);

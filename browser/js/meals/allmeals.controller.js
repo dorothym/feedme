@@ -3,9 +3,6 @@ app.controller('AllMealsController', function ($scope, allMeals, CartFactory) {
     $scope.diets = ['Vegetarian','Vegan','Paleo','Gluten-free','Kosher','Halal', 'None', 'Dairy-free'];
     $scope.cuisines = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish'];
 
-   $scope.log = function() {
-        // console.log("cuisine on scope ", $scope.cuisine)
-    }
 
     $scope.allMeals =  allMeals;
         
