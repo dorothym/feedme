@@ -22,6 +22,13 @@ app.factory('MealsFactory', function($http) {
 
 	}
 
+	MealsFactory.updateCache = function(type, data) {
+        if(data)  {
+            cache[type].push(data)         
+        }
+        return cache[type];
+    }
+
 
 	return MealsFactory;
 

@@ -12,7 +12,7 @@ app.config(function($stateProvider) {
     });
 })
 
-app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTransactions, AccountFactory, ChefFactory) {
+app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTransactions, AccountFactory, ChefFactory, MealsFactory) {
 
     $scope.allTransactions = allTransactions;
 
@@ -45,6 +45,7 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
     $scope.addMeal = function(data) {
         AccountFactory.addMeal(data);
         ChefFactory.updateCache("Meals", data);
+        MealsFactory.updateCache("Meals", data);
     }
 
     $scope.updateMeal = function(mealId, data) {

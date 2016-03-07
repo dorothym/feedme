@@ -21,7 +21,7 @@ app.factory('ChefFactory',function($http) {
         if(data)  {
             cache[type].push(data)         
         }
-        return cache.type;
+        return cache[type];
     }
 
     ChefFactory.getAllChefs = function() {
