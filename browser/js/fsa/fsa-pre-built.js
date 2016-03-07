@@ -48,13 +48,13 @@
         ]);
     });
 
-    app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q) {
+    app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q, CartFactory) {
 
         function onSuccessfulLogin(response) {
             var data = response.data;
             Session.create(data.id, data.user);
-            // console.log("SESSION  ", Session.user)
-            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+//             console.log("SESSION  ", Session.user)
+       $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             return data.user;
         }
 
@@ -81,7 +81,16 @@
             // Make request GET /session.
             // If it returns a user, call onSuccessfulLogin with the response.
             // If it returns a 401 response, we catch it and instead resolve to null.
-            return $http.get('/session').then(onSuccessfulLogin).catch(function () {
+            return $http.get('/session').then(onSuccessfulLogin)
+                    .then(function(user){
+                      return $q.all([CartFactory.getUserCart(user), user]);
+                    })
+                    .then(function(cartAndUser){
+                      var cart, user;
+                      [cart, user] = cartAndUser;
+                        return user;
+                    })
+                    .catch(function () {
                 return null;
             });
 
@@ -90,6 +99,14 @@
         this.login = function (credentials) {
             return $http.post('/login', credentials)
                 .then(onSuccessfulLogin)
+                .then(function(user){
+                  return $q.all([CartFactory.getUserCart(user), user]);
+                })
+                .then(function(cartAndUser){
+                  var cart, user;
+                  [cart, user] = cartAndUser;
+                  return user;
+                })
                 .catch(function () {
                     return $q.reject({ message: 'Invalid login credentials.' });
                 });
@@ -105,7 +122,8 @@
 
         this.logout = function () {
             return $http.get('/logout').then(function () {
-                Session.destroy();
+              CartFactory.clearCache();  
+              Session.destroy();
                 $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
             });
         };
