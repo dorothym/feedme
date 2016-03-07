@@ -24,7 +24,7 @@
                                     <th>&nbsp;</th>
                                 </tr>
                             </thead>
-                            <tbody ng-repeat="meal in cart track by $index">
+                            <tbody ng-repeat="meal in getCart() track by $index">
                                 <tr> 
                                     <td>{{meal.name}}</td>
 <!--                                    <td><input type="text" placeholder="1"></td></td>-->

@@ -8,9 +8,6 @@ app.config(function ($stateProvider) {
         resolve: {
             allMeals: function(MealsFactory) {
                 return MealsFactory.fetchAllMeals();
-            },
-            cart: function (CartFactory){
-              return CartFactory.getUserCart();
             }
         }
     });

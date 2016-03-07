@@ -5,7 +5,6 @@ module.exports = router;
 var mongoose = require('mongoose');
 var Transaction = mongoose.model('Transaction');
 
-//router.use('/:cart/:mealId', require('./user.cart.meal'));
 //all transactions for user
 router.get('/', function(req, res, next){
 

@@ -16,9 +16,6 @@ app.config(function ($stateProvider) {
           },
           chef: function(SingleMeal, $stateParams){
             return SingleMeal.getChef($stateParams.id);
-          },
-          cart: function (CartFactory){
-              return CartFactory.getUserCart();
           }
         }
     });

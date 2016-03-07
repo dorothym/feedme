@@ -7,8 +7,6 @@ var Meal = mongoose.model('Meal');
 var Promise = require('bluebird');
 
 router.use('/:id/rating', require('./meal.rating'));
-// router.use('/browse', require('./meals.browse.js'));
-
 
 // Passed query
 router.get('/', function(req, res, next){
