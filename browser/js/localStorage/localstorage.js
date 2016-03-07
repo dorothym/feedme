@@ -4,25 +4,21 @@ app.factory('localStorageFactory', function(localStorageService) {
 
 	var localStorageFactory = {};
 
-	// localStorageFactory.blah = "blah blah";
-
 	localStorageFactory.alreadyFetchedLocalCart = false;
 
 	localStorageFactory.getLocalCart = function() {
-		console.log("inside getLocalCart")
+		// console.log("inside getLocalCart")
 	   localStorageFactory.alreadyFetchedLocalCart = true;
 	   
 	   if(localStorageService.get('mealsInCart')) {
-	   		console.log("found meals in cart")
+	   		// console.log("found meals in cart")
 		   return localStorageService.get('mealsInCart');	   	
 	   }
 	   else {
-	   	console.log("local cart is empty")
+	   	// console.log("local cart is empty")
 	   	return [];
 	   }
 	   
-	   // var temp = localStorageService.get('test');
-	   // console.log("foo is now",temp)
 	}
 
 	// localStorageFactory.setLocalCart = function() {
