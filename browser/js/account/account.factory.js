@@ -23,6 +23,14 @@ app.factory('AccountFactory', function($http) {
 
 	}
 
+	AccountFactory.addMeal = function(data) {
+		return $http.post('/api/meals', data)
+		.then(function(res) {
+			return res.data;
+		})
+
+	}
+
 	return AccountFactory;
 
 })

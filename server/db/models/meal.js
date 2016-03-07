@@ -35,6 +35,22 @@ mealSchema.methods.addRating = function (ratingData) {
         .create(ratingData)
 }
 
+mealSchema.methods.addMealToChef = function(chef) {
+  var self = this;
+  // if (typeof chef !== "string") {
+  //   chef.meals.push(this._id)
+  //   return chef.save();
+  // } else {
+    mongoose.model('Chef').find({_id: chef._id})
+    .then(function(chef) {
+      chef.meals.push(this._id)
+      return chef.save()
+    })
+    .then(function() {
+      return self;
+    })
+  // }
+}
 
 module.exports = mongoose.model('Meal', mealSchema);
 

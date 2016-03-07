@@ -17,9 +17,16 @@ router.get('/', function(req, res, next){
   .then(null, next);
 });
 
+// Returns chef, not the meal
 router.post('/', function(req, res, next){
   Meal.create(req.body)
-  .then(res.json)
+  .then(function(meal) {
+    console.log("REQ USER FROM BACKEND",req.user)
+    return meal.addMealToChef(req.user)
+  })
+  .then(function(meal) {
+    res.json(meal)
+  })
   .then(null, next);
 });
 

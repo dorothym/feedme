@@ -12,11 +12,13 @@ app.config(function($stateProvider) {
     });
 })
 
-app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTransactions) {
+app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTransactions, AccountFactory) {
 
     $scope.allTransactions = allTransactions;
 
    $scope.user = null;
+
+   $scope.newMeal ={};
 
    $scope.isLoggedIn = function () {
         return AuthService.isAuthenticated();
@@ -31,6 +33,15 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
     $scope.isChef = function() {
         // TBD. for now return true
         return true;
+    }
+
+    $scope.addMeal = function(data) {
+        return AccountFactory.addMeal(data)
+    }
+
+    $scope.logMeal = function() {
+        console.log($scope.newMeal)
+        console.log($scope.user)
     }
 
     setUser();
