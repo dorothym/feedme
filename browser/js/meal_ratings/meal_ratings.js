@@ -1,14 +1,15 @@
-app.factory('MealRatingFactory',function($http, AuthService, $state) {
+app.factory('MealRatingFactory',function($http, AuthService, $state, AccountFactory) {
 
     var MealRatingFactory = {};
 
     MealRatingFactory.submitRating = function (rating){
-      $http.post('/api/ratings', rating)
+      return $http.post('/api/ratings', rating)
       .then(function(ratingFromDB){
-        console.log('rating added: ',ratingFromDB);
-      })
+        AccountFactory.addToRatingsCache(ratingFromDB);
+        console.log('rating added: ', rating);
+      });
     }
-
+    
     return MealRatingFactory;
 })
 
@@ -30,12 +31,16 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('RatingCtrl', function ($scope, meal, user, MealRatingFactory) {
+app.controller('RatingCtrl', function ($scope, meal, user, MealRatingFactory, AccountFactory) {
 	$scope.meal = meal;
     $scope.newRating = {
       meal: meal._id,
       author: user._id,
     };
+
+  $scope.submitRating = function(rating) {
+    return MealRatingFactory.submitRating(rating);
+  }
   
-  $scope.submitRating = MealRatingFactory.submitRating;
+  
 });

@@ -7,15 +7,20 @@ app.config(function($stateProvider) {
         resolve: {
             allTransactions: function(AccountFactory, $stateParams) {
                 return AccountFactory.fetchAllTransactions($stateParams.id);
+            },
+            allRatings: function(AccountFactory, $stateParams){
+              return AccountFactory.getAllRatings($stateParams.id);
             }
         }
     });
 })
 
-app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTransactions) {
+app.controller('AccountCtrl', function($scope, AuthService, allTransactions, allRatings) {
 
-    $scope.allTransactions = allTransactions;
+  $scope.allTransactions = allTransactions;
 
+  $scope.allRatings = allRatings;
+  
    $scope.user = null;
 
    $scope.isLoggedIn = function () {
@@ -31,6 +36,19 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
     $scope.isChef = function() {
         // TBD. for now return true
         return true;
+    }
+    
+    $scope.isRatable = function (status, mealId){
+      
+      return status==='Delivered' && !allRatings.filter(function(rating){
+        return rating.meal === mealId;
+      }).length;
+    }
+    
+    $scope.ratingNum = function (mealId){
+      return allRatings.filter(function(rating){
+        return rating.meal === mealId;
+      })[0].rating;
     }
 
     setUser();
