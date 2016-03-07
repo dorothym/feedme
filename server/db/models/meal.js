@@ -15,7 +15,8 @@ var mealSchema = new Schema({
   price: {type: Number, required: true},
   diet: { type: Array, enum: dietArray },
   tags: { type: [String] },
-  servings: { type: Number }
+  servings: { type: Number },
+  quantity: {type: Number}
 });
 
 mealSchema.methods.getChef = function () {
