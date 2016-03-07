@@ -14,7 +14,6 @@ var mealSchema = new Schema({
   photo: { type: String},
   price: {type: Number, required: true},
   diet: { type: Array, enum: dietArray },
-  tags: { type: [String] },
   servings: { type: Number },
   quantity: {type: Number}
 });

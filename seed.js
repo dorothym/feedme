@@ -8,29 +8,41 @@ var startDbPromise = require('./server/db')
 var Chef = mongoose.model('Chef');
 var Meal = mongoose.model('Meal'); 
 var Transaction = mongoose.model('Transaction'); 
+var Rating = mongoose.model('Rating'); 
 var chance = require('chance')(123);
 var _ = require('lodash');
 
+
+// change the number of generated documents here:
+// NOTE: number of meals and chefs should always be 4:1 (as it is populated now 4 meals per 1 chef)
 var numChefs = 5;
 var numMeals = 20;
+// All transactions are currently under 1 user. See comment below to add users.
 var numTransactions = 5;
-var cuisine = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish', 'Vegetarian', 'Pastry', 'Desserts'];
+var numRatings = 1000;
+var cuisine = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish'];
 
 var specialty = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish', 'Vegetarian', 'Pastry', 'Desserts'];
 
 var diets = ['Vegetarian','Vegan','Paleo','Gluten-free','Kosher','Halal', 'None', 'Dairy-free'];
 var borough = ['Bronx','Brooklyn','Queens','Staten Island','Manhattan'];
 
-var tags = specialty.concat(diets);
-
 var emails = chance.unique(chance.email, numChefs);
+// allMeals array for populating Chef's schema. 
 var allMeals = [];
 var randNumber = chance.integer({min: 1, max: 5})
 
+// add meals for transactions here
 var mealsFT = [];
+
+// add customers that need transactions here
 var customersFT = ["56dba9f9ccbb8a3412f3013f"];
 var transactionStatus = ['Open', 'On the Way', 'Delivered', 'stillShopping', 'checkingOut', 'placedOrder', 'cookingOrder','orderDelivered'];
 
+var mealsFR = [];
+
+// add customers that will review products here:
+var customersFR = ["56dba9f9ccbb8a3412f3013f"];
 
 // Random User photo
 function randUserPhoto () {
@@ -82,7 +94,6 @@ function randMeal() {
           photo: chance.pickone(mealPhotos),
           price: chance.integer({min: 10, max: 200}),
           diet: chance.pickone(diets),
-          tags: chance.pickset(tags, chance.integer({min: 1, max: 5})),
           servings: chance.integer({min: 1, max: 10})
     })
 }
@@ -95,6 +106,15 @@ function randTransaction() {
     })
 }
 
+function randRating() {
+    return new Rating({
+        meal: chance.pickone(mealsFR),
+        rating: chance.integer({min: 1, max: 5}),
+        ratingText: chance.sentence(),
+        author: chance.pickone(customersFR),
+    })
+}
+
 function generateAllMeals() {
     var meals = _.times(numMeals, function () {
         return randMeal();
@@ -102,6 +122,7 @@ function generateAllMeals() {
     meals.forEach(function(meal) {
         allMeals.push(meal._id);
         mealsFT.push(meal._id);
+        mealsFR.push(meal._id);
     })
    return meals;
 }
@@ -119,6 +140,14 @@ function generateAllTransactions() {
     }); 
    return transactions;
 }
+
+function generateAllRatings() {
+    var ratings = _.times(numRatings, function() {
+        return randRating();
+    }); 
+   return ratings;
+}
+
 
 function seedMeals() {
     var docs = generateAllMeals();
@@ -141,6 +170,13 @@ function seedTransactions() {
     })
 }
 
+function seedRatings() {
+    var docs = generateAllRatings();
+    return Promise.map(docs, function(doc) {
+        return doc.save();
+    })
+}
+
 startDbPromise
 .then(function(db){
     db.drop = Promise.promisify(db.db.dropDatabase.bind(db.db));
@@ -150,7 +186,8 @@ startDbPromise
         return Promise.all([
             seedMeals(), 
             seedChefs(), 
-            seedTransactions()
+            seedTransactions(), 
+            seedRatings()
         ])
     })
     .then(function () {
