@@ -69,7 +69,6 @@
                                     <td><button type="submit" class="btn btn-default btn-primary" ng-show="isRatable(transaction.status, meal._id)" ui-sref="addRating({id: meal._id})">Rate this meal!</button></td>
                                     <td ng-show="!isRatable(transaction.status, meal._id) && transaction.status==='Delivered'">You already gave this a {{ratingNum(meal._id)}} star rating!</td>
 	                            </tr>
-
 	                        </tbody>
 	                    </table>
                     </div>

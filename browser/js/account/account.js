@@ -41,13 +41,13 @@ app.controller('AccountCtrl', function($scope, AuthService, allTransactions, all
     $scope.isRatable = function (status, mealId){
       
       return status==='Delivered' && !allRatings.filter(function(rating){
-        return rating.meal === mealId;
+        return rating.meal._id === mealId;
       }).length;
     }
     
     $scope.ratingNum = function (mealId){
       return allRatings.filter(function(rating){
-        return rating.meal === mealId;
+        return rating.meal._id === mealId && rating.rating
       })[0].rating;
     }
 
