@@ -16,7 +16,7 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
 
     $scope.allTransactions = allTransactions;
 
-   $scope.user = null;
+    $scope.user = null;
 
    $scope.isLoggedIn = function () {
         return AuthService.isAuthenticated();

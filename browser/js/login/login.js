@@ -11,7 +11,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('LoginCtrl', function ($scope, AuthService, $state,$stateParams) {
+app.controller('LoginCtrl', function ($scope, AuthService, $state,$stateParams,localStorageService) {
 
     if($stateParams) {
         $scope.successmessage = $stateParams.successmessage;
@@ -23,6 +23,8 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state,$stateParams) 
   
     $scope.sendLogin = function (loginInfo) {
 
+        testSubmitKey(); // testing local storage
+
         $scope.error = null;
 
         AuthService.login(loginInfo).then(function () {
@@ -32,5 +34,9 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state,$stateParams) 
         });
 
     };
+
+    function testSubmitKey() {
+        return localStorageService.set('test','blah')
+    }
 
 });
