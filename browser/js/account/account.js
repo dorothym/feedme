@@ -32,6 +32,11 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
         });
     };
 
+    $scope.isChef = function() {
+        // TBD. for now return true
+        return true;
+    }
+
     setUser();
 
 })
