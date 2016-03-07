@@ -14,9 +14,9 @@ var _ = require('lodash');
 var numChefs = 5;
 var numMeals = 20;
 var numTransactions = 5;
-var cuisine = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish'];
+var cuisine = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish', 'Vegetarian', 'Pastry', 'Desserts'];
 
-var specialty = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish', 'Vegetarian', 'Pastry', 'Deserts'];
+var specialty = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish', 'Vegetarian', 'Pastry', 'Desserts'];
 
 var diets = ['Vegetarian','Vegan','Paleo','Gluten-free','Kosher','Halal', 'None', 'Dairy-free'];
 var borough = ['Bronx','Brooklyn','Queens','Staten Island','Manhattan'];
@@ -29,7 +29,7 @@ var randNumber = chance.integer({min: 1, max: 5})
 
 var mealsFT = [];
 var customersFT = ["56dba9f9ccbb8a3412f3013f"];
-var transactionStatus = ['Open', 'On the Way', 'Delivered'];
+var transactionStatus = ['Open', 'On the Way', 'Delivered', 'stillShopping', 'checkingOut', 'placedOrder', 'cookingOrder','orderDelivered'];
 
 
 // Random User photo

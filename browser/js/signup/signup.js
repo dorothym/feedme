@@ -26,8 +26,11 @@ app.controller('SignupCtrl', function ($scope, AuthService, $state, $http, $root
     $scope.sendsignup = function (signupInfo) {
         return $http.post('api/users', signupInfo)
         .then(function(newUser) {
-                $rootScope.newUser = true;
-                $state.go('login');
+                // $rootScope.newUser = true;
+                // moved the logic to a state parameter rather than putting on rootscope
+                $state.go('login',{
+                    successmessage: 'Successful signup! Please log in.'
+                });
             })
             .catch(function (err) {
                 // console.log('err after all ', err)
@@ -57,18 +60,23 @@ app.controller('ChefSignupCtrl', function ($scope, AuthService, $state, $http, $
         return true;
     }
 
+    $scope.cuisines = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish', 'Vegetarian', 'Pastry', 'Desserts'];
+
     $scope.signup = {};
     $scope.error = null;
 
     $scope.sendsignup = function (signupInfo) {
-        console.log('chef signup')
-        return $http.post('api/users', signupInfo)
+        // console.log('chef signup sendsignup',signupInfo)
+        signupInfo.type="chef";
+        return $http.post('api/chefs', signupInfo)
         .then(function(newUser) {
                 $rootScope.newUser = true;
-                $state.go('login');
+                $state.go('login',{
+                  successmessage: 'Successful signup! Please log in.'
+                });
             })
             .catch(function (err) {
-                // console.log('err after all ', err)
+                console.log('error', err)
                 $scope.error = 'Invalid signup credentials.'
             });
     }
