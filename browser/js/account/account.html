@@ -66,6 +66,7 @@
 	                            <tr ng-repeat="meal in transaction.meals">
 		                            <td><a ui-sref="meal({id: meal._id})"> {{meal.name}}</a></td>
 	                                <td>{{meal.price | currency }}</td>
+                                    <td><button type="submit" class="btn btn-default btn-primary" ng-show="transaction.status!=='stillShopping'" ui-sref="addRating">Rate this meal!</button></td>
 	                            </tr>
 
 	                        </tbody>
