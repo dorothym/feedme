@@ -1,7 +1,13 @@
-app.factory('MealRatingFactory',function($http, AuthService) {
+app.factory('MealRatingFactory',function($http, AuthService, $state) {
 
     var MealRatingFactory = {};
 
+    MealRatingFactory.submitRating = function (rating){
+      $http.post('/api/ratings', rating)
+      .then(function(ratingFromDB){
+        console.log('rating added: ',ratingFromDB);
+      })
+    }
 
     return MealRatingFactory;
 })
@@ -24,10 +30,12 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('RatingCtrl', function ($scope, meal, user) {
+app.controller('RatingCtrl', function ($scope, meal, user, MealRatingFactory) {
 	$scope.meal = meal;
     $scope.newRating = {
       meal: meal._id,
       author: user._id,
     };
+  
+  $scope.submitRating = MealRatingFactory.submitRating;
 });

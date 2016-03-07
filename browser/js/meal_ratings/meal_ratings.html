@@ -6,7 +6,7 @@
     </div>
 </div>
 <div class="container">
-    <form id="rating-form" name="ratingForm" ng-submit="undecided"> 
+    <form id="rating-form" name="ratingForm" ng-submit="submitRating(newRating)"> 
     <div class="row">
         <div class="col-lg-12">
 
@@ -36,7 +36,7 @@
 
                             <div class="form-group">
                                 <label for="homeaddress">Rating Text:</label>
-                                <input type="text" ng-model="newRating.ratingText" class="form-control" id="text" placeholder="Write review here...">
+                                <input type="text" ng-model="newRating.ratingText" class="form-control" id="text" placeholder="Write review here..." required>
                             </div>
 
 
@@ -45,7 +45,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-default">Add Rating!</button>
+            <button type="submit" class="btn btn-default" ui-sref='account({id: newRating.author})'>Add Rating!</button>
         </form>
 
         </div>
