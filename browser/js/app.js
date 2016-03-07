@@ -1,5 +1,5 @@
 'use strict';
-window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'angularPayments']);
+window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'angularPayments','LocalStorageModule']);
 
 app.config(function ($urlRouterProvider, $locationProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)
@@ -54,4 +54,12 @@ app.run(function ($rootScope, AuthService, $state) {
 
     });
 
+});
+
+
+// configuration as specified by https://github.com/grevory/angular-local-storage
+app.config(function (localStorageServiceProvider) {
+  localStorageServiceProvider
+    .setPrefix('feedme')
+    .setNotify(true, true)
 });
