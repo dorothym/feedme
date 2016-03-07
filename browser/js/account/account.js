@@ -12,11 +12,20 @@ app.config(function($stateProvider) {
     });
 })
 
-app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTransactions) {
+app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTransactions, AccountFactory, ChefFactory, MealsFactory) {
 
     $scope.allTransactions = allTransactions;
 
    $scope.user = null;
+
+   $scope.newMeal = {};
+   $scope.updatedMeal= {};
+
+   $scope.allMyMeals = function() {
+    return ChefFactory.updateCache("Meals")
+   }
+
+
 
    $scope.isLoggedIn = function () {
         return AuthService.isAuthenticated();
@@ -32,6 +41,17 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
         // TBD. for now return true
         return true;
     }
+
+    $scope.addMeal = function(data) {
+        AccountFactory.addMeal(data);
+        ChefFactory.updateCache("Meals", data);
+        MealsFactory.updateCache("Meals", data);
+    }
+
+    $scope.updateMeal = function(mealId, data) {
+        return AccountFactory.updateMeal(mealId, data)
+    }
+
 
     setUser();
 

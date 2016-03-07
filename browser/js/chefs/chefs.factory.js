@@ -12,6 +12,18 @@ app.factory('ChefFactory',function($http) {
         return cache[obj.type];
     }
 
+    // ChefFactory.getCache = function(type) {
+    //     if(!type) return cache;
+    //     else return cache.type;
+    // }
+
+    ChefFactory.updateCache = function(type, data) {
+        if(data)  {
+            cache[type].push(data)         
+        }
+        return cache[type];
+    }
+
     ChefFactory.getAllChefs = function() {
         return $http.get('/api/chefs')
         .then(function(res) {
