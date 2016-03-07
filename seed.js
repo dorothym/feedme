@@ -32,12 +32,12 @@ var emails = chance.unique(chance.email, numChefs);
 var allMeals = [];
 var randNumber = chance.integer({min: 1, max: 5})
 
-// add meals for transactions here
+
 var mealsFT = [];
 
 // add customers that need transactions here
 var customersFT = ["56dba9f9ccbb8a3412f3013f"];
-var transactionStatus = ['Open', 'On the Way', 'Delivered', 'stillShopping', 'checkingOut', 'placedOrder', 'cookingOrder','orderDelivered'];
+var transactionStatus = ['On the Way', 'Delivered', 'stillShopping', 'Processing'];
 
 var mealsFR = [];
 
