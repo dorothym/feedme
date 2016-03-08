@@ -10,18 +10,21 @@ app.config(function($stateProvider) {
             },
             allRatings: function(AccountFactory, $stateParams){
               return AccountFactory.getAllRatings($stateParams.id);
+            },
+            getAllMeals: function(ChefFactory, $stateParams){
+              return ChefFactory.getMeals($stateParams.id)
             }
         }
     });
 })
 
-app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTransactions, AccountFactory, ChefFactory, MealsFactory, allRatings) {
+app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTransactions, AccountFactory, ChefFactory, MealsFactory, allRatings, getAllMeals) {
 
   $scope.allTransactions = allTransactions;
 
   $scope.allRatings = allRatings;
 
-//    $scope.allMyMeals = getAllMeals;
+    $scope.allMyMeals = getAllMeals;
 
    $scope.newMeal = {};
    $scope.updatedMeal= {};
