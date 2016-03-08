@@ -7,3 +7,21 @@
 [ui-sref]:hover{
   cursor: pointer;
 }
+
+img {
+	&.branding {
+	border: 4px solid #222;
+	}
+	&.pullup {
+		margin-top: -30px;
+	}
+}
+
+.pull-right {
+	&.corner {
+	    position: absolute;
+	    right: 4%;
+	    top: 20%;
+	    z-index: 1000;
+	}
+}
