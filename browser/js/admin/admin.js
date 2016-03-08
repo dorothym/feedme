@@ -19,6 +19,7 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
 	$scope.updated = false;
 	$scope.showForm = false;
 	$scope.updatedUser ={};
+    
     $scope.userType = function(user) {
         if(user.type === "Chef" && user.admin) {
             return "Chef / Admin"
@@ -87,11 +88,6 @@ app.factory('AdminFactory', function($http) {
  	
  	AdminFactory.assignAdmin = function(user) {
 
-        if(!user.admin)
-		    return $http.put('/api/users/' + user._id, {admin: true})
-        else 
-            return $http.put('/api/users/' + user._id, {admin: false})    
-        
         cache.forEach(function(curUser) {
             if(curUser === user) {
                 if(curUser.admin === true) curUser.admin = false;
@@ -99,6 +95,11 @@ app.factory('AdminFactory', function($http) {
             }
             return curUser;
         })
+        if(!user.admin)
+            return $http.put('/api/users/' + user._id, {admin: true})
+        else 
+            return $http.put('/api/users/' + user._id, {admin: false})    
+        
 	}
 
     AdminFactory.removeAdmin = function(user) {
