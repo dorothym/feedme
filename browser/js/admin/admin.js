@@ -18,7 +18,6 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
 	$scope.allUsers = allUsers;
 	$scope.updated = false;
 	$scope.showForm = false;
-	$scope.updatedUser ={};
     $scope.curUser = {};
 
     $scope.userType = function(user) {
@@ -45,9 +44,9 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
     }
 
     $scope.updateUser = function(user) {
-
-    	$scope.updated = true;
-    	$scope.action = "updated";
+        $scope.showForm = false;
+        $scope.updated = true;
+        $scope.action = "updated";
         AdminFactory.updateUser(user)
     }
 
