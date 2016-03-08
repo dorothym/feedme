@@ -19,7 +19,7 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
 	$scope.updated = false;
 	$scope.showForm = false;
 	$scope.updatedUser ={};
-    
+
     $scope.userType = function(user) {
         if(user.type === "Chef" && user.admin) {
             return "Chef / Admin"
@@ -46,6 +46,7 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
     	$scope.updated = true;
     	$scope.action = "updated";
     	AdminFactory.updateUser(user, data);
+        console.log("from updateUser: ", user, data)
     }
 
     $scope.assignAdmin = function(user) {
