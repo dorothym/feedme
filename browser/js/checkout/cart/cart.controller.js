@@ -17,15 +17,7 @@ app.controller('CartCtrl', function ($scope, CartFactory, $state, Session) {
     if (!!Session.user){
       $state.go('checkout')
     }else {
-      var userInfo = {
-        email: String(Math.floor(Math.random() * 1000000000))+'@fakeEmail.email',
-        firstName: 'Dummy',
-        lastName: 'User'
-      }
-      CartFactory.createDummyUser(userInfo)
-      .then(function(guestUser){
-        $state.go('guestCheckout', {guest: userInfo})
-      });
+      $state.go('guestCheckout')
     }
   }
   

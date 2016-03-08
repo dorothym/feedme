@@ -42,10 +42,10 @@ app.controller('CheckoutCtrl', function ($scope, CheckoutFactory, CartFactory, u
 });
 
 //this is a bit repetitious...
-app.controller('GuestCheckoutCtrl', function ($scope, CheckoutFactory, CartFactory, localStorageService, $stateParams) {
+app.controller('GuestCheckoutCtrl', function ($scope, CheckoutFactory, CartFactory, localStorageService, $stateParams, guest, $state) {
   $scope.cart = localStorageService.get('mealsInCart');
   
-  $scope.user = $stateParams.guest;
+  $scope.user = guest;
   
   $scope.stripeCallback = function (code, result) {
     if (result.error) {
@@ -56,6 +56,7 @@ app.controller('GuestCheckoutCtrl', function ($scope, CheckoutFactory, CartFacto
   };
 
   $scope.confirmOrder = function() {
+    console.log($scope.user, $scope.cart)
         return CheckoutFactory.createTransaction($scope.user, $scope.cart)
         .then(function(){
         console.log('before states')

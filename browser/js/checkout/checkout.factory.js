@@ -25,7 +25,6 @@ app.factory('CheckoutFactory', function($http, AuthService) {
       return $http.get('/api/users/' + user._id + '/transaction/cart')
     })
     .then(function(cart){
-      console.log(cart.data)
       return cart.data;
     })
   }
@@ -42,7 +41,7 @@ app.factory('CheckoutFactory', function($http, AuthService) {
   
   CheckoutFactory.createTransaction = function (guest, meals){
     var newTransaction = {
-      customer: guest,
+      customer: guest._id,
       meals: meals,
       status: 'Processing'
     }
