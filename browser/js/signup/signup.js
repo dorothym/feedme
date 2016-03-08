@@ -1,14 +1,14 @@
 app.config(function ($stateProvider) {
 
     $stateProvider.state('signup', {
-        url: '/signup',
+        url: '/signup/:isChef',
         templateUrl: 'js/signup/signup.html',
         controller: 'SignupCtrl'
     });
 
 });
 
-app.controller('SignupCtrl', function ($scope, AuthService, $state, $http) {
+app.controller('SignupCtrl', function ($scope, AuthService, $state, $http, $stateParams,localStorageFactory, CartFactory) {
 
     $scope.log = function() {
         SignupFactory.signup()
@@ -16,15 +16,25 @@ app.controller('SignupCtrl', function ($scope, AuthService, $state, $http) {
     $scope.successmessage = null;
     
 
+    // console.log("stateparams:",$stateParams)
+
     $scope.signup = {};
     $scope.error = null;
 
-    $scope.isChef = function() {
-        return false;
+    $scope.showChef = $stateParams.isChef;
+    // console.log("is chef =",$scope.showChef)
+
+    var postRoute;
+    if($stateParams.showChef) {
+        postRoute = 'api/chefs';
+    }
+    else {
+        postRoute= 'api/users';
     }
 
+
     $scope.sendsignup = function (signupInfo) {
-        return $http.post('api/users', signupInfo)
+        return $http.post(postRoute, signupInfo)
         .then(function(newUser) {
                 $state.go('login',{
                     successmessage: 'Successful signup! Please log in.'
@@ -35,45 +45,19 @@ app.controller('SignupCtrl', function ($scope, AuthService, $state, $http) {
                 $scope.error = 'Invalid signup credentials.'
             });
     }
-});
 
-app.config(function ($stateProvider) {
+    $scope.isLoggedIn = function () {
+        return AuthService.isAuthenticated();
+    };
 
-    $stateProvider.state('chefsignup', {
-        url: '/chefsignup',
-        templateUrl: 'js/signup/signup.html',
-        controller: 'ChefSignupCtrl'
-    });
+    // if we have not already checked for locally stored cart
+    // and if user is not authenticated, copy locally stored cart to cached cart
 
-});
-
-app.controller('ChefSignupCtrl', function ($scope, AuthService, $state, $http) {
-
-    $scope.log = function() {
-        SignupFactory.signup()
-    }
-    $scope.successmessage = null;
-    
-    $scope.isChef = function() {
-        return true;
+    function copyLocalCart() {
+        if(!localStorageFactory.alreadyFetchedLocalCart && !$scope.isLoggedIn() && localStorageFactory.getLocalCart().length > 0) {
+            CartFactory.copyCartFromLocalStorage(localStorageFactory.getLocalCart());
+        }
     }
 
-    $scope.cuisines = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish', 'Vegetarian', 'Pastry', 'Desserts'];
-
-    $scope.signup = {};
-    $scope.error = null;
-
-    $scope.sendsignup = function (signupInfo) {
-        signupInfo.type="Chef";
-        return $http.post('api/chefs', signupInfo)
-        .then(function(newUser) {
-                $state.go('login',{
-                  successmessage: 'Successful signup! Please log in.'
-                });
-            })
-            .catch(function (err) {
-                console.log('error', err)
-                $scope.error = 'Invalid signup credentials.'
-            });
-    }
+    copyLocalCart();
 });

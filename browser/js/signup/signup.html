@@ -10,6 +10,10 @@
     <form id="signup-form" name="signupForm" ng-submit="sendsignup(signup)"> 
         <!-- <form id="signup-form" name="signupForm" ng-submit="signupForm.$valid && sendsignup(signup)"> -->
     <div class="row">
+        <div class="pull-right corner">
+            <img src="http://localhost:1337/images/chipmunk6_150x150.png" class="img-circle branding">
+        </div>
+        </div>
         <div class="col-lg-12">
 
             <div class="panel panel-default">
@@ -108,7 +112,7 @@
             </div>
 
 
-            <div class="panel panel-default" ng-show="isChef()">
+            <div class="panel panel-default" ng-show="{{showChef}}">
                 <div class="panel-heading">
                     Chef information:
                 </div>

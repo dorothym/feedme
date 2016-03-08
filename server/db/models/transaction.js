@@ -28,6 +28,10 @@ transactionSchema.methods.addMeal = function (mealId){
   return this.save();
 }
 
+transactionSchema.statics.getByCustomer = function (customerId){
+  return this.find({customer: customerId});
+}
+
 transactionSchema.statics.getByStatus = function (statusType){
   return this.find({status: statusType});
 }

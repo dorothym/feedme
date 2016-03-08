@@ -21,8 +21,12 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
     $scope.allTransactions = allTransactions;
 
     $scope.user = null;
-    $scope.newMeal = {};
+
     $scope.allMyMeals = getAllMeals;
+
+   $scope.newMeal = {};
+   $scope.updatedMeal= {};
+
 
     $scope.allCuisines = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish']
     
