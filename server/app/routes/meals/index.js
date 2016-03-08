@@ -17,7 +17,6 @@ router.get('/', function(req, res, next){
   .then(null, next);
 });
 
-// Returns chef, not the meal
 router.post('/', function(req, res, next){
   Meal.create(req.body)
   .then(function(meal) {
@@ -28,6 +27,7 @@ router.post('/', function(req, res, next){
   })
   .then(null, next);
 });
+
 
 router.param('id', function(req, res, next, id){
   Meal.findById(id)
@@ -51,7 +51,7 @@ router.route('/:id')
 //update one meal
   .put(function(req, res, next){
     req.meal.set(req.body);
-    req.save()
+    req.meal.save()
     .then(function(updatedMeal){
       res.json(updatedMeal)
     })

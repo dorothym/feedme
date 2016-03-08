@@ -38,6 +38,13 @@ app.factory('AccountFactory', function($http) {
 		})
 	}
 
+	AccountFactory.removeMeal = function(meal) {
+		return $http.delete('/api/meals/' + meal)
+		.then(function(res) {
+			return res.data;
+		})
+	}
+
 	return AccountFactory;
 
 })

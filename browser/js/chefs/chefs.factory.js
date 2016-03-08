@@ -12,10 +12,14 @@ app.factory('ChefFactory',function($http) {
         return cache[obj.type];
     }
 
-    ChefFactory.updateCache = function(type, data) {
-        if(data)  {
+    ChefFactory.updateCache = function(type, data, typeOfUpdate) {
+        if(data && typeOfUpdate === "addToCache")  {
             cache[type].push(data)       
-        }
+        } else if(data && typeOfUpdate === "removeFromCache") {
+            var index = cache[type].indexOf(data);
+            cache[type].splice(index, 1)
+        } 
+
         return cache[type];
     }
 

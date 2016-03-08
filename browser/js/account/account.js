@@ -22,7 +22,6 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
 
     $scope.user = null;
     $scope.newMeal = {};
-    $scope.updatedMeal= {};
 
    $scope.allMyMeals = getAllMeals;
 
@@ -48,12 +47,24 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
 
     $scope.addMeal = function(data) {
         AccountFactory.addMeal(data);
-        ChefFactory.updateCache("Meals", data);
+        ChefFactory.updateCache("Meals", data, "addToCache");
         MealsFactory.updateCache("Meals", data);
+        console.log("Hello from addMeal!")
+        console.log(data)
     }
 
     $scope.updateMeal = function(mealId, data) {
-        return AccountFactory.updateMeal(mealId, data)
+        console.dir("arguments: ", arguments);
+        console.log("type of user ", $scope.user.type)
+        console.log("Hello from updateMeal!", data)
+        AccountFactory.updateMeal(mealId, data)
+        console.log("Hello again!")
+        console.log(mealId, data)
+    }
+
+    $scope.removeMeal = function(meal) {
+        AccountFactory.removeMeal(meal);
+        ChefFactory.updateCache("Meals", meal, "removeFromCache")
     }
 
 
