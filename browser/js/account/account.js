@@ -7,26 +7,24 @@ app.config(function($stateProvider) {
         resolve: {
             allTransactions: function(AccountFactory, $stateParams) {
                 return AccountFactory.fetchAllTransactions($stateParams.id);
-            }, 
-            getAllMeals: function(ChefFactory, $stateParams) {
-                return ChefFactory.getMeals($stateParams.id)
+            },
+            allRatings: function(AccountFactory, $stateParams){
+              return AccountFactory.getAllRatings($stateParams.id);
             }
-
         }
     });
 })
 
 app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTransactions, AccountFactory, ChefFactory, MealsFactory, getAllMeals) {
 
-    $scope.allTransactions = allTransactions;
+  $scope.allTransactions = allTransactions;
 
-    $scope.user = null;
+  $scope.allRatings = allRatings;
 
     $scope.allMyMeals = getAllMeals;
 
    $scope.newMeal = {};
    $scope.updatedMeal= {};
-
 
     $scope.allCuisines = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish']
     
@@ -44,6 +42,19 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
         // TBD. for now return true
         if($scope.user.type === "Chef")
             return true;
+    }
+    
+    $scope.isRatable = function (status, mealId){
+      
+      return status==='Delivered' && !allRatings.filter(function(rating){
+        return rating.meal._id === mealId;
+      }).length;
+    }
+    
+    $scope.ratingNum = function (mealId){
+      return allRatings.filter(function(rating){
+        return rating.meal._id === mealId && rating.rating
+      })[0].rating;
     }
 
     $scope.isAdmin =  function() {

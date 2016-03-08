@@ -51,8 +51,8 @@
         <div class="col-lg-8">
         	<div class="panel panel-default">
 	        	<div class="panel-heading"><h3>Your Transactions</h3></div>
-	        	<div class="panel-body" ng-repeat="transaction in allTransactions | orderBy : 'status'">
-	        		<h4>Order date: {{transaction.date | date}}</h4>
+	        	<div class="panel-body" ng-repeat="transaction in allTransactions | orderBy: ['status', '-date']">
+	        		<h4>Order date: {{transaction.date | date }}</h4>
 	        		<h4>Status: {{transaction.status }}</h4>
 	                <div class="table-responsive table-bordered">
 	                    <table class="table">
@@ -66,8 +66,9 @@
 	                            <tr ng-repeat="meal in transaction.meals">
 		                            <td><a ui-sref="meal({id: meal._id})"> {{meal.name}}</a></td>
 	                                <td>{{meal.price | currency }}</td>
+                                    <td><button type="submit" class="btn btn-default btn-primary" ng-show="isRatable(transaction.status, meal._id)" ui-sref="addRating({id: meal._id})">Rate this meal!</button></td>
+                                    <td ng-show="!isRatable(transaction.status, meal._id) && transaction.status==='Delivered'">You already gave this a {{ratingNum(meal._id)}} star rating!</td>
 	                            </tr>
-
 	                        </tbody>
 	                    </table>
                     </div>
@@ -219,4 +220,42 @@
 	        </div>
 	    </div>
     </div>
+<<<<<<< HEAD
+  <div class="row">
+
+	        <div class="col-lg-12">
+	        	<div class="panel panel-default">
+		        	<div class="panel-heading"><h3>Show All Ratings</h3></div>
+		        	<div class="panel-body" >
+
+		                <form>
+                          <div class="table-responsive table-bordered">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Meal</th>
+                                        <th>Rating</th>
+                                        <th>Rating Text</th>
+                                        <th>Date Rated</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="rating in allRatings | orderBy: '-date'">
+                                        <td><a ui-sref="meal({id: rating.meal._id})"> {{rating.meal.name}}</a></td>
+                                        <td>{{ rating.rating }}</td>
+                                        <td>{{ rating.ratingText }}</td>
+                                        <td>{{ rating.date | date }}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
 </div>

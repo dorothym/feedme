@@ -7,7 +7,8 @@ var Rating = mongoose.model('Rating');
 
 //get all ratings for a meal (cont.)
 router.get('/', function(req, res, next){
-  Rating.find({})
+  Rating.find(req.query)
+  .populate('meal')
   .then(function(allRatings){
     res.json(allRatings);
   })
