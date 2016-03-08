@@ -1,4 +1,4 @@
-app.controller('CheckoutCtrl', function ($scope, CheckoutFactory, CartFactory, user, $state, userCart) {
+app.controller('CheckoutCtrl', function ($scope, CheckoutFactory, CartFactory, user, $state, userCart, localStorageService) {
   $scope.cart = CartFactory.getCartCache();
   
   if (user){
@@ -26,6 +26,7 @@ app.controller('CheckoutCtrl', function ($scope, CheckoutFactory, CartFactory, u
   $scope.confirmOrder = function() {
     CheckoutFactory.changeCartStatus(userCart._id)
       .then(function(){
+//        CartFactory.clearCache;
         return CartFactory.getUserCart(user);
       })
       .then(function(){

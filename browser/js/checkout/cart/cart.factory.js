@@ -1,4 +1,4 @@
-app.factory('CartFactory', function($http,localStorageService) {
+app.factory('CartFactory', function($http,localStorageService, Session) {
   var CartFactory = {};
   var cache = [];
   
@@ -15,6 +15,7 @@ app.factory('CartFactory', function($http,localStorageService) {
   CartFactory.getUserCart = function (user){
       return $http.get('/api/users/' + user._id + '/transaction/cart')
       .then(function(cart){
+        console.log('-------checking cart status', cart.data)
         if (!cart.data) return makeCart(user);
         return cart.data.meals;
       })
@@ -22,8 +23,9 @@ app.factory('CartFactory', function($http,localStorageService) {
   }
   
   function makeCart (user){
-      $http.post('/api/users/' + user._id + '/transaction', {customer: user._id, status: 'stillShopping'})
+      return $http.post('/api/users/' + user._id + '/transaction', {customer: user._id, status: 'stillShopping'})
     .then(function(cart){
+        console.log('new cart', cart.data)
       return cart.data.meals;
     })
   }
@@ -55,18 +57,19 @@ app.factory('CartFactory', function($http,localStorageService) {
     var i = cache.indexOf(meal);
     cache.splice(i, 1);
     // testing local storage // dmoore
-    console.log("updating local storage - removing item");
-    updateLocalStorage();
-    updateCartOnDb();
+    if(!!Session.user){
+      updateCartOnDb();
+    } else updateLocalStorage();
   }
   
 
   CartFactory.addMealToCart = function (meal){
     cache.push(meal);
     // testing local storage // dmoore
-    console.log("updating local storage - adding item")
-    updateLocalStorage();
-    updateCartOnDb();
+    if(!!Session.user){
+      console.log('logged in')
+      updateCartOnDb();
+    } else updateLocalStorage();
   }
   
   CartFactory.getSubtotal = function () {
