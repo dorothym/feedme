@@ -86,10 +86,19 @@ app.factory('AdminFactory', function($http) {
 	}
  	
  	AdminFactory.assignAdmin = function(user) {
-            if(!user.admin)
-    		    return $http.put('/api/users/' + user._id, {admin: true})
-            else 
-                return $http.put('/api/users/' + user._id, {admin: false})    
+
+        if(!user.admin)
+		    return $http.put('/api/users/' + user._id, {admin: true})
+        else 
+            return $http.put('/api/users/' + user._id, {admin: false})    
+        
+        cache.forEach(function(curUser) {
+            if(curUser === user) {
+                if(curUser.admin === true) curUser.admin = false;
+                else curUser.admin = true;
+            }
+            return curUser;
+        })
 	}
 
     AdminFactory.removeAdmin = function(user) {
