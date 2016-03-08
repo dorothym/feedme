@@ -18,11 +18,11 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Select signup option:
+                    Login Details:
                 </div>
                 <div class="panel-body">
 
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" ng-show="!isChef()">
                         <h5>Social signup:</h5>
                         <a href="/auth/google" class="btn btn-block btn-social btn-google-plus">
                             <i class="fa fa-google-plus"></i> Sign up with Google
@@ -33,7 +33,7 @@
                     </div>
 
                     <div class="col-lg-6">
-                        <h5>Sign up with your email address:</h5>
+                        <h5 ng-show="!isChef()">Sign up with your email address:</h5>
                             <div class="form-group">
                                 <label for="email">Email address</label>
                                 <input type="text" ng-model="signup.email" class="form-control" id="email" placeholder="Enter email">

@@ -77,7 +77,7 @@
 
         </div> <!-- close row -->
 
-        <div class="row">
+        <div class="row" ng-show="isChef()">
 
 	        <div class="col-lg-12">
 	        	<div class="panel panel-default">
@@ -96,8 +96,13 @@
 		                    <div class="col-lg-4">
 								<div class="form-group">
 		                            <label for="chefmeal">Cuisine</label>
-		                            <input class="form-control" placeholder="Enter meal name" ng-model="newMeal.cuisine">
+		                            <!-- <input class="form-control" placeholder="Enter meal name" ng-model="newMeal.cuisine"> -->
+		                            <select class="form-control"  ng-model="newMeal.cuisine">
+				                    <option ng-repeat="i in allCuisines">{{i}}</option>
+				                </select>
 		                        </div>
+
+
 		                    </div>
 			                <div class="col-lg-4">
 								<div class="form-group">
@@ -142,55 +147,55 @@
 			</div>
 		</div>
 
-		<div class="row">
+		<div class="row" ng-show="isChef()">
 	        <div class="col-lg-12">
 	        	<div class="panel panel-default">
-		        	<div class="panel-heading"><h3>Edit an Existing Meal</h3></div>
-		        	<div class="panel-body" >
+		        	<div class="panel-heading"><h3>Edit Or Remove an Existing Meal</h3></div>
+		        	<div class="panel-body" ng-repeat="meal in allMyMeals track by $index">
 						<div class="panel-group" id="accordion">
-			                <div class="panel panel-default"  ng-repeat="meal in allMyMeals">
+			                <div class="panel panel-default">
 			                    <div class="panel-heading">
 			                        <h4 class="panel-title">
-			                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">Meal 1</a>
+			                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">{{meal.name}}</a>
 			                        </h4>
 			                    </div>
 			                    <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false">
 			                        <div class="panel-body">
 
-						                <form ng-submit="updateMeal(updatedMeal)">
+						                <form>
 						                	<div class="row">
 								                <div class="col-lg-4">
 													<div class="form-group">
-							                            <label for="chefmeal" ng-model="updatedMeal.name">Meal Name</label>
-							                            <input class="form-control" placeholder="{{meal.name}}">
+							                            <label for="chefmeal" ng-model="meal.name">Meal Name</label>
+							                            <input class="form-control" value="{{meal.name}}">
 							                        </div>
 							                    </div>
 								                <div class="col-lg-4">
 													<div class="form-group">
-							                            <label for="chefmeal" ng-model="{{updatedMeal.photo}}">Meal Photo</label>
-							                            <input class="form-control" placeholder="{{meal.photo}}">
+							                            <label for="chefmeal" ng-model="meal.photo">Meal Photo</label>
+							                            <input class="form-control" value="{{meal.photo}}">
 							                        </div>
 							                    </div>
 
 							                    <div class="col-lg-2">
 							                       <div class="form-group">
-							                            <label for="chefmeal" ng-model="{{updatedMeal.quantity}}">Qty Avail.</label>
-							                            <input class="form-control" placeholder="{{meal.quantity}}">
+							                            <label for="chefmeal" ng-model="meal.quantity">Qty Avail.</label>
+							                            <input class="form-control" value="{{meal.quantity}}">
 							                        </div>
 							                    </div>
 
 							                    <div class="col-lg-2">
 							                       <div class="form-group">
-							                            <label for="chefmeal" ng-model="{{updatedMeal.servings}}">Servings</label>
-							                            <input class="form-control" placeholder="{{meal.servings}}">
+							                            <label for="chefmeal" ng-model="meal.servings">Servings</label>
+							                            <input class="form-control" value="{{meal.servings}}">
 							                        </div>
 							                    </div>
 
 
 							                    <div class="col-lg-2">
 							                        <div class="form-group">
-							                            <label for="chefmeal" ng-model="{{updatedMeal.price}}">Price</label>
-							                            <input class="form-control" placeholder="{{meal.price}}">
+							                            <label for="chefmeal" ng-model="meal.price">Price</label>
+							                            <input class="form-control" value="{{meal.price}}">
 							                        </div>
 							                    </div>
 							                </div>
@@ -198,12 +203,13 @@
 							                <div class="row">
 							                    <div class="col-lg-12">
 							                        <div class="form-group">
-							                            <label for="chefmeal" ng-model="{{updatedMeal.description}}">Meal Description</label>
+							                            <label for="chefmeal" ng-model="meal.description">Meal Description</label>
 							                            <textarea class="form-control" rows="{{meal.description}}">Insert text from DB here</textarea>
 							                        </div>
 						                        </div>
 						                    </div>
-											<button type="submit" class="btn btn-success">Update meal</button>
+											<button type="submit" class="btn btn-success"  ng-click="updateMeal(meal._id, meal)">Update meal</button>
+											<button type="submit" class="btn btn-danger" ng-click="removeMeal(meal)">Delete meal</button>
 										</form>
 				                    </div>
 				                </div>

@@ -9,11 +9,12 @@ app.factory('AccountFactory', function($http) {
 		'Transactions': []
 	}
 
+
 	function setCache(obj){
 		angular.copy(obj.data, cache[obj.type])
 		return cache[obj.type]; 
 	}
-
+ 
 
 	AccountFactory.fetchAllTransactions = function(userId) {
 		return $http.get('/api/users/' + userId + '/transaction')
@@ -33,6 +34,13 @@ app.factory('AccountFactory', function($http) {
 
 	AccountFactory.updateMeal = function(mealId, data) {
 		return $http.put('/api/meals/' + mealId, data)
+		.then(function(res) {
+			return res.data;
+		})
+	}
+
+	AccountFactory.removeMeal = function(meal) {
+		return $http.delete('/api/meals/' + meal)
 		.then(function(res) {
 			return res.data;
 		})
