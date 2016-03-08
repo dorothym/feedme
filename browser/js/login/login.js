@@ -23,8 +23,6 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state,$stateParams,l
   
     $scope.sendLogin = function (loginInfo) {
 
-        testSubmitKey(); // testing local storage
-
         $scope.error = null;
 
         AuthService.login(loginInfo).then(function () {
