@@ -8,7 +8,7 @@ app.config(function($stateProvider) {
 			order: null,
 			user: null,
 			checkoutUser: null,
-			successMessage: null
+			message: null
 		}
 
 	})
@@ -27,4 +27,10 @@ app.controller('confirmationCtrl', function($scope, $stateParams) {
 
 	console.log("order:",$scope.myOrder);
 	console.log("checkout user:",$scope.checkoutUser);
+
+	$scope.changeTransactionStatus = function() {
+		
+		
+
+	}
 })
