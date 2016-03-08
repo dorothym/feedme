@@ -75,7 +75,7 @@ app.factory('AdminFactory', function($http) {
 		.then(function(res) {
 			return res.data;
 		})
-         // .then(setCache)
+        .then(setCache)
 	}
 
 	AdminFactory.removeUser = function(user) {
