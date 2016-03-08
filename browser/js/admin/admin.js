@@ -43,12 +43,13 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
     }
 
     $scope.updateUser = function(user) {
-        console.log("1: ", user)
+        console.log("all users ", $scope.allUsers)
+        console.log("1. user is: ", user)
     	$scope.updated = true;
     	$scope.action = "updated";
         AdminFactory.updateUser(user)
         .then(function(user) {
-            console.log("2: ", user)            
+            console.log("2. user is: ", user)            
         })
     }
 
