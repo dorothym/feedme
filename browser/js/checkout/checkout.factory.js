@@ -19,5 +19,26 @@ app.factory('CheckoutFactory', function($http, AuthService) {
   	// but I don't know how to find the transaction ID
   }
   
+  CheckoutFactory.getCart = function () {
+    return AuthService.getLoggedInUser()
+    .then(function (user){
+      return $http.get('/api/users/' + user._id + '/transaction/cart')
+    })
+    .then(function(cart){
+      console.log(cart.data)
+      return cart.data;
+    })
+  }
+  
+  CheckoutFactory.changeCartStatus = function (cartId) {
+    return $http.put('/api/transactions/' + cartId, {status: 'Processing'})
+            .then(function(response){
+              console.log(response.data)
+              })
+              .catch(function(err){
+                console.log(err)
+              })
+  }
+  
   return CheckoutFactory;
 });

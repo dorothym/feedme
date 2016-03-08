@@ -7,6 +7,9 @@ app.config(function ($stateProvider) {
         resolve: {
           user: function(CheckoutFactory){
             return CheckoutFactory.userInfo();
+          },
+          userCart: function(CheckoutFactory){
+            return CheckoutFactory.getCart();
           }
         }
     });

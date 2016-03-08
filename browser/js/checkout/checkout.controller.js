@@ -1,7 +1,5 @@
-app.controller('CheckoutCtrl', function ($scope, CheckoutFactory, CartFactory, user, $state) {
+app.controller('CheckoutCtrl', function ($scope, CheckoutFactory, CartFactory, user, $state, userCart) {
   $scope.cart = CartFactory.getCartCache();
-
-  console.log("User",user,"\nCart",$scope.cart)
   
   if (user){
     $scope.user = user;
@@ -26,15 +24,20 @@ app.controller('CheckoutCtrl', function ($scope, CheckoutFactory, CartFactory, u
   };
 
   $scope.confirmOrder = function() {
+    CheckoutFactory.changeCartStatus(userCart._id)
+      .then(function(){
+        return CartFactory.getUserCart(user);
+      })
+      .then(function(){
+          $state.go('confirmation', {
+            order: $scope.cart,
+            user: $scope.user,
+            checkoutUser: $scope.checkoutUser,
+            message: 'Order successfully placed!'
+          });
+      })
     console.log("confirming order")
-    $state.go('confirmation', {
-      order: $scope.cart,
-      user: $scope.user,
-      checkoutUser: $scope.checkoutUser,
-      message: 'Order successfully placed!'
-    })
-    // $state.go('confirmation')
   }
-  
+
 });
 
