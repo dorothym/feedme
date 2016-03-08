@@ -141,6 +141,7 @@
 		                        </div>
 	                        </div>
 	                    </div>
+
 						<button type="submit" class="btn btn-default btn-primary">Add meal</button>
 						</form>
 					</div>
@@ -148,79 +149,77 @@
 			</div>
 		</div>
 
-		<div class="row" ng-show="isChef()">
+	<div class="row" ng-show="isChef()">
 	        <div class="col-lg-12">
 	        	<div class="panel panel-default">
 		        	<div class="panel-heading"><h3>Edit Or Remove an Existing Meal</h3></div>
-		        	<div class="panel-body" ng-repeat="meal in allMyMeals track by $index">
-						<div class="panel-group" id="accordion">
-			                <div class="panel panel-default">
-			                    <div class="panel-heading">
-			                        <h4 class="panel-title">
-			                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="collapsed">{{meal.name}}</a>
-			                        </h4>
-			                    </div>
-			                    <div id="collapseOne" class="panel-collapse collapse" aria-expanded="false">
-			                        <div class="panel-body">
+		        	<div class="panel-body">
+						  <uib-accordion close-others="oneAtATime">
+						    <uib-accordion-group ng-repeat="meal in allMyMeals" heading="{{meal.name}}">
 
-						                <form>
-						                	<div class="row">
-								                <div class="col-lg-4">
-													<div class="form-group">
-							                            <label for="chefmeal" ng-model="meal.name">Meal Name</label>
-							                            <input class="form-control" value="{{meal.name}}">
-							                        </div>
-							                    </div>
-								                <div class="col-lg-4">
-													<div class="form-group">
-							                            <label for="chefmeal" ng-model="meal.photo">Meal Photo</label>
-							                            <input class="form-control" value="{{meal.photo}}">
-							                        </div>
-							                    </div>
-
-							                    <div class="col-lg-2">
-							                       <div class="form-group">
-							                            <label for="chefmeal" ng-model="meal.quantity">Qty Avail.</label>
-							                            <input class="form-control" value="{{meal.quantity}}">
-							                        </div>
-							                    </div>
-
-							                    <div class="col-lg-2">
-							                       <div class="form-group">
-							                            <label for="chefmeal" ng-model="meal.servings">Servings</label>
-							                            <input class="form-control" value="{{meal.servings}}">
-							                        </div>
-							                    </div>
-
-
-							                    <div class="col-lg-2">
-							                        <div class="form-group">
-							                            <label for="chefmeal" ng-model="meal.price">Price</label>
-							                            <input class="form-control" value="{{meal.price}}">
-							                        </div>
-							                    </div>
+							    <form>
+							    	<div class="row">
+							            <div class="col-lg-4">
+											<div class="form-group">
+							                    <label for="chefmeal" >Meal Name</label>
+							                    <input class="form-control" placeholder="{{meal.name}}" ng-model="meal.name">
 							                </div>
+							            </div>
+							            <div class="col-lg-4">
+											<div class="form-group">
+							                    <label for="chefmeal">Meal Photo</label>
+							                    <input class="form-control" placeholder="{{meal.photo}}" ng-model="meal.photo">
+							                </div>
+							            </div>
 
-							                <div class="row">
-							                    <div class="col-lg-12">
-							                        <div class="form-group">
-							                            <label for="chefmeal" ng-model="meal.description">Meal Description</label>
-							                            <textarea class="form-control" rows="{{meal.description}}">Insert text from DB here</textarea>
-							                        </div>
-						                        </div>
-						                    </div>
-											<button type="submit" class="btn btn-success"  ng-click="updateMeal(meal._id, meal)">Update meal</button>
-											<button type="submit" class="btn btn-danger" ng-click="removeMeal(meal)">Delete meal</button>
-										</form>
-				                    </div>
-				                </div>
-			                </div>
-			            </div>
-	            </div>
+							            <div class="col-lg-2">
+							               <div class="form-group">
+							                    <label for="chefmeal">Qty Avail.</label>
+							                    <input class="form-control" placeholder="{{meal.quantity}}"  ng-model="meal.quantity">
+							                </div>
+							            </div>
+
+							            <div class="col-lg-2">
+							               <div class="form-group">
+							                    <label for="chefmeal">Servings</label>
+							                    <input class="form-control" placeholder="{{meal.servings}}" ng-model="meal.servings">
+							                </div>
+							            </div>
+
+
+							            <div class="col-lg-2">
+							                <div class="form-group">
+							                    <label for="chefmeal">Price</label>
+							                    <input class="form-control" placeholder="{{meal.price}}" ng-model="meal.price">
+							                </div>
+							            </div>
+							        </div>
+
+							        <div class="row">
+							            <div class="col-lg-12">
+							                <div class="form-group">
+							                    <label for="chefmeal">Meal Description</label>
+							                    <textarea class="form-control" rows="{{meal.description}}" ng-model="meal.description">Insert text from DB here</textarea>
+							                </div>
+							            </div>
+							        </div>
+									<button type="submit" class="btn btn-success"  ng-click="updateMeal(meal)">Update meal</button>
+									<button type="submit" class="btn btn-danger" ng-click="removeMeal(meal)">Delete meal</button>
+								</form>
+						    </uib-accordion-group>					    
+						  </uib-accordion>
+  	            </div>
 	        </div>
 	    </div>
     </div>
   <div class="row">
+
+
+
+
+
+
+
 
 	        <div class="col-lg-12">
 	        	<div class="panel panel-default">
