@@ -25,3 +25,23 @@ img {
 	    z-index: 1000;
 	}
 }
+
+h1 {
+	font-family: 'Pacifico', cursive;
+	color: #b32428;
+}
+
+.headline {
+	h2,h3 {
+		color: #fff;
+		text-shadow: 2px 2px #65c9c8;
+	}
+	h1,h2,h3 {
+		background: rgba(255, 255, 255, 0.2);
+
+	}
+}
+
+/* red: b32428;
+light blue: 65c9c8;
+*/
