@@ -7,6 +7,8 @@ app.factory('MealsFactory', function($http, SingleMeal) {
 	var cache = {
 		'Meals': []
 	}
+    
+    var ratingCache = [];
 
 	function setCache(obj){
 		angular.copy(obj.data, cache[obj.type])
@@ -25,8 +27,9 @@ app.factory('MealsFactory', function($http, SingleMeal) {
     MealsFactory.getAllRatings = function(){
       return $http.get('/api/ratings')
       .then(function(ratings){
-        return ratings.data;
-      })
+        ratingCache = angular.copy(ratings.data);
+        return ratingCache;
+      });
     }
 
 
