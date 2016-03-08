@@ -1,4 +1,4 @@
-app.controller('AllMealsController', function ($scope, allMeals, CartFactory, allRatings) {
+app.controller('AllMealsController', function ($scope, allMeals, MealsFactory) {
     $scope.ratings = [1,2,3,4,5]
     $scope.diets = ['Vegetarian','Vegan','Paleo','Gluten-free','Kosher','Halal', 'None', 'Dairy-free'];
     $scope.cuisines = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish'];
@@ -22,7 +22,6 @@ app.controller('AllMealsController', function ($scope, allMeals, CartFactory, al
     $scope.addMeal = function (meal){
       CartFactory.addMealToCart(meal);
     }
-
 
 
 });

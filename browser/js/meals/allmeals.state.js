@@ -8,9 +8,6 @@ app.config(function ($stateProvider) {
         resolve: {
             allMeals: function(MealsFactory) {
                 return MealsFactory.fetchAllMeals();
-            },
-            allRatings: function(MealsFactory){
-              return MealsFactory.getAllRatings();
             }
         }
     });
