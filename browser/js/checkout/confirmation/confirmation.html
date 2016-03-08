@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Order confirmation</h1>
+        </div>
+    </div>
+</div>
+<div class="container">
+
+    <div class="row">
+        <div class="col-lg-12">
+	        <div class="alert alert-success">
+	            {{successMessage}}
+	        </div>
+	    <div><h3>Your order</h3>
+	    
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Shopping cart contents:
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Meal</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="meal in myOrder track by $index"> 
+                                    <td>{{meal.name}}</td>
+                                    <td>{{meal.price}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+		    </div>
+
+	    <div><h3>Delivery information</h3>
+	    <p>{{deliveryUser.firstname}}</p>
+	    <p>{{deliveryUser.lastname}}</p>
+	    <p>{{deliveryUser.phone}}</p>
+	    <p>{{deliveryUser.email}}</p>
+	    <p>{{deliveryUser.address}}</p>
+
+	    </div>
+
+        </div>
+
+
+
+            
+    </div>
+</div>

@@ -7,3 +7,48 @@
 [ui-sref]:hover{
   cursor: pointer;
 }
+
+img {
+	&.branding {
+	border: 4px solid #222;
+	}
+	&.pullup {
+		margin-top: -30px;
+	}
+}
+
+.pull-right {
+	&.corner {
+	    position: absolute;
+	    right: 4%;
+	    top: 20%;
+	    z-index: 1000;
+	}
+}
+
+h1 {
+	font-family: 'Pacifico', cursive;
+	color: #b32428;
+}
+
+.headline {
+	h2,h3 {
+		color: #fff;
+		text-shadow: 2px 2px #65c9c8;
+	}
+	h1,h2,h3 {
+		background: rgba(255, 255, 255, 0.2);
+
+	}
+}
+
+.navbar-inverse {
+	background-color: #65c9c8;
+	.navbar-nav > li > a {
+		color: #222;
+	}
+}
+
+/* red: b32428;
+light blue: 65c9c8;
+*/
