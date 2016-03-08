@@ -18,7 +18,7 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
 	$scope.allUsers = allUsers;
 	$scope.updated = false;
 	$scope.showForm = false;
-	$scope.updatedUser ={};
+    $scope.curUser = {};
 
     $scope.userType = function(user) {
         if(user.type === "Chef" && user.admin) {
@@ -34,6 +34,7 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
 
 	$scope.showUpdateForm = function(user) {
 		$scope.showForm = true;
+        $scope.curUser = user;
 	}
 
     $scope.removeUser = function(user) {
@@ -43,14 +44,10 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
     }
 
     $scope.updateUser = function(user) {
-        console.log("all users ", $scope.allUsers)
-        console.log("1. user is: ", user)
-    	$scope.updated = true;
-    	$scope.action = "updated";
+        $scope.showForm = false;
+        $scope.updated = true;
+        $scope.action = "updated";
         AdminFactory.updateUser(user)
-        .then(function(user) {
-            console.log("2. user is: ", user)            
-        })
     }
 
     $scope.assignAdmin = function(user) {
@@ -78,12 +75,14 @@ app.factory('AdminFactory', function($http) {
     }
 
 
-	AdminFactory.fetchAllUsers = function() {
-		return $http.get('/api/users')
-		.then(function(res) {
-			return res.data;
-		})
-        .then(setCache)
+	AdminFactory.fetchAllUsers = function(user) {
+          
+    		return $http.get('/api/users')
+    		.then(function(res) {
+    			return res.data;
+    		})
+            .then(setCache)
+        
 	}
 
 	AdminFactory.removeUser = function(user) {
