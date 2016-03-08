@@ -42,21 +42,26 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
     	AdminFactory.removeUser(user);
     }
 
-    $scope.updateUser = function(user, data) {
+    $scope.updateUser = function(user) {
+        console.log("1: ", user)
     	$scope.updated = true;
     	$scope.action = "updated";
-    	AdminFactory.updateUser(user, data);
-        console.log("from updateUser: ", user, data)
+        AdminFactory.updateUser(user)
+        .then(function(user) {
+            console.log("2: ", user)            
+        })
     }
 
     $scope.assignAdmin = function(user) {
         $scope.updated = true;
-        AdminFactory.assignAdmin(user);
-        if(!user.admin) {
-            $scope.action = "assigned as an admin";
-        } else  {
-            $scope.action = "removed as an admin";
-        }
+        AdminFactory.assignAdmin(user)
+        .then(function() {
+            if(!user.admin) {
+                $scope.action = "removed as an admin";
+            } else  {
+                $scope.action = "assigned as an admin";
+            }     
+        })
     }
 
 });
@@ -95,6 +100,7 @@ app.factory('AdminFactory', function($http) {
             }
             return curUser;
         })
+        
         if(!user.admin)
             return $http.put('/api/users/' + user._id, {admin: true})
         else 
@@ -108,6 +114,9 @@ app.factory('AdminFactory', function($http) {
 
 	AdminFactory.updateUser = function(user) {
 		return $http.put('/api/users/' + user._id, user)
+        .then(function(user) {
+            return user;
+        })
 	}
 
 	return AdminFactory;

@@ -39,7 +39,7 @@
                                                 <input type="text" class="form-control" value="{{user.firstName}}" ng-model="user.firstName">
                                               </div>
                                               <div class="col-lg-6">
-                                                <input type="text" class="form-control" value="Last Name">
+                                                <input type="text" class="form-control" value="Last Name" ng-model="user.lastName">
                                               </div>
                                               <div class="col-lg-6">
                                                 <input type="text" class="form-control" value="Email">
@@ -72,7 +72,7 @@
                                                 <input type="text" class="form-control" value="Bio">
                                                </div>
                                               <div class="col-lg-12">  
-                                                <button type="button" class="btn btn-submit" ng-submit="updateUser(user)">Submit</button>
+                                                <button type="button" class="btn btn-submit" ng-click="updateUser(user)">Submit</button>
                                               </div>
                                             </div> <!-- class="row" -->
                                           </form>

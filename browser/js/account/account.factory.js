@@ -16,8 +16,6 @@ app.factory('AccountFactory', function($http) {
 	}
  
 
-
-
 	AccountFactory.fetchAllTransactions = function(userId) {
 		return $http.get('/api/users/' + userId + '/transaction')
 		.then(function extractData(response) {
