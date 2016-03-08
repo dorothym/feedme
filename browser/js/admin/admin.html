@@ -16,6 +16,54 @@
                       <div class="alert alert-success" ng-show="updated">
                           <strong>Success!</strong> User has been {{action}}
                       </div>
+                                      <div ng-show="showForm">
+                                          <form class="form-inline">
+                                            <div class="row">
+                                              <div class="col-lg-12">
+                                                <p> Update {{curUser.firstName}} {{curUser.lastName}}</p>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <input type="text" class="form-control" placeholder="{{curUser.firstName}}" ng-model="curUser.firstName">
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <input type="text" class="form-control" placeholder="{{curUser.lastName}}" ng-model="curUser.lastName">
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <input type="text" class="form-control" placeholder="Email">
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <input type="text" class="form-control" placeholder="Type">
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <input type="text" class="form-control" placeholder="Address">
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <input type="text" class="form-control" placeholder="Zip">
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <input type="text" class="form-control" placeholder="Borough">
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <input type="text" class="form-control" placeholder="Phone">
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <input type="text" class="form-control" placeholder="Picture Url">
+                                              </div>
+                                              <div class="col-lg-12">
+                                                <h5>For chefs only</h5>
+                                              </div>
+                                              <div class="col-lg-12">
+                                                <input type="text" class="form-control" placeholder="Specialty">
+                                              </div>
+                                              <div class="col-lg-12">
+                                                <input type="text" class="form-control" placeholder="Bio">
+                                               </div>
+                                              <div class="col-lg-12">  
+                                                <button type="button" class="btn btn-submit" ng-click="updateUser(curUser)">Submit</button>
+                                              </div>
+                                            </div> <!-- class="row" -->
+                                          </form>
+                                      </div>  <!-- ng-show="showUpdateForm"  --> 
                   <div class="table-responsive">
                           <table class="table">
                               <thead>
@@ -29,58 +77,10 @@
                               </thead>
                               <tbody>
                                   <tr ng-repeat="user in allUsers">
-                                      <div ng-show="showForm">
-                                          <form class="form-inline">
-                                            <div class="row">
-                                              <div class="col-lg-12">
-                                                <p> Update {{user.firstName}} {{user.lastName}}</p>
-                                              </div>
-                                              <div class="col-lg-6">
-                                                <input type="text" class="form-control" value="{{user.firstName}}" ng-model="user.firstName">
-                                              </div>
-                                              <div class="col-lg-6">
-                                                <input type="text" class="form-control" value="{{user.lastName}}" ng-model="user.lastName">
-                                              </div>
-                                              <div class="col-lg-6">
-                                                <input type="text" class="form-control" value="Email">
-                                              </div>
-                                              <div class="col-lg-6">
-                                                <input type="text" class="form-control" value="Type">
-                                              </div>
-                                              <div class="col-lg-6">
-                                                <input type="text" class="form-control" value="Address">
-                                              </div>
-                                              <div class="col-lg-6">
-                                                <input type="text" class="form-control" value="Zip">
-                                              </div>
-                                              <div class="col-lg-6">
-                                                <input type="text" class="form-control" value="Borough">
-                                              </div>
-                                              <div class="col-lg-6">
-                                                <input type="text" class="form-control" value="Phone">
-                                              </div>
-                                              <div class="col-lg-6">
-                                                <input type="text" class="form-control" value="Picture Url">
-                                              </div>
-                                              <div class="col-lg-12">
-                                                <h5>For chefs only</h5>
-                                              </div>
-                                              <div class="col-lg-12">
-                                                <input type="text" class="form-control" value="Specialty">
-                                              </div>
-                                              <div class="col-lg-12">
-                                                <input type="text" class="form-control" value="Bio">
-                                               </div>
-                                              <div class="col-lg-12">  
-                                                <button type="button" class="btn btn-submit" ng-click="updateUser(user)">Submit</button>
-                                              </div>
-                                            </div> <!-- class="row" -->
-                                          </form>
-                                      </div>  <!-- ng-show="showUpdateForm"  --> 
                                       <td><a ui-sref="account({id: user._id})">{{user.firstName}}  {{user.lastName}}</a></td>
                                       <td>{{userType(user)}}</td>
                                       <td>{{user.email}}</td>
-                                      <td><button type="button" class="btn btn-primary" ng-click="showUpdateForm()">Update User</button></td>
+                                      <td><button type="button" class="btn btn-primary" ng-click="showUpdateForm(user)">Update User</button></td>
                                       <td><button type="button" class="btn btn-primary" ng-click="assignAdmin(user)">Manage Admin</button></td>
                                       <td><button type="button" class="btn btn-danger" ng-click="removeUser(user)">Remove User</button></td>
                                   </tr>
