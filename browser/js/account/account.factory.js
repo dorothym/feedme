@@ -1,6 +1,6 @@
 'use-strict'
 
-app.factory('AccountFactory', function($http) {
+app.factory('AccountFactory', function($http,ChefFactory,$q) {
 	var AccountFactory = {};
 
 	var allTransactions = [];
@@ -36,6 +36,19 @@ app.factory('AccountFactory', function($http) {
 		.then(setCache)
 
 	}
+
+/*
+			// work in progress
+
+			
+	AccountFactory.fetchChefTransactions = function(chefId) {
+		ChefFactory.getAllMeals(chefId)
+		.then(function(allChefMeals) {
+
+
+		})
+	}
+	*/
 
 	AccountFactory.addMeal = function(data) {
 		return $http.post('/api/meals', data)

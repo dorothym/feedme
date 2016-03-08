@@ -48,6 +48,31 @@
             </div>
         </div>
 
+
+        <div class="col-lg-8">
+        	<div class="panel panel-default">
+	        	<div class="panel-heading"><h3>Orders</h3></div>
+	        	<div class="panel-body">  
+	                <div class="table-responsive table-bordered">
+	                    <table class="table">
+	                        <thead>
+                                <tbody ng-repeat="meal in getCart() track by $index">
+                                <tr> 
+                                    <td>{{meal.name}}</td>
+<!--                                    <td><input type="text" placeholder="1"></td></td>-->
+<!--                                    <td>${{meal.price}}.00</td>-->
+                                    <td>${{meal.price}}.00</td>
+                                    <td><button type="button" class="btn btn-success" ng-click="addAnotherToCart(meal)">Add Another</button></td>
+                                    <td><button type="button" class="btn btn-danger" ng-click="removeFromCart(meal)">Remove from Cart</button></td>
+                                </tr>
+                            </tbody>
+
+	                        </thead>
+                        </table>
+	                </div>
+
+        </div>
+
         <div class="col-lg-8">
         	<div class="panel panel-default">
 	        	<div class="panel-heading"><h3>Your Transactions</h3></div>

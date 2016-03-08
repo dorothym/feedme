@@ -36,6 +36,11 @@ transactionSchema.statics.getByStatus = function (statusType){
   return this.find({status: statusType});
 }
 
+transactionSchema.statics.getByMeal = function (myMeal){
+  console.log("in transaction schema, my meal is", myMeal)
+  return this.find({meals : {$elemMatch: { $eq: myMeal._id }}});
+}
+
 transactionSchema.statics.getByDateRange = function (startDate, endDate){
   return this.find({date: {"$gte": new Date(startDate), "$lt": new Date(endDate)}})
 }
