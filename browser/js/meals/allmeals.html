@@ -20,16 +20,18 @@
                 </select>
             </div>
 
-            <p class="lead">Browse by Rating</p>
+<!--            <p class="lead">Browse by Rating</p>-->
+<!--
                 <div class="form-group">
                     <label>Selects</label>
                     <select class="form-control">
                         <option ng-repeat="rating in ratings">{{rating}}</option>
                     </select>
                 </div>
+-->
                 <input type="submit" class="btn" value="Submit"  ng-click="updateMeals()">
                 <input type="submit" class="btn" value="Reset"  ng-click="resetMeals()">
-        </div> <!-- class="col-md-3" -->
+        </div> 
 
 
 
@@ -79,6 +81,7 @@
                             <p>Cuisine: {{ meal.cuisine }}</p>
                             <p>{{ meal.description }}</p>
                         </div>
+<!--
                         <div class="ratings">
                             <p class="pull-right">12 reviews</p>
                             <p>
@@ -89,6 +92,7 @@
                                 <span class="glyphicon glyphicon-star-empty"></span>
                             </p>
                         </div>
+-->
                         <div class="panel-body">
                            <a class="btn btn-primary" target="_blank" ng-click="addMeal(meal)">Add to Cart</a>
                         </div>

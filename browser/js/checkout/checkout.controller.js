@@ -54,12 +54,16 @@ app.controller('GuestCheckoutCtrl', function ($scope, CheckoutFactory, CartFacto
         window.alert('Stripe success! token: ' + result.id);
     }
   };
+  
+  function clearLocalStorage () {
+    return localStorageService.set('mealsInCart', []);
+  }
 
   $scope.confirmOrder = function() {
-    console.log($scope.user, $scope.cart)
         return CheckoutFactory.createTransaction($scope.user, $scope.cart)
         .then(function(){
-        console.log('before states')
+          CartFactory.clearCache();
+          clearLocalStorage ();
           $state.go('confirmation', {
             order: $scope.cart,
             user: $scope.user,
