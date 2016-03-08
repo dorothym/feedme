@@ -24,7 +24,7 @@
                     <li><a ng-show="!isLoggedIn()" ui-sref="signup({isChef : false})">Sign Up to Purchase Meals</a></li>
                 </ul>
                 <ul class="nav navbar-nav pull-right" id="user-navigation">
-                    <li ng-show="{{numItemsInCart()>0}}">
+                    <li>
                         <a ui-sref="checkout">Checkout</a>
                     </li>
                     <li ng-if="isLoggedIn()"><a ui-sref="account({id: user._id})">Welcome, {{user.firstName}}!</a></li>
