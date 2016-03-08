@@ -1,6 +1,6 @@
 'use-strict'
 
-app.factory('MealsFactory', function($http) {
+app.factory('MealsFactory', function($http, SingleMeal) {
 	var MealsFactory = {};
 	var allMeals = [];
 
@@ -21,6 +21,14 @@ app.factory('MealsFactory', function($http) {
 		.then(setCache)
 
 	}
+    
+    MealsFactory.getAllRatings = function(){
+      return $http.get('/api/ratings')
+      .then(function(ratings){
+        return ratings.data;
+      })
+    }
+
 
 
 	return MealsFactory;
