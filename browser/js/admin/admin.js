@@ -88,7 +88,6 @@ app.factory('AdminFactory', function($http) {
 	}
  	
  	AdminFactory.assignAdmin = function(user) {
-
         cache.forEach(function(curUser) {
             if(curUser === user) {
                 if(curUser.admin === true) curUser.admin = false;
@@ -107,8 +106,8 @@ app.factory('AdminFactory', function($http) {
         return $http.put('/api/users/' + user._id, {admin: false})
     }
 
-	AdminFactory.updateUser = function(user, data) {
-		return $http.put('/api/users/' + user._id, data)
+	AdminFactory.updateUser = function(user) {
+		return $http.put('/api/users/' + user._id, user)
 	}
 
 	return AdminFactory;

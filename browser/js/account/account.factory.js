@@ -9,10 +9,13 @@ app.factory('AccountFactory', function($http) {
 		'Transactions': []
 	}
 
+
 	function setCache(obj){
 		angular.copy(obj.data, cache[obj.type])
 		return cache[obj.type]; 
 	}
+ 
+
 
 
 	AccountFactory.fetchAllTransactions = function(userId) {

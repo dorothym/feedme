@@ -96,8 +96,13 @@
 		                    <div class="col-lg-4">
 								<div class="form-group">
 		                            <label for="chefmeal">Cuisine</label>
-		                            <input class="form-control" placeholder="Enter meal name" ng-model="newMeal.cuisine">
+		                            <!-- <input class="form-control" placeholder="Enter meal name" ng-model="newMeal.cuisine"> -->
+		                            <select class="form-control"  ng-model="cuisine">
+				                    <option ng-repeat="i in allCuisines">{{i}}</option>
+				                </select>
 		                        </div>
+
+
 		                    </div>
 			                <div class="col-lg-4">
 								<div class="form-group">

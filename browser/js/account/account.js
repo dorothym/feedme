@@ -22,10 +22,11 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
 
     $scope.user = null;
     $scope.newMeal = {};
+    $scope.allMyMeals = getAllMeals;
 
-   $scope.allMyMeals = getAllMeals;
-
-   $scope.isLoggedIn = function () {
+    $scope.allCuisines = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish']
+    
+    $scope.isLoggedIn = function () {
         return AuthService.isAuthenticated();
     };
 
