@@ -1,4 +1,5 @@
-app.controller('CartCtrl', function ($scope, CartFactory, $state) {
+app.controller('CartCtrl', function ($scope, CartFactory, $state) { 
+  // testing local storage
 
   $scope.getCart = CartFactory.getCartCache;
   

@@ -10,6 +10,7 @@ app.factory('AccountFactory', function($http) {
         'Ratings' : []
 	}
 
+
 	function setCache(obj){
 		angular.copy(obj.data, cache[obj.type])
 		return cache[obj.type]; 
@@ -26,7 +27,6 @@ app.factory('AccountFactory', function($http) {
     AccountFactory.addToRatingsCache = function(data){
       cache.Ratings.push(data);
     }
-    
 
 	AccountFactory.fetchAllTransactions = function(userId) {
 		return $http.get('/api/users/' + userId + '/transaction')
@@ -35,6 +35,27 @@ app.factory('AccountFactory', function($http) {
 		})
 		.then(setCache)
 
+	}
+
+	AccountFactory.addMeal = function(data) {
+		return $http.post('/api/meals', data)
+		.then(function(res) {
+			return res.data;
+		})
+	}
+
+	AccountFactory.updateMeal = function(mealId, data) {
+		return $http.put('/api/meals/' + mealId, data)
+		.then(function(res) {
+			return res.data;
+		})
+	}
+
+	AccountFactory.removeMeal = function(meal) {
+		return $http.delete('/api/meals/' + meal)
+		.then(function(res) {
+			return res.data;
+		})
 	}
 
 	return AccountFactory;

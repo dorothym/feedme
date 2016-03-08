@@ -1,4 +1,4 @@
-app.factory('CartFactory', function($http) {
+app.factory('CartFactory', function($http,localStorageService) {
   var CartFactory = {};
   var cache = [];
   
@@ -38,15 +38,34 @@ app.factory('CartFactory', function($http) {
       return cache;
     })
   }
-  
+
+  // dmoore testing local storage  
+  function updateLocalStorage() {
+    return localStorageService.set('mealsInCart',cache);
+  }
+
+  // dmoore testing local storage
+  CartFactory.copyCartFromLocalStorage = function(meals) {
+    console.log("Before: meals is", meals,"\ncache is",cache);
+    setCache(meals);
+    console.log("After: meals is", meals,"\ncache is",cache);
+  }
+
   CartFactory.deleteMealFromCart = function(meal){
     var i = cache.indexOf(meal);
     cache.splice(i, 1);
+    // testing local storage // dmoore
+    console.log("updating local storage - removing item");
+    updateLocalStorage();
     updateCartOnDb();
   }
   
+
   CartFactory.addMealToCart = function (meal){
     cache.push(meal);
+    // testing local storage // dmoore
+    console.log("updating local storage - adding item")
+    updateLocalStorage();
     updateCartOnDb();
   }
   

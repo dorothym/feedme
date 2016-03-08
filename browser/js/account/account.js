@@ -15,15 +15,20 @@ app.config(function($stateProvider) {
     });
 })
 
-app.controller('AccountCtrl', function($scope, AuthService, allTransactions, allRatings) {
+app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTransactions, AccountFactory, ChefFactory, MealsFactory, getAllMeals) {
 
   $scope.allTransactions = allTransactions;
 
   $scope.allRatings = allRatings;
-  
-   $scope.user = null;
 
-   $scope.isLoggedIn = function () {
+    $scope.allMyMeals = getAllMeals;
+
+   $scope.newMeal = {};
+   $scope.updatedMeal= {};
+
+    $scope.allCuisines = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish']
+    
+    $scope.isLoggedIn = function () {
         return AuthService.isAuthenticated();
     };
 
@@ -35,7 +40,8 @@ app.controller('AccountCtrl', function($scope, AuthService, allTransactions, all
 
     $scope.isChef = function() {
         // TBD. for now return true
-        return true;
+        if($scope.user.type === "Chef")
+            return true;
     }
     
     $scope.isRatable = function (status, mealId){
@@ -50,6 +56,28 @@ app.controller('AccountCtrl', function($scope, AuthService, allTransactions, all
         return rating.meal._id === mealId && rating.rating
       })[0].rating;
     }
+
+    $scope.isAdmin =  function() {
+        return $scope.user.admin;
+    }
+
+    $scope.addMeal = function(data) {
+        ChefFactory.updateCache("Meals", data, "addToCache");
+        MealsFactory.updateCache("Meals", data);
+        AccountFactory.addMeal(data);
+    }
+
+    $scope.updateMeal = function(mealId, data) {
+        AccountFactory.updateMeal(mealId, data)
+        console.log("Hello again!")
+        console.log(mealId, data)
+    }
+
+    $scope.removeMeal = function(meal) {
+        AccountFactory.removeMeal(meal);
+        ChefFactory.updateCache("Meals", meal, "removeFromCache")
+    }
+
 
     setUser();
 

@@ -31,27 +31,57 @@
                                   <tr ng-repeat="user in allUsers">
                                       <div ng-show="showForm">
                                           <form class="form-inline">
-                                              <p> Update {{user.firstName}} {{user.lastName}}</p>
-                                              <input type="text" class="form-control" placeholder="First Name" ng-model="updatedUser.firstName">
-                                              <input type="text" class="form-control" placeholder="Last Name" ng-model="updatedUser.lastName">
-                                              <input type="text" class="form-control" placeholder="Email">
-                                              <input type="text" class="form-control" placeholder="Type">
-                                              <input type="text" class="form-control" placeholder="Address">
-                                              <input type="text" class="form-control" placeholder="Zip">
-                                              <input type="text" class="form-control" placeholder="Borough">
-                                              <input type="text" class="form-control" placeholder="Phone">
-                                              <input type="text" class="form-control" placeholder="Picture Url">
-                                              <h5>For chefs only</h5>
-                                              <input type="text" class="form-control" placeholder="Specialty">
-                                              <input type="text" class="form-control" placeholder="Bio">
-                                              <button type="button" class="btn btn-submit" ng-click="updateUser(user, updatedUser)">Submit</button>
+                                            <div class="row">
+                                              <div class="col-lg-12">
+                                                <p> Update {{user.firstName}} {{user.lastName}}</p>
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <input type="text" class="form-control" value="{{user.firstName}}" ng-model="user.firstName">
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <input type="text" class="form-control" value="Last Name" ng-model="user.lastName">
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <input type="text" class="form-control" value="Email">
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <input type="text" class="form-control" value="Type">
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <input type="text" class="form-control" value="Address">
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <input type="text" class="form-control" value="Zip">
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <input type="text" class="form-control" value="Borough">
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <input type="text" class="form-control" value="Phone">
+                                              </div>
+                                              <div class="col-lg-6">
+                                                <input type="text" class="form-control" value="Picture Url">
+                                              </div>
+                                              <div class="col-lg-12">
+                                                <h5>For chefs only</h5>
+                                              </div>
+                                              <div class="col-lg-12">
+                                                <input type="text" class="form-control" value="Specialty">
+                                              </div>
+                                              <div class="col-lg-12">
+                                                <input type="text" class="form-control" value="Bio">
+                                               </div>
+                                              <div class="col-lg-12">  
+                                                <button type="button" class="btn btn-submit" ng-click="updateUser(user)">Submit</button>
+                                              </div>
+                                            </div> <!-- class="row" -->
                                           </form>
                                       </div>  <!-- ng-show="showUpdateForm"  --> 
                                       <td><a ui-sref="account({id: user._id})">{{user.firstName}}  {{user.lastName}}</a></td>
-                                      <td>{{user.type}}</td>
+                                      <td>{{userType(user)}}</td>
                                       <td>{{user.email}}</td>
                                       <td><button type="button" class="btn btn-primary" ng-click="showUpdateForm()">Update User</button></td>
-                                      <td><button type="button" class="btn btn-primary" ng-click="assignAdmin(user)">Assign Admin</button></td>
+                                      <td><button type="button" class="btn btn-primary" ng-click="assignAdmin(user)">Manage Admin</button></td>
                                       <td><button type="button" class="btn btn-danger" ng-click="removeUser(user)">Remove User</button></td>
                                   </tr>
                               </tbody>

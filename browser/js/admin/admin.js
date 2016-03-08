@@ -20,6 +20,18 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
 	$scope.showForm = false;
 	$scope.updatedUser ={};
 
+    $scope.userType = function(user) {
+        if(user.type === "Chef" && user.admin) {
+            return "Chef / Admin"
+        } else if(user.type === "Chef") {
+            return "Chef"
+        } else if(user.admin) {
+            return "Admin"
+        } else {
+            return "Buyer"
+        }
+    }
+
 	$scope.showUpdateForm = function(user) {
 		$scope.showForm = true;
 	}
@@ -30,17 +42,26 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
     	AdminFactory.removeUser(user);
     }
 
-
-    $scope.updateUser = function(user, data) {
+    $scope.updateUser = function(user) {
+        console.log("1: ", user)
     	$scope.updated = true;
     	$scope.action = "updated";
-    	AdminFactory.updateUser(user, data);
+        AdminFactory.updateUser(user)
+        .then(function(user) {
+            console.log("2: ", user)            
+        })
     }
 
     $scope.assignAdmin = function(user) {
-    	$scope.updated = true;
-    	$scope.action = "assign as an admin";
-    	AdminFactory.assignAdmin(user);
+        $scope.updated = true;
+        AdminFactory.assignAdmin(user)
+        .then(function() {
+            if(!user.admin) {
+                $scope.action = "removed as an admin";
+            } else  {
+                $scope.action = "assigned as an admin";
+            }     
+        })
     }
 
 });
@@ -61,7 +82,7 @@ app.factory('AdminFactory', function($http) {
 		.then(function(res) {
 			return res.data;
 		})
-         .then(setCache)
+        .then(setCache)
 	}
 
 	AdminFactory.removeUser = function(user) {
@@ -72,11 +93,30 @@ app.factory('AdminFactory', function($http) {
 	}
  	
  	AdminFactory.assignAdmin = function(user) {
-		return $http.put('/api/users/' + user._id, {admin: true})
+        cache.forEach(function(curUser) {
+            if(curUser === user) {
+                if(curUser.admin === true) curUser.admin = false;
+                else curUser.admin = true;
+            }
+            return curUser;
+        })
+        
+        if(!user.admin)
+            return $http.put('/api/users/' + user._id, {admin: true})
+        else 
+            return $http.put('/api/users/' + user._id, {admin: false})    
+        
 	}
 
-	AdminFactory.updateUser = function(user, data) {
-		return $http.put('/api/users/' + user._id, data)
+    AdminFactory.removeAdmin = function(user) {
+        return $http.put('/api/users/' + user._id, {admin: false})
+    }
+
+	AdminFactory.updateUser = function(user) {
+		return $http.put('/api/users/' + user._id, user)
+        .then(function(user) {
+            return user;
+        })
 	}
 
 	return AdminFactory;
