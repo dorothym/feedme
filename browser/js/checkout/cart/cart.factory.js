@@ -38,7 +38,12 @@ app.factory('CartFactory', function($http,localStorageService) {
       return cache;
     })
   }
-  
+
+  // dmoore testing local storage  
+  function updateLocalStorage() {
+    return localStorageService.set('mealsInCart',cache);
+  }
+
   // dmoore testing local storage
   CartFactory.copyCartFromLocalStorage = function(meals) {
     console.log("Before: meals is", meals,"\ncache is",cache);
@@ -51,15 +56,16 @@ app.factory('CartFactory', function($http,localStorageService) {
     cache.splice(i, 1);
     // testing local storage // dmoore
     console.log("updating local storage - removing item");
-    return localStorageService.set('mealsInCart',cache);
+    updateLocalStorage();
     updateCartOnDb();
   }
   
+
   CartFactory.addMealToCart = function (meal){
     cache.push(meal);
     // testing local storage // dmoore
     console.log("updating local storage - adding item")
-    return localStorageService.set('mealsInCart',cache);
+    updateLocalStorage();
     updateCartOnDb();
   }
   

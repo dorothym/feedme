@@ -4,7 +4,6 @@ app.controller('CartCtrl', function ($scope, CartFactory, $state) {
   $scope.getCart = CartFactory.getCartCache;
   
   $scope.addAnotherToCart = function (meal){
-
     CartFactory.addMealToCart(meal);
   }
   
