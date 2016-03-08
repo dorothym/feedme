@@ -1,7 +1,5 @@
-app.controller('CheckoutCtrl', function ($scope, CheckoutFactory, CartFactory, user, $state) {
+app.controller('CheckoutCtrl', function ($scope, CheckoutFactory, CartFactory, user, $state, userCart, localStorageService) {
   $scope.cart = CartFactory.getCartCache();
-
-  console.log("User",user,"\nCart",$scope.cart)
   
   if (user){
     $scope.user = user;
@@ -20,21 +18,25 @@ app.controller('CheckoutCtrl', function ($scope, CheckoutFactory, CartFactory, u
     if (result.error) {
         window.alert('Stripe failed! error: ' + result.error.message);
     } else {
-      console.log(result)
         window.alert('Stripe success! token: ' + result.id);
     }
   };
 
   $scope.confirmOrder = function() {
-    console.log("confirming order")
-    $state.go('confirmation', {
-      order: $scope.cart,
-      user: $scope.user,
-      checkoutUser: $scope.checkoutUser,
-      message: 'Order successfully placed!'
-    })
-    // $state.go('confirmation')
+    CheckoutFactory.changeCartStatus(userCart._id)
+      .then(function(){
+        return CartFactory.getUserCart(user);
+      })
+      .then(function(){
+          $state.go('confirmation', {
+            order: $scope.cart,
+            user: $scope.user,
+            checkoutUser: $scope.checkoutUser,
+            message: 'Order successfully placed!'
+          });
+      })
+
   }
-  
+
 });
 
