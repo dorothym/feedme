@@ -18,7 +18,10 @@ app.factory('ChefFactory',function($http) {
         } else if(data && typeOfUpdate === "removeFromCache") {
             var index = cache[type].indexOf(data);
             cache[type].splice(index, 1)
-        } 
+        } else if(data && typeOfUpdate === "updateInCache") {
+            var index = cache[type].indexOf(data);
+            cache[type][index] = data;
+        }
 
         return cache[type];
     }

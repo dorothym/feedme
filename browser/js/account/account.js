@@ -27,7 +27,7 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
     $scope.allMyMeals = getAllMeals;
 
    $scope.newMeal = {};
-   $scope.updatedMeal= {};
+   //$scope.updatedMeal= {};
 
     $scope.allCuisines = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish']
     
@@ -70,10 +70,11 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
         AccountFactory.addMeal(data);
     }
 
-    $scope.updateMeal = function(mealId, data) {
-        AccountFactory.updateMeal(mealId, data)
-        console.log("Hello again!")
-        console.log(mealId, data)
+    $scope.updateMeal = function(meal) {
+        AccountFactory.updateMeal(meal)
+        .then(function(newMeal) {
+           return newMeal;
+        })
     }
 
     $scope.removeMeal = function(meal) {

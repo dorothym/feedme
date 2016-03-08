@@ -44,15 +44,15 @@ app.factory('AccountFactory', function($http) {
 		})
 	}
 
-	AccountFactory.updateMeal = function(mealId, data) {
-		return $http.put('/api/meals/' + mealId, data)
+	AccountFactory.updateMeal = function(meal) {
+		return $http.put('/api/meals/' + meal._id, meal)
 		.then(function(res) {
 			return res.data;
 		})
 	}
 
 	AccountFactory.removeMeal = function(meal) {
-		return $http.delete('/api/meals/' + meal)
+		return $http.delete('/api/meals/' + meal._id)
 		.then(function(res) {
 			return res.data;
 		})
