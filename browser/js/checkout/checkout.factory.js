@@ -40,5 +40,17 @@ app.factory('CheckoutFactory', function($http, AuthService) {
               })
   }
   
+  CheckoutFactory.createTransaction = function (guest, meals){
+    var newTransaction = {
+      customer: guest,
+      meals: meals,
+      status: 'Processing'
+    }
+    return $http.post('/api/transactions', newTransaction)
+    .then(function(response){
+      return response.data;
+    })
+  }
+  
   return CheckoutFactory;
 });
