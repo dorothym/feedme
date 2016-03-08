@@ -18,7 +18,6 @@ app.controller('CheckoutCtrl', function ($scope, CheckoutFactory, CartFactory, u
     if (result.error) {
         window.alert('Stripe failed! error: ' + result.error.message);
     } else {
-      console.log(result)
         window.alert('Stripe success! token: ' + result.id);
     }
   };
@@ -26,7 +25,6 @@ app.controller('CheckoutCtrl', function ($scope, CheckoutFactory, CartFactory, u
   $scope.confirmOrder = function() {
     CheckoutFactory.changeCartStatus(userCart._id)
       .then(function(){
-//        CartFactory.clearCache;
         return CartFactory.getUserCart(user);
       })
       .then(function(){
@@ -37,7 +35,7 @@ app.controller('CheckoutCtrl', function ($scope, CheckoutFactory, CartFactory, u
             message: 'Order successfully placed!'
           });
       })
-    console.log("confirming order")
+
   }
 
 });
