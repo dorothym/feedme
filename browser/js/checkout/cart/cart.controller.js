@@ -1,4 +1,4 @@
-app.controller('CartCtrl', function ($scope, CartFactory, $state) { 
+app.controller('CartCtrl', function ($scope, CartFactory, $state, Session) { 
   // testing local storage
 
   $scope.getCart = CartFactory.getCartCache;
@@ -14,7 +14,11 @@ app.controller('CartCtrl', function ($scope, CartFactory, $state) {
   $scope.subTotal = CartFactory.getSubtotal();
   
   $scope.checkout = function () {
-    $state.go('checkout')
+    if (!!Session.user){
+      $state.go('checkout')
+    }else {
+      $state.go('guestCheckout')
+    }
   }
   
 });

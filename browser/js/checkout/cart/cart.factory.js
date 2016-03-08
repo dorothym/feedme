@@ -83,6 +83,13 @@ app.factory('CartFactory', function($http,localStorageService, Session) {
     return cache;
   }
   
+  CartFactory.createDummyUser = function (userInfo) {
+    return $http.post('/api/users', userInfo)
+    .then(function(newUser){
+      return newUser.data;
+    });
+  }
+  
   return CartFactory;
 });
 
