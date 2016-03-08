@@ -15,13 +15,13 @@ app.config(function($stateProvider) {
     });
 })
 
-app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTransactions, AccountFactory, ChefFactory, MealsFactory, getAllMeals) {
+app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTransactions, AccountFactory, ChefFactory, MealsFactory, allRatings) {
 
   $scope.allTransactions = allTransactions;
 
   $scope.allRatings = allRatings;
 
-    $scope.allMyMeals = getAllMeals;
+//    $scope.allMyMeals = getAllMeals;
 
    $scope.newMeal = {};
    $scope.updatedMeal= {};
