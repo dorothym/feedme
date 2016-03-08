@@ -33,20 +33,20 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state,$stateParams,l
 
     };
 
-    $scope.isLoggedIn = function () {
-        return AuthService.isAuthenticated();
-    };
+    // $scope.isLoggedIn = function () {
+    //     return AuthService.isAuthenticated();
+    // };
 
-    // if we have not already checked for locally stored cart
-    // and if user is not authenticated, copy locally stored cart to cached cart
+    // // if we have not already checked for locally stored cart
+    // // and if user is not authenticated, copy locally stored cart to cached cart
 
-    function copyLocalCart() {
-        if(!localStorageFactory.alreadyFetchedLocalCart && !$scope.isLoggedIn() && localStorageFactory.getLocalCart().length > 0) {
-            CartFactory.copyCartFromLocalStorage(localStorageFactory.getLocalCart());
-        }
-    }
+    // function copyLocalCart() {
+    //     if(!localStorageFactory.alreadyFetchedLocalCart && !$scope.isLoggedIn() && localStorageFactory.getLocalCart().length > 0) {
+    //         CartFactory.copyCartFromLocalStorage(localStorageFactory.getLocalCart());
+    //     }
+    // }
 
-    copyLocalCart();
+    // copyLocalCart();
 
 
 
