@@ -102,8 +102,6 @@
 				                    <option ng-repeat="i in allCuisines">{{i}}</option>
 				                </select>
 		                        </div>
-
-
 		                    </div>
 			                <div class="col-lg-4">
 								<div class="form-group">
@@ -165,6 +163,15 @@
 							                    <input class="form-control" placeholder="{{meal.name}}" ng-model="meal.name">
 							                </div>
 							            </div>
+
+									<div class="col-lg-4">
+										<div class="form-group">
+				                            <label for="chefmeal">Cuisine</label>
+				                            <select class="form-control"  ng-model="meal.cuisine">
+						                    <option ng-repeat="i in allCuisines">{{i}}</option>
+						                </select>
+				                        </div>
+				                    </div>
 							            <div class="col-lg-4">
 											<div class="form-group">
 							                    <label for="chefmeal">Meal Photo</label>

@@ -19,7 +19,7 @@ var numChefs = 5;
 var numMeals = 20;
 // All transactions are currently under 1 user. See comment below to add users.
 var numTransactions = 5;
-var numRatings = 1000;
+var numRatings = 10;
 var cuisine = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish'];
 
 var specialty = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish', 'Vegetarian', 'Pastry', 'Desserts'];
@@ -76,7 +76,10 @@ function randChef() {
 // I change meals photo type from buffer to string, is it okay to use string instead of buffer? TO DO: add more pictures
 // dmoore - I added paths to actual images on our server
 var mealPhotos = [
-'https://static.pexels.com/photos/5938/food-salad-healthy-lunch.jpg'
+'https://static.pexels.com/photos/5938/food-salad-healthy-lunch.jpg', 
+'https://static.pexels.com/photos/2215/food-salad-healthy-vegetables.jpg'
+
+
 // 'images/steak_dinner_300x300.jpg',
 // 'images/cheeses_selection_300x300.jpg',
 // 'images/green_capsicum_300x300.jpg'
@@ -131,6 +134,18 @@ function generateAllChefs() {
     var chefs = _.times(numChefs, function() {
         return randChef();
     }); 
+
+    chefs.push(new Chef({
+        _id: "56dba9f9ccbb8a3412f3013f",
+        firstName: 'Alice',
+        lastName: 'Wang',
+        picture: 'https://www.google.com/imgres?imgurl=http://weknowyourdreamz.com/images/woman/woman-09.jpg&imgrefurl=http://weknowyourdreamz.com/woman.html&h=3744&w=5616&tbnid=A4EbzVhtr6zujM:&docid=SEM5c0cUKN4f-M&ei=n4DfVrjdGYuSauCyi-gH&tbm=isch&ved=0ahUKEwj4qIKDvrLLAhULiRoKHWDZAn0QMwgxKAIwAg',
+        phone: '(510) 295-5523',
+        email: 'alice@gmail.com',
+        password: '123',
+        admin: true
+    }));
+
    return chefs;
 }
 
