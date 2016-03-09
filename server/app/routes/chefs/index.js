@@ -16,6 +16,7 @@ router.get('/', function(req, res, next){
 });
 
 router.post('/', function(req, res, next){
+  console.log("inside post",req.body)
   Chef.create(req.body)
   .then(function(createdChef){
     res.json(createdChef);

@@ -29,14 +29,16 @@ app.config(function($stateProvider) {
 
 app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTransactions, AccountFactory, ChefFactory, MealsFactory, allRatings, getAllMeals) {
 
-  $scope.allTransactions = allTransactions;
 
-  $scope.allRatings = allRatings;
+
+    $scope.allTransactions = allTransactions;
+
+    $scope.allRatings = allRatings;
 
     $scope.allMyMeals = getAllMeals;
 
-   $scope.newMeal = {};
-   //$scope.updatedMeal= {};
+    $scope.newMeal = {};
+    //$scope.updatedMeal= {};
 
     $scope.allCuisines = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish']
     
@@ -47,16 +49,19 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
 
     // AW: why do this here? why not add this to the resolve block for this state?
     var setUser = function () {
-        AuthService.getLoggedInUser().then(function (user) {
-           $scope.user = user;
+        console.log("setting user...")
+        AuthService.getLoggedInUser()
+        .then(function (theUser) {
+            console.log("user is set to",theUser)
+           $scope.user = theUser;
         });
     };
 
     $scope.isChef = function() {
         // TBD. for now return true
-        // AW: where are the brackets for this `if` ??
-        if($scope.user.type === "Chef")
-            return true;
+        // AW: could do: 
+        // return $scope.user.type === "Chef"
+        if($scope.user.type === "Chef") return true;
     }
     
     $scope.isRatable = function (status, mealId){
@@ -117,5 +122,10 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
 
 
     setUser();
+    
+    console.log("scope user: ",$scope.user)    
+   
+
+    
 
 })

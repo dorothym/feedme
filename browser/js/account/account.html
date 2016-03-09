@@ -30,7 +30,7 @@
 	                </div>
 	                <div class="form-group">
 	                    <label>Phone number</label>
-	                    <p class="form-control-static">{{user.phone}}</p>
+	                    <p class="form-control-static">{{user.phoneNumber}}</p>
 	                </div>	
 	                <div ng-if="isChef()" class="form-group">
 	                    <label>Cuisine specialty</label>
@@ -42,7 +42,7 @@
 	                </div>	   
 	                <div ng-if="isChef()" class="form-group">
 	                    <label>Picture</label>
-	                    <p class="form-control-static">{{user.picture}}</p>
+	                    <div><img width="325" ng-src={{user.picture}}></div>
 	                </div>             		                                		                
                 </div>
             </div>
@@ -102,8 +102,6 @@
 				                    <option ng-repeat="i in allCuisines">{{i}}</option>
 				                </select>
 		                        </div>
-
-
 		                    </div>
 			                <div class="col-lg-4">
 								<div class="form-group">
@@ -165,6 +163,15 @@
 							                    <input class="form-control" placeholder="{{meal.name}}" ng-model="meal.name">
 							                </div>
 							            </div>
+
+									<div class="col-lg-4">
+										<div class="form-group">
+				                            <label for="chefmeal">Cuisine</label>
+				                            <select class="form-control"  ng-model="meal.cuisine">
+						                    <option ng-repeat="i in allCuisines">{{i}}</option>
+						                </select>
+				                        </div>
+				                    </div>
 							            <div class="col-lg-4">
 											<div class="form-group">
 							                    <label for="chefmeal">Meal Photo</label>

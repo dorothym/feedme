@@ -5,12 +5,12 @@ app.controller('CheckoutCtrl', function ($scope, CheckoutFactory, CartFactory, u
   if (user){
     $scope.user = user;
     $scope.checkoutUser = {
-      firstname: user.firstName,
-      lastname: user.lastName,
-      address: user.homeAddress,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      homeAddress: user.homeAddress,
       zip: user.zip,
       borough: user.borough,
-      phone: user.phoneNumber,
+      phoneNumber: user.phoneNumber,
       email: user.email
     }
   }
@@ -24,6 +24,10 @@ app.controller('CheckoutCtrl', function ($scope, CheckoutFactory, CartFactory, u
   };
 
   $scope.confirmOrder = function() {
+
+    // if checkoutUser data is present,
+    // should we write to DB here?
+
     CheckoutFactory.changeCartStatus(userCart._id)
       .then(function(){
         return CartFactory.getUserCart(user);

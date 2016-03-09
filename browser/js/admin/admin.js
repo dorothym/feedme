@@ -20,6 +20,7 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
 	$scope.showForm = false;
     $scope.curUser = {};
 
+    // AW: this function could be simpler I think 
     $scope.userType = function(user) {
         if(user.type === "Chef" && user.admin) {
             return "Chef / Admin"

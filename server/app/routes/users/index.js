@@ -18,6 +18,7 @@ router.get('/', function(req, res, next){
 });
 
 router.post('/', function(req, res, next){
+  console.log("inside post to users", req.body)
   User.create(req.body)
   .then(function(createdUser){
     res.json(createdUser);
@@ -40,6 +41,7 @@ router.route('/:id')
   })
 //update one user
   .put(function(req, res, next){
+    console.log("Inside PUT", req.body)
     req.currentUser.set(req.body);
     req.currentUser.save()
     .then(function(updatedUser){
