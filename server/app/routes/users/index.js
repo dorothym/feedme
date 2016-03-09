@@ -40,6 +40,7 @@ router.route('/:id')
   })
 //update one user
   .put(function(req, res, next){
+    console.log("Inside PUT", req.body)
     req.currentUser.set(req.body);
     req.currentUser.save()
     .then(function(updatedUser){
