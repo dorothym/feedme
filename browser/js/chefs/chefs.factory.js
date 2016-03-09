@@ -14,7 +14,7 @@ app.factory('ChefFactory',function($http) {
 
     ChefFactory.updateCache = function(type, data, typeOfUpdate) {
         // AW: oi, this function is too complicated. why not just create an 
-        // `addToCache` function, `removeFromCache` function, etc.  
+        // `addToCache` function, `removeFromCache` function, etc. ? 
         if(data && typeOfUpdate === "addToCache")  {
             cache[type].push(data)       
         } else if(data && typeOfUpdate === "removeFromCache") {
