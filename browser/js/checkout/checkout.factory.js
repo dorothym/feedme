@@ -5,14 +5,14 @@ app.factory('CheckoutFactory', function($http, AuthService) {
   
   CheckoutFactory.userInfo = function () {
     return $http.get('/session')
-          .then(function(response){
-            var user = response.data.user;
-            tempUser = user;
-            return user;
-          });
+      .then(function(response){
+        var user = response.data.user;
+        tempUser = user;
+        return user;
+      });
   }
 
-  CheckoutFactory.processTransaction = function() {
+  CheckoutFactory.updateUserWithCheckoutInfo = function() {
   	// console.log("customer is",tempUser)
   	// console.log("transaction ID is",tempTransactionId)
   	// here is where I want to set the transaction status to Processing
@@ -31,12 +31,12 @@ app.factory('CheckoutFactory', function($http, AuthService) {
   
   CheckoutFactory.changeCartStatus = function (cartId) {
     return $http.put('/api/transactions/' + cartId, {status: 'Processing'})
-            .then(function(response){
-              console.log(response.data)
-              })
-              .catch(function(err){
-                console.log(err)
-              })
+      .then(function(response){
+        console.log(response.data)
+        })
+        .catch(function(err){
+          console.log(err)
+        })
   }
   
   CheckoutFactory.createTransaction = function (guest, meals){

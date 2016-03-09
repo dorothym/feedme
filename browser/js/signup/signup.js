@@ -10,30 +10,33 @@ app.config(function ($stateProvider) {
 
 app.controller('SignupCtrl', function ($scope, AuthService, $state, $http, $stateParams,localStorageFactory, CartFactory) {
 
+    $scope.cuisines = ['Italian','Indian','French', 'Mediterrenean', 'Brazilian', 'Thai','New American','Chinese','Japanese','Vietnamese','Mexican','Peruvian','Food truck','Sandwiches','Pub food', 'Spanish'];
+
     $scope.log = function() {
         SignupFactory.signup()
     }
     $scope.successmessage = null;
     
 
-    // console.log("stateparams:",$stateParams)
+    console.log("stateparams:",$stateParams)
 
     $scope.signup = {};
     $scope.error = null;
 
     $scope.showChef = $stateParams.isChef;
-    // console.log("is chef =",$scope.showChef)
+    console.log("is chef =",$scope.showChef)
 
     var postRoute;
-    if($stateParams.showChef) {
+    if($scope.showChef == "true") {
         postRoute = 'api/chefs';
     }
     else {
-        postRoute= 'api/users';
+        postRoute = 'api/users';
     }
 
 
     $scope.sendsignup = function (signupInfo) {
+        console.log("inside signup. postroute is",postRoute)
         return $http.post(postRoute, signupInfo)
         .then(function(newUser) {
                 $state.go('login',{

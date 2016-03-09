@@ -30,7 +30,7 @@
 	                </div>
 	                <div class="form-group">
 	                    <label>Phone number</label>
-	                    <p class="form-control-static">{{user.phone}}</p>
+	                    <p class="form-control-static">{{user.phoneNumber}}</p>
 	                </div>	
 	                <div ng-if="isChef()" class="form-group">
 	                    <label>Cuisine specialty</label>
@@ -39,7 +39,11 @@
 	                <div ng-if="isChef()" class="form-group">
 	                    <label>Bio</label>
 	                    <p class="form-control-static">{{user.bio}}</p>
-	                </div>	                		                                               
+	                </div>	   
+	                <div ng-if="isChef()" class="form-group">
+	                    <label>Picture</label>
+	                    <div><img width="325" ng-src={{user.picture}}></div>
+	                </div>             		                                		                
                 </div>
             </div>
         </div>

@@ -9,9 +9,9 @@ router.use('/users', require('./users'));
 router.use('/ratings', require('./ratings'));
 router.use('/transactions', require('./transactions'));
 
-router.use('/github', function(req, res, next) {
-	res.redirect('https://github.com/dorothym/feedme')
-})
+// router.use('/github', function(req, res, next) {
+// 	res.redirect('https://github.com/dorothym/feedme')
+// })
 
 
 // Make sure this is after all of
