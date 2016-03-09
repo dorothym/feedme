@@ -63,6 +63,7 @@ app.factory('CartFactory', function($http,localStorageService, Session) {
     cache.push(meal);
     // testing local storage // dmoore
     if(!!Session.user){
+      // AW: error handling for this promise?
       updateCartOnDb();
     } else updateLocalStorage();
   }
@@ -73,6 +74,17 @@ app.factory('CartFactory', function($http,localStorageService, Session) {
       total+=item.price;
     })
     return total;
+
+    /*
+      AW: perfect opportunity for REDUCE!
+
+
+      var total = cache.reduce(function(runningTotal, e){
+        return runningTotal + e.price; 
+      }, 0)
+
+
+    */
   }
   
   CartFactory.numItemsInCart = function () {

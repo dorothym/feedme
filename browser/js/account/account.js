@@ -13,7 +13,16 @@ app.config(function($stateProvider) {
             },
             getAllMeals: function(ChefFactory, $stateParams){
               return ChefFactory.getMeals($stateParams.id)
+            },
+            /*
+                AW:  better to get the user here, not in the controller 
+                
+
+            user: function(AuthService){
+                return AuthService.getLoggedInUser()
             }
+            
+            */
         }
     });
 })
@@ -35,6 +44,8 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
         return AuthService.isAuthenticated();
     };
 
+
+    // AW: why do this here? why not add this to the resolve block for this state?
     var setUser = function () {
         AuthService.getLoggedInUser().then(function (user) {
            $scope.user = user;
@@ -43,6 +54,7 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
 
     $scope.isChef = function() {
         // TBD. for now return true
+        // AW: where are the brackets for this `if` ??
         if($scope.user.type === "Chef")
             return true;
     }
@@ -55,6 +67,15 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
     }
     
     $scope.ratingNum = function (mealId){
+
+        // AW: lodash find is food here because it returns the item, not an array
+        /*
+            return _.find(allRatings, function (rating){
+                return rating.meal._id === mealId && rating.rating
+            }).rating 
+
+
+        */
       return allRatings.filter(function(rating){
         return rating.meal._id === mealId && rating.rating
       })[0].rating;
@@ -67,19 +88,31 @@ app.controller('AccountCtrl', function($scope, $rootScope, AuthService, allTrans
     $scope.addMeal = function(data) {
         ChefFactory.updateCache("Meals", data, "addToCache");
         MealsFactory.updateCache("Meals", data);
+        // AW: why aren't we `then`-ing on this promise?
+        // where's the error handling for this promise?
         AccountFactory.addMeal(data);
     }
 
     $scope.updateMeal = function(meal) {
         AccountFactory.updateMeal(meal)
         .then(function(newMeal) {
-           return newMeal;
+           return newMeal;  //AW: no need to return here
         })
     }
 
     $scope.removeMeal = function(meal) {
+        // AW: this is asynchronous! you don't want to remove from 
+        // the cache unless the call to the DB is successful!
         AccountFactory.removeMeal(meal);
         ChefFactory.updateCache("Meals", meal, "removeFromCache")
+
+        /* AW: this is better: 
+         AccountFactory.removeMeal(meal)
+         .then(function(){
+            ChefFactory.updateCache("Meals", meal, "removeFromCache")            
+         })
+
+        */
     }
 
 

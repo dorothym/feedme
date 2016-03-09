@@ -41,8 +41,7 @@ mealSchema.methods.addMealToChef = function(chef) {
     return chef.save()
     .then(function() {
    return self;
-})
-
+  })
 }
 
 module.exports = mongoose.model('Meal', mealSchema);

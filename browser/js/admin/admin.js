@@ -40,6 +40,8 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
     $scope.removeUser = function(user) {
     	$scope.updated = true;
     	$scope.action = "removed";
+        // AW: why aren't we "then-ing" this promise?
+        // wheres the error handling 
     	AdminFactory.removeUser(user);
     }
 
@@ -47,6 +49,8 @@ app.controller('AdminCtrl', function ($scope, AuthService, $state, allUsers, Adm
         $scope.showForm = false;
         $scope.updated = true;
         $scope.action = "updated";
+        // AW: why aren't we "then-ing" this promise?
+        // wheres the error handling 
         AdminFactory.updateUser(user)
     }
 
@@ -97,6 +101,8 @@ app.factory('AdminFactory', function($http) {
             if(curUser === user) {
                 if(curUser.admin === true) curUser.admin = false;
                 else curUser.admin = true;
+                // AW: could do: 
+                // curUser.admin = curUser.admin ? false : true 
             }
             return curUser;
         })

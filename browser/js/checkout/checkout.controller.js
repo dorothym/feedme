@@ -59,6 +59,7 @@ app.controller('GuestCheckoutCtrl', function ($scope, CheckoutFactory, CartFacto
     return localStorageService.set('mealsInCart', []);
   }
 
+  // AW: cool! does this work?
   $scope.confirmOrder = function() {
         return CheckoutFactory.createTransaction($scope.user, $scope.cart)
         .then(function(){

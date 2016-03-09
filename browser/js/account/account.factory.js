@@ -15,6 +15,16 @@ app.factory('AccountFactory', function($http,ChefFactory,$q) {
 		angular.copy(obj.data, cache[obj.type])
 		return cache[obj.type]; 
 	}
+
+  /*
+    AW: should create an extractData function 
+
+      function extractData(res){
+        return res.data;
+      }
+
+
+  */
   
     AccountFactory.getAllRatings = function(userId){
       return $http.get('/api/ratings?&author=' + userId)

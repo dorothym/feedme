@@ -22,6 +22,21 @@ chefSchema.methods.addNewMeal = function (mealData){
           });
 }
 
+/*
+AW: remember `bind` from bluebird!
+we can rewrite addNewMeal like so: 
+
+chefSchema.methods.addNewMeal = function (mealData){
+  return Promise.resolve(mongoose.model('Meal').create(mealData)).bind(this)
+  .then(function(meal){
+    // because of `bind`, `this` now points to the document, not the promise, cool!
+    this.meals.addToSet(meal._id);
+    return this.save();
+  });
+}
+
+*/
+
 chefSchema.methods.removeMeal = function(mealData){
   var self = this;
   return mealData.remove()

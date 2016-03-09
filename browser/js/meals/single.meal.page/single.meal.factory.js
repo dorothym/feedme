@@ -19,8 +19,13 @@ app.factory('SingleMeal', function($http){
   SingleMeal.getAvgRating = function (ratings){
     if (ratings.length === 0) return 0;
     var sum = ratings.reduce(function(prev, curr){
+      // AW: i think this needs to be: 
+      // return prev + Number(curr.rating)
+      // a better name for `prev` is `runningTotal`
       return Number(prev.rating) + Number(curr.rating);
     });
+
+  
     return Math.floor(sum/ratings.length)
   }
   
