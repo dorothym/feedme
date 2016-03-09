@@ -4,6 +4,7 @@
 
 ### Deployed at:
 http://agile-fjord-44617.herokuapp.com/
+_You may run node seed.js to seed the database_
 
 ## What is working: 
 

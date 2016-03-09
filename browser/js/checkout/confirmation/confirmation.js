@@ -16,7 +16,7 @@ app.config(function($stateProvider) {
 
 })
 
-app.controller('confirmationCtrl', function($scope, $stateParams) {
+app.controller('confirmationCtrl', function($scope, $stateParams, $http) {
 
 	console.log("Stateparams",$stateParams)
 
@@ -26,11 +26,17 @@ app.controller('confirmationCtrl', function($scope, $stateParams) {
 	$scope.successMessage = $stateParams.message;
 
 	console.log("order:",$scope.myOrder);
-	console.log("checkout user:",$scope.checkoutUser);
+	console.log("dbUser:",$scope.dbUser);
 
-	$scope.changeTransactionStatus = function() {
-		
-		
-
+	$scope.updateUserInfo = function() {
+		// put to users ID api
+		console.log("updating user info")
+		return $http.put('/api/users/' + $scope.dbUser._id, $scope.deliveryUser)
+		.then(function(updatedUser) {
+			console.log("Updated user", updatedUser)
+		}, function(err) {console.error("updateUserInfo error putting user data:",err)})
 	}
+
+	$scope.updateUserInfo();
+
 })
